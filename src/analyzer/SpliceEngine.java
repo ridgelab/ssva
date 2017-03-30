@@ -66,15 +66,15 @@ public class SpliceEngine {
 
             @Override
             public String textualFormat() {
-                return "The choices are \"MaxEntScan\" aka \"MES\", and \"Ensemble\" aka \"EN\")";
+                return "The choices are \"MaxEntScan\" aka \"MES\", and \"Ensemble\" aka \"EN\")\n";
             }
         }).required(true).help("Choose the desired algorithm.");
 
 
 
-        parser.addArgument("-A","--Annovar").dest("Annovar").help("This is the path to annovar.").required(true).type(String.class);
+        parser.addArgument("-A","--Annovar").dest("Annovar").help("This is the path to annovar.\n").required(true).type(String.class);
 
-        parser.addArgument("-H","--humandb").dest("human").help("This is the path to the humandb that Annovar uses.")
+        parser.addArgument("-H","--humandb").dest("human").help("This is the path to the humandb that Annovar uses.\n")
                 .required(true).type(String.class);
 
         parser.addArgument("-F","--RefFile").required(true).dest("Ref").help("This is the path to the directory" +
