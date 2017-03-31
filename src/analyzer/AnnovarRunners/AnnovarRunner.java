@@ -50,7 +50,7 @@ public class AnnovarRunner {
         System.out.println(Utilities.GREEN+"Running Gene Annotation"+ Utilities.RESET);
 
         try {
-            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","--splicing_threshold","50","-build","hg19","-hgvs","-out",this.OutputFolder+avinput,avinput,human};
+            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","--splicing_threshold","50","-buildver","hg19","-hgvs","-out",this.OutputFolder+avinput,avinput,human};
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
@@ -73,7 +73,7 @@ public class AnnovarRunner {
         System.out.println(Utilities.GREEN+"Running PhastCons Annotation"+ Utilities.RESET);
 
         try {
-            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-regionanno","-build","hg19","-dbtype","phastConsElements46way","-out",this.OutputFolder+input,this.OutputFolder+input,human};
+            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-regionanno","-buildver","hg19","-dbtype","phastConsElements46way","-out",this.OutputFolder+input,this.OutputFolder+input,human};
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
@@ -95,7 +95,7 @@ public class AnnovarRunner {
         System.out.println(Utilities.GREEN+"Running 1000 Genomes MAF Annotation"+ Utilities.RESET);
 
         try {
-            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-filter","-dbtype","1000g2015aug_all","-build","hg19","-out",this.OutputFolder+input,this.OutputFolder+input,human};
+            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-filter","-dbtype","1000g2015aug_all","-buildver","hg19","-out",this.OutputFolder+input,this.OutputFolder+input,human};
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
@@ -116,7 +116,7 @@ public class AnnovarRunner {
         System.out.println(Utilities.GREEN+"Running Gerp++ Annotation"+ Utilities.RESET);
 
         try {
-            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-filter","-dbtype","gerp++gt2","-build","hg19","-out",this.OutputFolder+input,this.OutputFolder+input,human};
+            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-filter","-dbtype","gerp++gt2","-buildver","hg19","-out",this.OutputFolder+input,this.OutputFolder+input,human};
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
@@ -138,7 +138,7 @@ public class AnnovarRunner {
         System.out.println(Utilities.GREEN+"Running Exac Annotation"+ Utilities.RESET);
 
         try {
-            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-filter","-dbtype","exac03","-build","hg19","-out",this.OutputFolder+input,this.OutputFolder+input,human};
+            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-filter","-dbtype","exac03","-buildver","hg19","-out",this.OutputFolder+input,this.OutputFolder+input,human};
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
