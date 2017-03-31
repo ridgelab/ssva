@@ -120,6 +120,7 @@ public class MESRunner {
             results = Utilities.getProcessOutput(p).split("\n");
             error = Utilities.getProcessError(p);
 
+            System.out.println("results: " + results.toString());
             p.waitFor();
             p.destroyForcibly();
 
