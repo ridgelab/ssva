@@ -97,6 +97,8 @@ public class SpliceRunner {
         VCFWriter possiblySig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_PossiblySignificant.vcf"),new File(this.ref+"hg19.fa"));
         VCFWriter notSig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_NonSignificant.vcf"),new File(this.ref+"hg19.fa"));
 
+        System.out.println(Utilities.GREEN+"Going through the variants\n"+ Utilities.RESET);
+
         while(iter.hasNext()){ //iterate over keys in the vars map
             Map.Entry<String,Variant> entry = iter.next();
             Variant var = entry.getValue();

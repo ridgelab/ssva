@@ -4,6 +4,7 @@ import htsjdk.variant.variantcontext.Allele;
 import htsjdk.variant.variantcontext.VariantContextBuilder;
 import analyzer.RefSeq.PullRegionsFromRef;
 import analyzer.RefSeq.RefSeqParser;
+import analyzer.Utilities.Utilities;
 import analyzer.fileWriters.VCFWriter;
 import analyzer.transcriptInfo.CDS;
 
@@ -152,7 +153,7 @@ public class Variant {
             this.GeneName = gene2trans[0];
             if (gene2trans.length == 1)
                 return;
-            System.out.println(this.GeneName + " " + gene2trans[1]);
+            System.out.println(Utilities.GREEN +" Gene Name: " + this.GeneName + " " + Utilities.RESET + gene2trans[1]);
 
             String[] transInfo = gene2trans[1].replace(")","").split(",");
             for (String trans : transInfo) {
@@ -219,7 +220,7 @@ public class Variant {
             else{
 //                System.out.println("In +");
                 if(Integer.valueOf(CDotList.get(2)) <= 6) {
-//                    System.out.println("In region <= 6: "+CDotList.get(2));
+//                   System.out.println("In region <= 6: "+CDotList.get(2));
                     fivePrime = new String(outFolder+"fivePrime.txt");
                     write5Prime(fivePrimeFile,cds);
                 }
@@ -273,7 +274,7 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-//            System.out.println("cdot ref="+CDotList.get(3)+" intron at "+CDotList.get(2)+"="+sb.charAt(20-Integer.valueOf(CDotList.get(2))));
+//          System.out.println("cdot ref="+CDotList.get(3)+" intron at "+CDotList.get(2)+"="+sb.charAt(20-Integer.valueOf(CDotList.get(2))));
             sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
             System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
@@ -287,10 +288,10 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-//            System.out.println("length="+String.valueOf(originalSeq.length())+" position="+String.valueOf(2+CDotList.get(2)));
-//            System.out.println("cdot ref="+CDotList.get(3)+" intron at "+CDotList.get(2)+"="+sb.charAt(Integer.valueOf(CDotList.get(2))));
+//          System.out.println("length="+String.valueOf(originalSeq.length())+" position="+String.valueOf(2+CDotList.get(2)));
+//          System.out.println("cdot ref="+CDotList.get(3)+" intron at "+CDotList.get(2)+"="+sb.charAt(Integer.valueOf(CDotList.get(2))));
             sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
-            System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
+//          System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -313,7 +314,7 @@ public class Variant {
         for(int i=0; i < OriginalMesScores.size(); i++){
             Double percentDiff = ((Double.valueOf(VariantMesScores.get(i))-Double.valueOf(OriginalMesScores.get(i))) / Double.valueOf(OriginalMesScores.get(i)) * 100);
             percentDiffList.add(percentDiff);
-            System.out.println(percentDiff);
+            System.out.println(Utilities.GREEN + "Percent Diff: " + Utilities.RESET + Double.toString(percentDiff));
             if(percentDiff < -75)
                 sigCount++;
             else if(percentDiff < -50)
