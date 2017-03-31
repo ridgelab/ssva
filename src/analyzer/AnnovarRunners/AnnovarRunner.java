@@ -36,7 +36,7 @@ public class AnnovarRunner {
             p.destroy();
 
             String[] temp = vcf.split("/");
-            //System.exit(1);
+
             return temp[temp.length-1]+".avinput";
         } catch (IOException e) {
             e.printStackTrace();

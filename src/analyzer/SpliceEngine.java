@@ -66,34 +66,65 @@ public class SpliceEngine {
 
             @Override
             public String textualFormat() {
-                return "The choices are \"MaxEntScan\" aka \"MES\", and \"Ensemble\" aka \"EN\")\n";
+                return "The choices are \"MaxEntScan\" aka \"MES\", and \"Ensemble\" aka \"EN\"";
             }
         }).required(true).help("Choose the desired algorithm.");
 
 
 
-        parser.addArgument("-A","--Annovar").dest("Annovar").help("This is the path to annovar.\n").required(true).type(String.class);
+        parser.addArgument("-A","--Annovar")
+        	  .dest("Annovar")
+        	  .help("This is the path to annovar.")
+        	  .required(true)
+        	  .type(String.class);
 
-        parser.addArgument("-H","--humandb").dest("human").help("This is the path to the humandb that Annovar uses.\n")
-                .required(true).type(String.class);
+        parser.addArgument("-H","--humandb")
+         	  .dest("human")
+         	  .help("This is the path to the humandb that Annovar uses.")
+              .required(true)
+              .type(String.class);
 
-        parser.addArgument("-F","--RefFile").required(true).dest("Ref").help("This is the path to the directory" +
-                " that contains the UCSC reference genome by chromosome downloaded.").type(String.class);
+        parser.addArgument("-F","--RefFile")
+          	  .dest("Ref")
+          	  .help("This is the path to the directory that contains the UCSC reference genome by chromosome downloaded.")
+          	  .required(true)
+          	  .type(String.class);
 
-        parser.addArgument("-D","--RefSeqFile").required(true).dest("analyzer/RefSeq").help("This is the path to the file" +
-                " that contains the analyzer.RefSeq data.").type(String.class);
+        parser.addArgument("-D","--RefSeqFile")
+        	  .dest("analyzer/RefSeq")
+        	  .help("This is the path to the file that contains the UCSC table viewer RefSeq data.")
+        	  .required(true)
+        	  .type(String.class);
 
-        parser.addArgument("-s","--Samtools").required(true).dest("Samtools").help("This is the path to the Samtools" +
-                "executable.").type(String.class);
+        parser.addArgument("-s","--Samtools")
+         	  .dest("Samtools")
+         	  .help("This is the path to the Samtools executable.")
+         	  .required(true)
+         	  .type(String.class);
 
-        parser.addArgument("-R","--spliceSiteRange").dest("range").help("Give the number of bases that you want " +
-                "defined as a splice site. It will look that many bases to either side of the splice site.").type(Integer.class);
+        parser.addArgument("-R","--spliceSiteRange")
+         	  .dest("range")
+         	  .help("Give the number of bases that you want defined as a splice site. It will look that many bases to either side of the splice site.")
+         	  .type(Integer.class);
 
-        parser.addArgument("-i","--input").dest("Input").type(String.class).help("Here you provide the input in VCF format only.").required(true);
+        parser.addArgument("-i","--input")
+        	  .dest("Input")
+        	  .help("Here you provide the input in VCF format only.")
+        	  .required(true)
+              .type(String.class);
 
-        parser.addArgument("-o","--output").dest("Output").type(String.class).help("Here you provide the name of the directory to which I will save the output files.").required(true);
 
-        parser.addArgument("-a","--algorithm").dest("AlgorithmPath").type(String.class).help("This is the full path to the algorithm directory.").required(true);
+        parser.addArgument("-o","--output")
+         	  .dest("Output")
+         	  .help("Here you provide the name of the directory to which I will save the output files.")
+         	  .required(true)
+         	  .type(String.class);
+
+        parser.addArgument("-a","--algorithm")
+        	  .dest("AlgorithmPath")
+        	  .help("This is the full path to the algorithm directory.")
+        	  .required(true)
+        	  .type(String.class);
 
         return parser;
     }
@@ -121,12 +152,12 @@ public class SpliceEngine {
 //      /user/splice-variant-analyzer/target/SVA-1.0-SNAPSHOT-jar-with-dependencies.jar \
 //      -S MES \
 //      -A /Users/coripenrod/software/annovar \
-//      		-H /coripenrod/compute/humandb/ \
+//      -H /fslhome/RidgeLab/compute/humandb/ \
 //      -F /Users/coripenrod/hg19/ \ 
 //      -R 50 \
 //      -i /Users/coripenrod/software/new_test.vcf \
 //      -o /Users/coripenrod/COLLEGE/RidgeLab/SVA/ \
 //      -s /Users/coripenrod/software/samtools-1.4/samtools \
-//      		-D /user/refSeqData \
+//      -D /fslhome/penrodce/refSeqData \comes from UCSC genome table viewer (assembly = hg19, track = refSeq genes, table = refGene, cdsstart and end not noce(filter))
 //      -a /Users/coripenrod/maxent/
 //***************************************************************************
