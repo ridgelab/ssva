@@ -28,7 +28,7 @@ public class CDS {
     private String[] exonFrames; // column 15 refseq
     private StringBuilder seq;
     private String cDot; // .vcf.avinput.variant_functions
-    private ArrayList<String> CDotList; // .vcf.avinput.variant_functions
+    private ArrayList<String> CDotList; // ["4451","+","37","C","A"] .vcf.avinput.variant_functions
     private String exon; // .vcf.avinput.variant_functions
     private Integer prime; //this will be either 3 or 5 depending on which side of the intron it is
     private Integer exonSpliceMissed; // the number of the exon that is closest to the offending variant
@@ -297,10 +297,10 @@ public class CDS {
             }
         }
         modifiedProtein = Utilities.translateProt(sb);
-        System.out.print("protein:");
-        System.out.println(this.Protein + "\n");
-        System.out.print("modified protein:");
-        System.out.println(this.modifiedProtein);
+        //System.out.print("protein:");
+        //System.out.println(this.Protein + "\n");
+        //System.out.print("modified protein:");
+        //System.out.println(this.modifiedProtein);
 
         return modifiedProtein;
     }

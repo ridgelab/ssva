@@ -154,9 +154,9 @@ public class SpliceRunner {
     	    for(CDS cds : cdsList) {
     	    	String protein1 = cds.getOriginalProtein();
     	    	String modifiedProtein = cds.getModifiedProtein();
-    	    	System.out.println(cds);
-    	    	System.out.println("THIS IS THE Original Protein: " + protein1);
-    	    	System.out.println("THIS IS THE Modified Protein: " +  modifiedProtein + "\n");
+    	    	//System.out.println(cds);
+    	    	//System.out.println("THIS IS THE Original Protein: " + protein1);
+    	    	//System.out.println("THIS IS THE Modified Protein: " +  modifiedProtein + "\n");
     	    }
     	}
     }

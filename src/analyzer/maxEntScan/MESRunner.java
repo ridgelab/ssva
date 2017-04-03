@@ -44,14 +44,12 @@ public class MESRunner {
             this.isEmpty = true;
         }
         else if (file.contains("three")){
-            System.exit(1);
 
             run3Prime(file);
             this.isEmpty = false;
             assignScores(var);
         }
         else{
-            System.exit(1);
 
             run5Prime(file);
             this.isEmpty = false;
@@ -124,9 +122,9 @@ public class MESRunner {
             results = Utilities.getProcessOutput(p).split("\n");
             error = Utilities.getProcessError(p);
 
-            for(int i = 0; i < results.length; i++) {
+            /*for(int i = 0; i < results.length; i++) {
                 System.out.println("results: " + results[i]);
-            }
+            }*/
             p.waitFor();
             p.destroyForcibly();
 

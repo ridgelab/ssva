@@ -4,7 +4,7 @@ import htsjdk.variant.variantcontext.Allele;
 import htsjdk.variant.variantcontext.VariantContextBuilder;
 import analyzer.RefSeq.PullRegionsFromRef;
 import analyzer.RefSeq.RefSeqParser;
-import analyzer.Utilities.Utilities;
+//import analyzer.Utilities.Utilities;
 import analyzer.fileWriters.VCFWriter;
 import analyzer.transcriptInfo.CDS;
 
@@ -153,7 +153,7 @@ public class Variant {
             this.GeneName = gene2trans[0];
             if (gene2trans.length == 1)
                 return;
-            System.out.println(Utilities.GREEN +" Gene Name: " + this.GeneName + " " + Utilities.RESET + gene2trans[1]);
+            //System.out.println(Utilities.GREEN +" Gene Name: " + this.GeneName + " " + Utilities.RESET + gene2trans[1]);
 
             String[] transInfo = gene2trans[1].replace(")","").split(","); // ['NM_0011:exon47:c.4451+37C>A', 'NM_015151:exon37:c.4463+37C>A']
             for (String trans : transInfo) { // NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A
@@ -202,14 +202,14 @@ public class Variant {
         LinkedList<String> filteredNames = new LinkedList<>();
 
         for (CDS cds : transcripts){
-            System.out.println("In cds for loop");
+            //System.out.println("In cds for loop");
 
 
             List<String> CDotList = cds.getCDotList(); // ["4451","+","37","C","A"]
             if(CDotList.get(1).equals("-")){
-                System.out.println("In -");
+                //System.out.println("In -");
                 if ( Integer.valueOf(CDotList.get(2)) <= 20) {
-                    System.out.println("In region <= 20: "+CDotList.get(2));
+                    //System.out.println("In region <= 20: "+CDotList.get(2));
                     threePrime = new String(outFolder+"threePrime.txt");
                     write3Prime(threePrimeFile,cds);
                 }
@@ -218,9 +218,9 @@ public class Variant {
                 }
             }
             else{
-                System.out.println("In +");
+                //System.out.println("In +");
                 if(Integer.valueOf(CDotList.get(2)) <= 6) {
-                   System.out.println("In region <= 6: "+CDotList.get(2));
+                   //System.out.println("In region <= 6: "+CDotList.get(2));
                     fivePrime = new String(outFolder+"fivePrime.txt");
                     write5Prime(fivePrimeFile,cds);
                 }
@@ -277,7 +277,7 @@ public class Variant {
             StringBuilder sb = new StringBuilder(originalSeq);
 //          System.out.println("cdot ref="+CDotList.get(3)+" intron at "+CDotList.get(2)+"="+sb.charAt(20-Integer.valueOf(CDotList.get(2))));
             sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
-            System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
+//          System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -301,7 +301,7 @@ public class Variant {
 
     public void makeModifiedProtein(){
         for(CDS cds : transcripts){
-        	System.out.println("MAKING MODIFIED PROTEIN\n ************");
+        	//System.out.println("MAKING MODIFIED PROTEIN\n ************");
             cds.makeModifiedProtein();
         }
 
@@ -315,7 +315,7 @@ public class Variant {
         for(int i=0; i < OriginalMesScores.size(); i++){
             Double percentDiff = ((Double.valueOf(VariantMesScores.get(i))-Double.valueOf(OriginalMesScores.get(i))) / Double.valueOf(OriginalMesScores.get(i)) * 100);
             percentDiffList.add(percentDiff);
-            System.out.println(Utilities.GREEN + "Percent Diff: " + Utilities.RESET + Double.toString(percentDiff));
+            //System.out.println(Utilities.GREEN + "Percent Diff: " + Utilities.RESET + Double.toString(percentDiff));
             if(percentDiff < -75)
                 sigCount++;
             else if(percentDiff < -50)
@@ -325,9 +325,9 @@ public class Variant {
         }
 
 
-        for(String s : this.Annotations){
-            System.out.println(s);
-        }
+        /*for(String s : this.Annotations){
+            //System.out.println(s);
+        }*/
         if(sigCount > (likelySigCount+notSigCount))
             if(this.Annotations.get(0).equals("NA")&&this.Annotations.get(1).equals("NA")&&this.Annotations.get(2).equals("NA")) //This checks to make sure that the variant doesn't have any annotations from 1KG, Exac, or Gerp++
                 return 2;
