@@ -199,7 +199,7 @@ public class Variant {
 
         try {
             threePrimeFile = new FileWriter(outFolder + "threePrime.txt");
-            fivePrimeFile = new FileWriter(outFolder + "fivePrime.txt");
+            //fivePrimeFile = new FileWriter(outFolder + "fivePrime.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -224,9 +224,9 @@ public class Variant {
             }
             else{
                 if(Integer.valueOf(CDotList.get(2)) <= 6) {
-                    fivePrime = new String(outFolder+"fivePrime.txt");
+                    //fivePrime = new String(outFolder+"fivePrime.txt");
                     System.out.println("writing to fivePrime.txt");
-                    write5Prime(fivePrimeFile,cds);
+                    //write5Prime(fivePrimeFile,cds);
                 }
                 else{
                     filteredNames.add(cds.getTransName());
