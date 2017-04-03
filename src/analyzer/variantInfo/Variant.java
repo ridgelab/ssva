@@ -201,13 +201,15 @@ public class Variant {
 
         LinkedList<String> filteredNames = new LinkedList<>();
 
+        System.out.print("Transcripts: ");
+        System.out.println(transcripts.size());
+        
         for (CDS cds : transcripts){
 
             List<String> CDotList = cds.getCDotList(); // ["4451","+","37","C","A"]
             if(CDotList.get(1).equals("-")){
                 if ( Integer.valueOf(CDotList.get(2)) <= 20) {
                     threePrime = new String(outFolder+"threePrime.txt");
-                    System.out.println("writing to threePrime.txt");
                     write3Prime(threePrimeFile,cds);
                 }
                 else{
@@ -275,6 +277,7 @@ public class Variant {
             sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
             System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
+            System.out.println("writing to threePrime.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
