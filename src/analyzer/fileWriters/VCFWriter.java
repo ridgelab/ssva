@@ -25,7 +25,6 @@ public class VCFWriter {
 
     public VCFWriter(File file, File RefPath){
         try {
-            @SuppressWarnings("resource")
 			SAMSequenceDictionary dict = new IndexedFastaSequenceFile(RefPath).getSequenceDictionary();
             VariantContextWriterBuilder builder = new VariantContextWriterBuilder();
             HashSet<VCFHeaderLine> headerlines = new HashSet<>();
