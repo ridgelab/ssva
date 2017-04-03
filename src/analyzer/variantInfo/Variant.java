@@ -234,6 +234,7 @@ public class Variant {
             }
             sb.replace(sb.length()-1,sb.length(),"");
             vcb.attribute("Transcripts", sb.toString());
+            
             vw.writeVar(vcb.make());
         }
 
@@ -271,9 +272,8 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-//          System.out.println("cdot ref="+CDotList.get(3)+" intron at "+CDotList.get(2)+"="+sb.charAt(20-Integer.valueOf(CDotList.get(2))));
             sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
-//          System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
+            System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -285,10 +285,8 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-//          System.out.println("length="+String.valueOf(originalSeq.length())+" position="+String.valueOf(2+CDotList.get(2)));
-//          System.out.println("cdot ref="+CDotList.get(3)+" intron at "+CDotList.get(2)+"="+sb.charAt(Integer.valueOf(CDotList.get(2))));
             sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
-//          System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
+            System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
