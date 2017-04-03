@@ -19,17 +19,17 @@ public class CDS {
     private String Protein;
     //private String geneName;
     private String transName;
-    private String cdsStart; // column 6
-    private String cdsEnd; // column 7
+    private String cdsStart; // column 6 refseq
+    private String cdsEnd; // column 7 refseq
     private String chr; // column 2 refseq
-    private String strand; // column 3
-    private String[] exonStarts; // column 9
-    private String[] exonEnds; // column 10
-    private String[] exonFrames; // column 15
+    private String strand; // column 3 refseq
+    private String[] exonStarts; // column 9 refseq
+    private String[] exonEnds; // column 10 refseq
+    private String[] exonFrames; // column 15 refseq
     private StringBuilder seq;
-    private String cDot;
-    private ArrayList<String> CDotList;
-    private String exon;
+    private String cDot; // .vcf.avinput.variant_functions
+    private ArrayList<String> CDotList; // .vcf.avinput.variant_functions
+    private String exon; // .vcf.avinput.variant_functions
     private Integer prime; //this will be either 3 or 5 depending on which side of the intron it is
     private Integer exonSpliceMissed; // the number of the exon that is closest to the offending variant
     private String modifiedProtein;

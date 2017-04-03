@@ -34,7 +34,7 @@ public class SpliceRunner {
     private TreeMap<String,Variant> vars;  // A map of the splicing variants. keys = chromsome:position, values = splicing variant. 
     private String SamtoolsPath;           // Path to Samtools 
     private String algorithm;              // The algorithm variable passed from splice engine. 
-    private String algorithmPath;           // Path to the algorithm directory 
+    private String algorithmPath;          // Path to the algorithm directory 
 
 
     //-------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ public class SpliceRunner {
         PullRegionsFromRef prfr = new PullRegionsFromRef(ref,SamtoolsPath); 
         Iterator<Map.Entry<String,Variant>> iter = this.vars.entrySet().iterator();
 
-        // Create new files 
+        // Create new files
         VCFWriter vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Filtered.vcf"),new File(this.ref+"hg19.fa"));
         VCFWriter sig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Significant.vcf"),new File(this.ref+"hg19.fa"));
         VCFWriter possiblySig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_PossiblySignificant.vcf"),new File(this.ref+"hg19.fa"));

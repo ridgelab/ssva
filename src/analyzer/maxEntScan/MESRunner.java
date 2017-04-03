@@ -44,11 +44,15 @@ public class MESRunner {
             this.isEmpty = true;
         }
         else if (file.contains("three")){
+            System.exit(1);
+
             run3Prime(file);
             this.isEmpty = false;
             assignScores(var);
         }
         else{
+            System.exit(1);
+
             run5Prime(file);
             this.isEmpty = false;
             assignScores(var);

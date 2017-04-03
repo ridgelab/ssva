@@ -21,12 +21,12 @@ import java.util.regex.Pattern;
  */
 public class Variant {
 
-    private String Chr;
-    private Integer Pos;
-    private String Ref;
-    private String Alt;
-    private String homhet;
-    private String spliceInfo;
+    private String Chr; // chr21
+    private Integer Pos; // 1827643
+    private String Ref; // A
+    private String Alt; // T
+    private String homhet; // hom het
+    private String spliceInfo; // NONE(dist=NONE),MIR3648(dist=414230)
     private ArrayList<String> Annotations;
     private ArrayList<CDS> transcripts;
     private String GeneName;
@@ -146,21 +146,21 @@ public class Variant {
                 '}';
     }
 
-    public void parseSpliceInfo(RefSeqParser rsp, PullRegionsFromRef prfr){
-        String[] geneList = this.spliceInfo.split("\\),");
-        for(String gene : geneList) {
-            String[] gene2trans = gene.split("\\(");
+    public void parseSpliceInfo(RefSeqParser rsp, PullRegionsFromRef prfr){ // info from the varfunct (.vcf.avinput.variant_function)
+        String[] geneList = this.spliceInfo.split("\\),"); // DIP2A(NM_001146116:exon37:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A)
+        for(String gene : geneList) { // ['GENE', 'NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A']
+            String[] gene2trans = gene.split("\\("); // ['GENE', 'NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A']
             this.GeneName = gene2trans[0];
             if (gene2trans.length == 1)
                 return;
             System.out.println(Utilities.GREEN +" Gene Name: " + this.GeneName + " " + Utilities.RESET + gene2trans[1]);
 
-            String[] transInfo = gene2trans[1].replace(")","").split(",");
-            for (String trans : transInfo) {
-                String[] info = trans.split(":");
+            String[] transInfo = gene2trans[1].replace(")","").split(","); // ['NM_0011:exon47:c.4451+37C>A', 'NM_015151:exon37:c.4463+37C>A']
+            for (String trans : transInfo) { // NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A
+                String[] info = trans.split(":"); // ['NM_0011', 'exon47', 'c.4451+37C>A']
                 CDS cds = new CDS(info[0], gene2trans[0]);
-                cds.setcDot(info[2]);
-                cds.setCDotList(parseCDot(info[2]));
+                cds.setcDot(info[2]); // c.4451+37C>A
+                cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
                 cds.setExon(info[1]);
                 cds.extractCDS(rsp, prfr);
                 this.transcripts.add(cds);
@@ -205,7 +205,7 @@ public class Variant {
             System.out.println("In cds for loop");
 
 
-            List<String> CDotList = cds.getCDotList();
+            List<String> CDotList = cds.getCDotList(); // ["4451","+","37","C","A"]
             if(CDotList.get(1).equals("-")){
                 System.out.println("In -");
                 if ( Integer.valueOf(CDotList.get(2)) <= 20) {
@@ -228,7 +228,6 @@ public class Variant {
                     filteredNames.add(cds.getTransName());
                 }
             }
-            System.exit(1);
         }
 
 
@@ -267,6 +266,7 @@ public class Variant {
             return threePrime;
 
         }
+        
 
     }
 
