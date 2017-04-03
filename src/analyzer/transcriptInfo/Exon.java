@@ -1,7 +1,5 @@
 package analyzer.transcriptInfo;
 
-import analyzer.Utilities.Utilities;
-
 /**
  * Created by mwads on 1/26/16.
  */
@@ -10,13 +8,11 @@ public class Exon {
     private StringBuilder Seq;
     private String Start;
     private String end;
-    private String Strand;
 
     public Exon(String Start, String End, StringBuilder Seq, String Strand){
         this.Seq = new StringBuilder(Seq);
         this.Start = Start;
         this.end = End;
-        this.Strand = Strand;
     }
 
     public String getSeq() {

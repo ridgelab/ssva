@@ -1,14 +1,10 @@
 package analyzer.annovarParsers;
 
-import htsjdk.variant.variantcontext.Allele;
-import htsjdk.variant.variantcontext.VariantContext;
-import htsjdk.variant.variantcontext.VariantContextBuilder;
 import analyzer.fileWriters.annovarWriter;
 import analyzer.variantInfo.Variant;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -59,7 +55,7 @@ public class GeneParser {
         return vars;
     }
 
-    private VariantContext buildContext(String[] columns){
+/*    private VariantContext buildContext(String[] columns){
         System.out.println("In GeneParser");
         ArrayList<Allele> alleles = new ArrayList<>();
         if (!columns[5].equals("-"))
@@ -78,5 +74,5 @@ public class GeneParser {
 
         return builder.make();
     }
+    */
 }
-

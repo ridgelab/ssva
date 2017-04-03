@@ -23,7 +23,8 @@ public class RefSeqParser {
 
     private void parseFile(String refSeqPath) {
         try {
-            Scanner reader = new Scanner(new File(refSeqPath));
+            @SuppressWarnings("resource")
+			Scanner reader = new Scanner(new File(refSeqPath));
             while (reader.hasNextLine()){
                 String line = reader.nextLine();
                 String[] attributes = line.split("\t");

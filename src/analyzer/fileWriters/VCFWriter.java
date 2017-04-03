@@ -25,7 +25,8 @@ public class VCFWriter {
 
     public VCFWriter(File file, File RefPath){
         try {
-            SAMSequenceDictionary dict = new IndexedFastaSequenceFile(RefPath).getSequenceDictionary();
+            @SuppressWarnings("resource")
+			SAMSequenceDictionary dict = new IndexedFastaSequenceFile(RefPath).getSequenceDictionary();
             VariantContextWriterBuilder builder = new VariantContextWriterBuilder();
             HashSet<VCFHeaderLine> headerlines = new HashSet<>();
             headerlines.add(new VCFHeaderLine("INFO","<ID=Gene,Number=1,Type=String,Description=The Gene name>"));

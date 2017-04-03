@@ -1,7 +1,5 @@
 package analyzer.transcriptInfo;
 
-import analyzer.Utilities.Utilities;
-
 /**
  * Created by mwads on 1/26/16.
  */
@@ -10,7 +8,7 @@ public class Intron {
     private StringBuilder Seq;
     private String start;
     private String end;
-    private String Strand;
+    //private String Strand;
 
 
     public Intron(StringBuilder Seq, String Start, String End, String Strand){
@@ -22,7 +20,7 @@ public class Intron {
 //        }
         this.start = Start;
         this.end = End;
-        this.Strand = Strand;
+        //this.Strand = Strand;
     }
 
     public String getSeq() {

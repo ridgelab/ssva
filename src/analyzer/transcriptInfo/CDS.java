@@ -17,7 +17,7 @@ public class CDS {
     private ArrayList<Exon> Exons;
     private ArrayList<Intron> Introns;
     private String Protein;
-    private String geneName;
+    //private String geneName;
     private String transName;
     private String cdsStart; // column 6
     private String cdsEnd; // column 7
@@ -35,7 +35,7 @@ public class CDS {
     private String modifiedProtein;
 
     public CDS(String transName, String gene) {
-        this.geneName = gene;
+        //this.geneName = gene;
         this.transName = transName;
         this.Exons = new ArrayList<>();
         this.Introns = new ArrayList<>();
@@ -254,7 +254,7 @@ public class CDS {
 //        }
     }
 
-    private Integer getNegExon(Integer Pos){
+    /*private Integer getNegExon(Integer Pos){
         Integer total = 0;
         Integer i;
         for(i = 0; i < this.Exons.size(); i++){
@@ -267,7 +267,7 @@ public class CDS {
         }
         return i;
     }
-
+*/
     private Integer getPosExon(Integer Pos){
         Integer total = 0;
         Integer i;

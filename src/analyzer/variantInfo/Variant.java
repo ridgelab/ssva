@@ -202,14 +202,14 @@ public class Variant {
         LinkedList<String> filteredNames = new LinkedList<>();
 
         for (CDS cds : transcripts){
-//            System.out.println("In cds for loop");
+            System.out.println("In cds for loop");
 
 
             List<String> CDotList = cds.getCDotList();
             if(CDotList.get(1).equals("-")){
-//                System.out.println("In -");
+                System.out.println("In -");
                 if ( Integer.valueOf(CDotList.get(2)) <= 20) {
-//                    System.out.println("In region <= 20: "+CDotList.get(2));
+                    System.out.println("In region <= 20: "+CDotList.get(2));
                     threePrime = new String(outFolder+"threePrime.txt");
                     write3Prime(threePrimeFile,cds);
                 }
@@ -218,9 +218,9 @@ public class Variant {
                 }
             }
             else{
-//                System.out.println("In +");
+                System.out.println("In +");
                 if(Integer.valueOf(CDotList.get(2)) <= 6) {
-//                   System.out.println("In region <= 6: "+CDotList.get(2));
+                   System.out.println("In region <= 6: "+CDotList.get(2));
                     fivePrime = new String(outFolder+"fivePrime.txt");
                     write5Prime(fivePrimeFile,cds);
                 }
@@ -228,6 +228,7 @@ public class Variant {
                     filteredNames.add(cds.getTransName());
                 }
             }
+            System.exit(1);
         }
 
 

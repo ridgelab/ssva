@@ -168,7 +168,7 @@ public class MESRunner {
         if(results==null)
             throw new Exception("Results is null.");
 
-        for(int i=0;i<results.length-1;i+=2){
+        for(int i=0;i<results.length;i+=2){
             Double original = Double.valueOf(results[i].split("\\s")[1]);
             Double variant = Double.valueOf(results[i+1].split("\\s")[1]);
 
