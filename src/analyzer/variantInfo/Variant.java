@@ -207,6 +207,7 @@ public class Variant {
             if(CDotList.get(1).equals("-")){
                 if ( Integer.valueOf(CDotList.get(2)) <= 20) {
                     threePrime = new String(outFolder+"threePrime.txt");
+                    System.out.println("writing to threePrime.txt");
                     write3Prime(threePrimeFile,cds);
                 }
                 else{
@@ -216,6 +217,7 @@ public class Variant {
             else{
                 if(Integer.valueOf(CDotList.get(2)) <= 6) {
                     fivePrime = new String(outFolder+"fivePrime.txt");
+                    System.out.println("writing to fivePrime.txt");
                     write5Prime(fivePrimeFile,cds);
                 }
                 else{

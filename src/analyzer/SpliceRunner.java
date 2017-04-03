@@ -11,7 +11,7 @@ import analyzer.annovarParsers.GeneralAnnotationParser;
 import analyzer.fileWriters.VCFWriter;
 import analyzer.fileWriters.annovarWriter;
 import analyzer.variantInfo.Variant;
-import analyzer.transcriptInfo.CDS;
+//import analyzer.transcriptInfo.CDS;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 import java.io.File;
