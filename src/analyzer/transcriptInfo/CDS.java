@@ -88,6 +88,8 @@ public class CDS {
 
 
     public void extractCDS(RefSeqParser rsp, PullRegionsFromRef prfr) {
+    	System.out.println("---- CDS ---- extractCDS ----");
+
         String info = rsp.getRefSeqData(transName);
         String[] data = info.split("\\t");
         this.chr = data[2];
@@ -112,6 +114,9 @@ public class CDS {
     }
 
     private void extractCDSRegionNegStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
+    	System.out.println("---- CDS ---- extractCDSRegionNegStrand ----");
+
+    	
         for(int i=exonNum-1;i >= 0;i--){
             if(Integer.valueOf(this.exonFrames[i]) != -1) {
                 if(!firstExon && Integer.valueOf(this.cdsStart) < Integer.valueOf(this.exonStarts[i])){
@@ -154,6 +159,9 @@ public class CDS {
     }
 
     private void extractCDSRegionPosStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
+    	System.out.println("---- CDS ---- extractCDSRegionPosStrand ----");
+
+    	
         for(int i=0;i < exonNum;i++){
             if(Integer.valueOf(this.exonFrames[i]) != -1) {
                 if(!firstExon && Integer.valueOf(this.cdsEnd) > Integer.valueOf(this.exonEnds[i])){
@@ -190,6 +198,8 @@ public class CDS {
     }
 
     public String getMES3Prime(Integer pos){
+    	System.out.println("---- CDS ---- getMES3Prime ----");
+
 //        if(this.strand.equals("+")){
             StringBuilder sb = new StringBuilder();
             Integer e = -1;
@@ -223,6 +233,8 @@ public class CDS {
     }
 
     public String getMES5Prime(Integer pos){
+    	System.out.println("---- CDS ---- getMES5Prime ----");
+
 //        if(this.strand.equals("+")){
             StringBuilder sb = new StringBuilder();
             Integer e = -1;
@@ -269,6 +281,8 @@ public class CDS {
     }
 */
     private Integer getPosExon(Integer Pos){
+    	System.out.println("---- CDS ---- getPosExon ----");
+
         Integer total = 0;
         Integer i;
         for(i = 0; i < this.Exons.size(); i++){
@@ -283,6 +297,8 @@ public class CDS {
 
 
     public String makeModifiedProtein(){
+    	System.out.println("---- CDS ---- makeModifiedProtein ----");
+
         StringBuilder sb = new StringBuilder();
 //        System.out.println(exonSpliceMissed);
 //        System.out.println(prime);

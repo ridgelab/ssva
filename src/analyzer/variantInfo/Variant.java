@@ -147,6 +147,9 @@ public class Variant {
     }
 
     public void parseSpliceInfo(RefSeqParser rsp, PullRegionsFromRef prfr){ // info from the varfunct (.vcf.avinput.variant_function)
+    	System.out.println("---- Variant ---- parseSpliceInfo ----");
+
+    	
         String[] geneList = this.spliceInfo.split("\\),"); // DIP2A(NM_001146116:exon37:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A)
         for(String gene : geneList) { // ['GENE', 'NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A']
             String[] gene2trans = gene.split("\\("); // ['GENE', 'NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A']
@@ -184,6 +187,8 @@ public class Variant {
 
     public String makeMESSequenceFile(String outFolder, VCFWriter vw) throws Exception{
 
+    	System.out.println("---- Variant ---- makeMESSequenceFile ----");
+    	
         VariantContextBuilder vcb = createVariantContext();
 
         String threePrime = null;
@@ -201,7 +206,7 @@ public class Variant {
 
         LinkedList<String> filteredNames = new LinkedList<>();
 
-        System.out.print("Transcripts: ");
+        System.out.print("Number of Transcripts: ");
         System.out.println(transcripts.size());
         
         for (CDS cds : transcripts){
@@ -270,6 +275,9 @@ public class Variant {
     }
 
     private void write3Prime(FileWriter threePrime, CDS cds){
+    	System.out.println("---- Variant ---- write3Prime ----");
+
+    	
         try {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
@@ -284,6 +292,9 @@ public class Variant {
     }
 
     private void write5Prime(FileWriter fivePrime, CDS cds){
+    	System.out.println("---- Variant ---- write5Prime ----");
+
+    	
         try {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
@@ -297,6 +308,8 @@ public class Variant {
     }
 
     public void makeModifiedProtein(){
+    	System.out.println("---- Variant ---- makeModifiedProtein ----");
+
         for(CDS cds : transcripts){
             cds.makeModifiedProtein();
         }
@@ -304,6 +317,8 @@ public class Variant {
     }
 
     public int checkMesSignificance(){
+    	System.out.println("---- Variant ---- checkMesSignificance ----");
+
         this.percentDiffList = new ArrayList<>();
         int sigCount = 0;
         int likelySigCount = 0;

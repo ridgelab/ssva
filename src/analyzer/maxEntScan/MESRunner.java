@@ -37,6 +37,7 @@ public class MESRunner {
      * @throws Exception
      */
     public MESRunner(Variant var, String outFolder, VCFWriter vw, String algorithmPath) throws Exception{
+    	System.out.println("---- MESRunner ---- MESRunner ----");
 
         this.path = algorithmPath;
         String file = var.makeMESSequenceFile(outFolder, vw);
@@ -65,6 +66,9 @@ public class MESRunner {
      * @throws Exception
      */
     private void assignScores(Variant var) throws Exception{
+    	System.out.println("---- MESRunner ---- assignScores ----");
+
+    	
         ArrayList<ArrayList<Double>> scores = getScoreLists();
 
         var.setOriginalMesScores(scores.get(0));
@@ -79,6 +83,9 @@ public class MESRunner {
      * @throws Exception
      */
     public void run5Prime(String file) throws Exception{
+    	System.out.println("---- MESRunner ---- run5Prime ----");
+
+    	
         System.out.println(Utilities.GREEN+"Running Max Ent Scan 5\'"+ Utilities.RESET);
         try {
             String[] call = new String[]{"perl",this.path+"score5.pl",file};
@@ -112,6 +119,8 @@ public class MESRunner {
      * @throws Exception
      */
     public void run3Prime(String file) throws Exception{
+    	System.out.println("---- MESRunner ---- run3Prime ----");
+
         System.out.println(Utilities.GREEN+"Running Max Ent Scan 3\'"+ Utilities.RESET);
         try {
 
@@ -147,6 +156,8 @@ public class MESRunner {
      * @return String
      */
     public String getScores(){
+    	System.out.println("---- MESRunner ---- getScores ----");
+
         StringBuilder sb = new StringBuilder();
         for(int i=1;i<results.length;i+=2){
             String[] variant = results[i].split("\\s");
@@ -163,6 +174,9 @@ public class MESRunner {
      * @throws Exception
      */
     private ArrayList<ArrayList<Double>> getScoreLists() throws Exception{
+    	System.out.println("---- MESRunner ---- getScoreLists ----");
+
+    	
         ArrayList<ArrayList<Double>> scores = new ArrayList<>();
         ArrayList<Double> originalList = new ArrayList<>();
         ArrayList<Double> variantList = new ArrayList<>();
