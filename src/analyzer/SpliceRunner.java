@@ -147,7 +147,7 @@ public class SpliceRunner {
         possiblySig_vw.close();
         vw.close();
         
-    	for (Map.Entry<String, Variant> entry : vars.entrySet()) {
+    	/*for (Map.Entry<String, Variant> entry : vars.entrySet()) {
     	    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
     	    Variant v = entry.getValue();
     	    ArrayList<CDS> cdsList = v.getCDSList();
@@ -158,7 +158,7 @@ public class SpliceRunner {
     	    	//System.out.println("THIS IS THE Original Protein: " + protein1);
     	    	//System.out.println("THIS IS THE Modified Protein: " +  modifiedProtein + "\n");
     	    }
-    	}
+    	}*/
     }
 
     private void runAnnotations(String newFile) {
