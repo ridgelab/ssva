@@ -55,7 +55,7 @@ public class VCFWriter {
     }
 
     public void writeVar(VariantContext vc){
-        System.out.println(vc.toString());
+        //System.out.println(vc.toString());
         this.writer.add(vc);
     }
 
