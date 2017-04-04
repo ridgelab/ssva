@@ -206,9 +206,9 @@ public class Variant {
 
         LinkedList<String> filteredNames = new LinkedList<>();
 
-        System.out.println("Variant: " + this.toString());
-        System.out.print("Number of Transcripts: ");
-        System.out.println(transcripts.size());
+        //System.out.println("Variant: " + this.toString());
+        //System.out.print("Number of Transcripts: ");
+        //System.out.println(transcripts.size());
         
         for (CDS cds : transcripts){
 

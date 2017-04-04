@@ -102,6 +102,7 @@ public class SpliceRunner {
         while(iter.hasNext()){ //iterate over keys in the vars map
             Map.Entry<String,Variant> entry = iter.next();
             Variant var = entry.getValue();
+            System.out.println(Utilities.GREEN + var.toString() + Utilities.RESET);
             var.parseSpliceInfo(rsp, prfr);
             if(this.algorithm.equals("MES")){ 
                 MESRunner mr = new MESRunner(var,this.outputFolder,vw, this.algorithmPath); //Run MES and set info for each variant 
