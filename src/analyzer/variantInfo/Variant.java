@@ -225,8 +225,11 @@ public class Variant {
                     filteredNames.add(cds.getTransName());
                 }
             }
-            else{
+            else
+            {
                 if(Integer.valueOf(CDotList.get(2)) <= 6) {
+                	System.out.println("I'm HERE!");
+
                     fivePrime = new String(outFolder+"fivePrime.txt");  
                     write5Prime(fivePrimeFile,cds);
                 }
