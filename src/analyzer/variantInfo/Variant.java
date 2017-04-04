@@ -202,7 +202,7 @@ public class Variant {
 
         try {
             threePrimeFile = new FileWriter(outFolder + "threePrime.txt");
-            fivePrimeFile = new FileWriter(outFolder + "fivePrime.txt");
+            //fivePrimeFile = new FileWriter(outFolder + "fivePrime.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
