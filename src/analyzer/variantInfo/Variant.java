@@ -206,6 +206,10 @@ public class Variant {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        threePrimeFile.write("I'M HERE");
+        threePrimeFile.close();
+        System.exit(1);
 
         LinkedList<String> filteredNames = new LinkedList<>();
 
@@ -291,7 +295,6 @@ public class Variant {
             sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
             //System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
-            threePrime.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
