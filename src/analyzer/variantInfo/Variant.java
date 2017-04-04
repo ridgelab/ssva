@@ -196,14 +196,11 @@ public class Variant {
         String threePrime = null;
         String fivePrime = null;
 
-        System.out.println("setting filewriters to null");
 
         FileWriter threePrimeFile = null;
         FileWriter fivePrimeFile = null;
 
         try {
-            System.out.println("creating new filewriters");
-
             threePrimeFile = new FileWriter(outFolder + "threePrime.txt");
             fivePrimeFile = new FileWriter(outFolder + "fivePrime.txt");
         } catch (IOException e) {
@@ -231,7 +228,7 @@ public class Variant {
             else{
                 if(Integer.valueOf(CDotList.get(2)) <= 6) {
                     //fivePrime = new String(outFolder+"fivePrime.txt");
-                    System.out.println("writing to fivePrime.txt");
+                    
                     //write5Prime(fivePrimeFile,cds);
                 }
                 else{
@@ -270,6 +267,7 @@ public class Variant {
         }
         else{
             try {
+            	System.out.println("writing to threePrime.txt");
                 threePrimeFile.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -290,9 +288,8 @@ public class Variant {
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
             sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
-            System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
+            //System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
-            System.out.println("writing to threePrime.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
