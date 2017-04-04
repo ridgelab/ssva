@@ -196,12 +196,16 @@ public class Variant {
         String threePrime = null;
         String fivePrime = null;
 
+        System.out.println("setting filewriters to null");
+
         FileWriter threePrimeFile = null;
         FileWriter fivePrimeFile = null;
 
         try {
+            System.out.println("creating new filewriters");
+
             threePrimeFile = new FileWriter(outFolder + "threePrime.txt");
-            //fivePrimeFile = new FileWriter(outFolder + "fivePrime.txt");
+            fivePrimeFile = new FileWriter(outFolder + "fivePrime.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
