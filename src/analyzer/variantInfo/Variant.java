@@ -114,6 +114,8 @@ public class Variant {
     // Creating variants to write
 
     public VariantContextBuilder createVariantContext(){
+    	System.out.println("---- Variant ---- createVariantContext ----");
+
         ArrayList<Allele> alleles = new ArrayList<>();
         alleles.add(Allele.create(this.Ref,true));
         alleles.add(Allele.create(this.Alt,false));
