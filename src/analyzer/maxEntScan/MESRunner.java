@@ -46,7 +46,6 @@ public class MESRunner {
         }
         else if (file.contains("three")){
 
-            System.exit(1);
         	run3Prime(file);
             
             this.isEmpty = false;
@@ -90,7 +89,7 @@ public class MESRunner {
     	
         System.out.println(Utilities.GREEN+"Running Max Ent Scan 5\'"+ Utilities.RESET);
         try {
-            String[] call = new String[]{"perl",this.path+"score5.pl",file};
+            String[] call = new String[]{"perl",this.path+"score5.pl", "-fasta", file};
             ProcessBuilder pb = new ProcessBuilder(call);
 
             Process p = pb.start();
@@ -126,7 +125,7 @@ public class MESRunner {
         System.out.println(Utilities.GREEN+"Running Max Ent Scan 3\'"+ Utilities.RESET);
         try {
 
-            String[] call = new String[]{"perl", this.path+"score3.pl",file};
+            String[] call = new String[]{"perl", this.path+"score3.pl", "-fasta", file};
             ProcessBuilder pb = new ProcessBuilder(call);
 
             Process p = pb.start();
