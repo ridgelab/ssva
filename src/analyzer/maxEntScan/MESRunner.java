@@ -46,7 +46,7 @@ public class MESRunner {
         }
         else if (file.contains("three")){
 
-            System.out.println(file);
+            System.exit(1);
         	run3Prime(file);
             
             this.isEmpty = false;
