@@ -271,7 +271,6 @@ public class Variant {
             try {
             	System.out.println("writing to threePrime.txt");
                 threePrimeFile.close();
-                System.exit(1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
