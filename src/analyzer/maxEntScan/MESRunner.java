@@ -46,8 +46,9 @@ public class MESRunner {
         }
         else if (file.contains("three")){
 
-            System.exit(1);
-            run3Prime(file);
+            System.out.println(file);
+        	run3Prime(file);
+            
             this.isEmpty = false;
             assignScores(var);
         }
