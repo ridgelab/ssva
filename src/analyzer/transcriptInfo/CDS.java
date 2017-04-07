@@ -86,9 +86,37 @@ public class CDS {
     	return modifiedProtein;
     }
 
+    // made by CS 4/7/17
+    @Override
+    public String toString()
+    {
+    	
+/*    private String[] exonStarts; // column 9 refseq
+    private String[] exonEnds; // column 10 refseq
+    private String[] exonFrames; // column 15 refseq
+    private ArrayList<String> CDotList; // ["4451","+","37","C","A"] .vcf.avinput.variant_functions
+*/
 
+    	return "\tCDS:\n" +
+                "Protein='" + Protein + '\'' +
+                ", transName='" + transName + '\'' +
+                ", geneName='" + cdsStart + '\'' +
+                ", cdsStart='" + cdsStart + '\'' +
+                ", cdsEnd='" + cdsEnd + '\'' +
+                ", chr=" + chr +
+                ", strand=" + strand +
+                ", seq='" + seq.toString() + '\'' +
+                ", cDot='" + cDot + '\'' +
+                ", exon=" + exon +
+                ", prime=" + prime +
+                ", exonSpliceMissed='" + exonSpliceMissed + '\'' +
+                ", modifiedProtein='" + modifiedProtein + '\'' +
+                '}';
+    	
+    }
+    
     public void extractCDS(RefSeqParser rsp, PullRegionsFromRef prfr) {
-    	System.out.println("---- CDS ---- extractCDS ----");
+    	//System.out.println("---- CDS ---- extractCDS ----");
 
         String info = rsp.getRefSeqData(transName);
         String[] data = info.split("\\t");
@@ -114,7 +142,7 @@ public class CDS {
     }
 
     private void extractCDSRegionNegStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
-    	System.out.println("---- CDS ---- extractCDSRegionNegStrand ----");
+    	//System.out.println("---- CDS ---- extractCDSRegionNegStrand ----");
 
     	
         for(int i=exonNum-1;i >= 0;i--){
@@ -124,15 +152,12 @@ public class CDS {
                     Exon e = new Exon(this.exonEnds[i],this.exonStarts[i],exon,this.strand);
                     this.Exons.add(e);
                     this.seq.append(exon.toString());
-//                    System.out.println(e.getSeq());
                 }
                 else if(firstExon){
                     StringBuilder exon = prfr.getRegion(this.chr, Integer.valueOf(this.exonStarts[i]), Integer.valueOf(cdsEnd), this.strand);
                     Exon e = new Exon(this.cdsEnd,this.exonStarts[i],exon,this.strand);
                     this.Exons.add(e);
                     this.seq.append(exon.toString());
-//                    System.out.println(e.getSeq());
-
                     firstExon = false;
                 }
                 else{
@@ -140,13 +165,10 @@ public class CDS {
                     Exon e = new Exon(this.exonEnds[i],this.cdsStart,exon,this.strand);
                     this.Exons.add(e);
                     this.seq.append(exon.toString());
-//                    System.out.println(e.getSeq());
                 }
 
                 if(i > 0) {
-//                    System.out.println(String.valueOf(Integer.valueOf(this.exonEnds[i - 1]))+":"+String.valueOf(Integer.valueOf(this.exonStarts[i])));
                     StringBuilder intron = prfr.getRegion(this.chr, Integer.valueOf(this.exonEnds[i - 1]), Integer.valueOf(this.exonStarts[i]), this.strand);
-//                    System.out.println(intron.toString());
                     Intron I = new Intron(intron, this.exonStarts[i], this.exonEnds[i - 1],this.strand);
 
                     this.Introns.add(I);
@@ -155,11 +177,10 @@ public class CDS {
         }
 
         this.Protein = Utilities.translateProt(this.seq);
-//        System.out.println(this.Protein);
     }
 
     private void extractCDSRegionPosStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
-    	System.out.println("---- CDS ---- extractCDSRegionPosStrand ----");
+    	//System.out.println("---- CDS ---- extractCDSRegionPosStrand ----");
 
     	
         for(int i=0;i < exonNum;i++){
@@ -198,7 +219,7 @@ public class CDS {
     }
 
     public String getMES3Prime(Integer pos){
-    	System.out.println("---- CDS ---- getMES3Prime ----");
+    	//System.out.println("---- CDS ---- getMES3Prime ----");
 
 //        if(this.strand.equals("+")){
             StringBuilder sb = new StringBuilder();
@@ -233,7 +254,7 @@ public class CDS {
     }
 
     public String getMES5Prime(Integer pos){
-    	System.out.println("---- CDS ---- getMES5Prime ----");
+    	//System.out.println("---- CDS ---- getMES5Prime ----");
 
 //        if(this.strand.equals("+")){
             StringBuilder sb = new StringBuilder();
@@ -281,7 +302,7 @@ public class CDS {
     }
 */
     private Integer getPosExon(Integer Pos){
-    	System.out.println("---- CDS ---- getPosExon ----");
+    	//System.out.println("---- CDS ---- getPosExon ----");
 
         Integer total = 0;
         Integer i;
@@ -297,17 +318,14 @@ public class CDS {
 
 
     public String makeModifiedProtein(){
-    	System.out.println("---- CDS ---- makeModifiedProtein ----");
+    	//System.out.println("---- CDS ---- makeModifiedProtein ----");
 
         StringBuilder sb = new StringBuilder();
-//        System.out.println(exonSpliceMissed);
-//        System.out.println(prime);
         for(int i = 0; i < Exons.size(); i++){
             if(i == exonSpliceMissed && prime == 3){
                 sb.append(Introns.get(exonSpliceMissed-1).getSeq());
             }
             sb.append(Exons.get(i).getSeq());
-//            System.out.println(Exons.get(i).getSeq());
             if(i == exonSpliceMissed && prime == 5){
                 sb.append(Introns.get(exonSpliceMissed).getSeq());
             }

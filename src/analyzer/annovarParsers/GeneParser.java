@@ -13,7 +13,7 @@ import java.util.TreeMap;
  */
 public class GeneParser {
 
-    private Scanner varFunct;
+    private Scanner varFunct; //avinput.variant_function
 
     public GeneParser(String annovarGeneFile){
 

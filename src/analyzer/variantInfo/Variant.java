@@ -114,7 +114,7 @@ public class Variant {
     // Creating variants to write
 
     public VariantContextBuilder createVariantContext(){
-    	System.out.println("---- Variant ---- createVariantContext ----");
+    	//System.out.println("---- Variant ---- createVariantContext ----");
 
         ArrayList<Allele> alleles = new ArrayList<>();
         alleles.add(Allele.create(this.Ref,true));
@@ -158,7 +158,6 @@ public class Variant {
             this.GeneName = gene2trans[0];
             if (gene2trans.length == 1)
                 return;
-            //System.out.println(Utilities.GREEN +" Gene Name: " + this.GeneName + " " + Utilities.RESET + gene2trans[1]);
 
             String[] transInfo = gene2trans[1].replace(")","").split(","); // ['NM_0011:exon47:c.4451+37C>A', 'NM_015151:exon37:c.4463+37C>A']
             for (String trans : transInfo) { // NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A
@@ -171,6 +170,10 @@ public class Variant {
                 this.transcripts.add(cds);
             }
         }
+        
+        System.out.println("Variant: " + this.toString());
+        System.out.println(this.transcripts.toString());
+        
     }
 
     private ArrayList<String> parseCDot(String cDot){
@@ -188,8 +191,7 @@ public class Variant {
     }
 
     public String makeMESSequenceFile(String outFolder, VCFWriter vw) throws Exception{
-
-    	System.out.println("---- Variant ---- makeMESSequenceFile ----");
+    	//System.out.println("---- Variant ---- makeMESSequenceFile ----");
     	
         VariantContextBuilder vcb = createVariantContext();
 
@@ -209,10 +211,6 @@ public class Variant {
         
 
         LinkedList<String> filteredNames = new LinkedList<>();
-
-        //System.out.println("Variant: " + this.toString());
-        //System.out.print("Number of Transcripts: ");
-        //System.out.println(transcripts.size());
         
         for (CDS cds : transcripts){
 
@@ -256,7 +254,6 @@ public class Variant {
         if(threePrime == null) {
             if(fivePrime != null) {
                 try {
-                	System.out.println("writing to fivePrime.txt");
                     fivePrimeFile.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -269,7 +266,6 @@ public class Variant {
         }
         else{
             try {
-            	System.out.println("writing to threePrime.txt");
                 threePrimeFile.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -282,15 +278,13 @@ public class Variant {
     }
 
     private void write3Prime(FileWriter threePrime, CDS cds){
-    	System.out.println("---- Variant ---- write3Prime ----");
-
+    	//System.out.println("---- Variant ---- write3Prime ----");
     	
         try {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
             sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
-            //System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -298,7 +292,7 @@ public class Variant {
     }
 
     private void write5Prime(FileWriter fivePrime, CDS cds){
-    	System.out.println("---- Variant ---- write5Prime ----");
+    	//System.out.println("---- Variant ---- write5Prime ----");
 
     	
         try {
@@ -306,7 +300,6 @@ public class Variant {
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
             sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
-            System.out.println("original: "+originalSeq+"\nnewseq: "+sb.toString());
             fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -314,7 +307,7 @@ public class Variant {
     }
 
     public void makeModifiedProtein(){
-    	System.out.println("---- Variant ---- makeModifiedProtein ----");
+    	//System.out.println("---- Variant ---- makeModifiedProtein ----");
 
         for(CDS cds : transcripts){
             cds.makeModifiedProtein();
@@ -323,7 +316,7 @@ public class Variant {
     }
 
     public int checkMesSignificance(){
-    	System.out.println("---- Variant ---- checkMesSignificance ----");
+    	//System.out.println("---- Variant ---- checkMesSignificance ----");
 
         this.percentDiffList = new ArrayList<>();
         int sigCount = 0;
@@ -340,11 +333,7 @@ public class Variant {
             else
                 notSigCount++;
         }
-
-
-        /*for(String s : this.Annotations){
-            //System.out.println(s);
-        }*/
+        
         if(sigCount > (likelySigCount+notSigCount))
             if(this.Annotations.get(0).equals("NA")&&this.Annotations.get(1).equals("NA")&&this.Annotations.get(2).equals("NA")) //This checks to make sure that the variant doesn't have any annotations from 1KG, Exac, or Gerp++
                 return 2;
