@@ -18,7 +18,7 @@ public class AnnovarRunner {
     public String convert2Annovar(String vcf) {
         System.out.println(Utilities.GREEN+"Running VCF to Annovar Conversion"+ Utilities.RESET);
         try {
-            String[] call = new String[]{"perl",this.AnnovarPath+"/convert2annovar.pl","-format","vcf4",vcf,"--outfile",vcf+".avinput"};
+            String[] call = new String[]{"perl",this.AnnovarPath+"/convert2annovar.pl","--splicing_threshold", "20", "-format","vcf4",vcf,"--outfile",vcf+".avinput"};
             ProcessBuilder pb = new ProcessBuilder(call);
 
             Process p = pb.start();
