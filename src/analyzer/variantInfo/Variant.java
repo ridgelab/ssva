@@ -326,9 +326,9 @@ public class Variant {
             Double percentDiff = ((Double.valueOf(VariantMesScores.get(i))-Double.valueOf(OriginalMesScores.get(i))) / Double.valueOf(OriginalMesScores.get(i)) * 100);
             percentDiffList.add(percentDiff);
             //System.out.println(Utilities.GREEN + "Percent Diff: " + Utilities.RESET + Double.toString(percentDiff));
-            if(percentDiff < -75)
+            if(percentDiff < -20)
                 sigCount++;
-            else if(percentDiff < -50)
+            else if(percentDiff < -30)
                 likelySigCount++;
             else
                 notSigCount++;
