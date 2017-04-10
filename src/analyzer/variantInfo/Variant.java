@@ -149,7 +149,7 @@ public class Variant {
     }
 
     public void parseSpliceInfo(RefSeqParser rsp, PullRegionsFromRef prfr){ // info from the varfunct (.vcf.avinput.variant_function)
-    	System.out.println("---- Variant ---- parseSpliceInfo ----");
+    	//System.out.println("---- Variant ---- parseSpliceInfo ----");
 
     	
         String[] geneList = this.spliceInfo.split("\\),"); // DIP2A(NM_001146116:exon37:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A)
@@ -171,8 +171,8 @@ public class Variant {
             }
         }
         
-        System.out.println("Variant: " + this.toString());
-        System.out.println(this.transcripts.toString());
+        //System.out.println("Variant: " + this.toString());
+        //System.out.println(this.transcripts.toString());
         
     }
 
