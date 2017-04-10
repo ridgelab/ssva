@@ -106,7 +106,7 @@ public class SpliceRunner {
             Variant var = entry.getValue();
             var.parseSpliceInfo(rsp, prfr);
 
-
+            System.out.println(var.getSpliceInfo());
             if(this.algorithm.equals("MES")){ 
                 MESRunner mr = new MESRunner(var,this.outputFolder,vw, this.algorithmPath); //Run MES and set info for each variant 
                 if (!mr.IsEmpty()){
