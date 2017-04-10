@@ -176,13 +176,13 @@ public class SpliceRunner {
 //        parser = new GeneralAnnotationParser(this.outputFolder+phastCons, false);
 //        this.vars = parser.parsePhastCons(this.vars);
 
-        //String oneKGenomes = AR.onekGenomes(newFile,this.human);
-        //parser = new GeneralAnnotationParser(this.outputFolder+oneKGenomes,true);
-        //this.vars = parser.parse(this.vars);
+        String oneKGenomes = AR.onekGenomes(newFile,this.human);
+        parser = new GeneralAnnotationParser(this.outputFolder+oneKGenomes,true);
+        this.vars = parser.parse(this.vars);
 
-        //String exac = AR.Exac(newFile,this.human);
-        //parser = new GeneralAnnotationParser(this.outputFolder+exac, true);
-        //this.vars = parser.parse(this.vars);
+        String exac = AR.Exac(newFile,this.human);
+        parser = new GeneralAnnotationParser(this.outputFolder+exac, true);
+        this.vars = parser.parse(this.vars);
     }
 
     private String convertAnnovar(){
