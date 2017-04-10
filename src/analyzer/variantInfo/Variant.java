@@ -4,6 +4,7 @@ import htsjdk.variant.variantcontext.Allele;
 import htsjdk.variant.variantcontext.VariantContextBuilder;
 import analyzer.RefSeq.PullRegionsFromRef;
 import analyzer.RefSeq.RefSeqParser;
+import analyzer.Utilities.Utilities;
 //import analyzer.Utilities.Utilities;
 import analyzer.fileWriters.VCFWriter;
 import analyzer.transcriptInfo.CDS;
@@ -322,10 +323,10 @@ public class Variant {
         for(int i=0; i < OriginalMesScores.size(); i++){
             Double percentDiff = ((Double.valueOf(VariantMesScores.get(i))-Double.valueOf(OriginalMesScores.get(i))) / Double.valueOf(OriginalMesScores.get(i)) * 100);
             percentDiffList.add(percentDiff);
-            //System.out.println(Utilities.GREEN + "Percent Diff: " + Utilities.RESET + Double.toString(percentDiff));
-            if(percentDiff < -75)
+            System.out.println(Utilities.GREEN + "Percent Diff: " + Utilities.RESET + Double.toString(percentDiff));
+            if(percentDiff < -20)
                 sigCount++;
-            else if(percentDiff < -50)
+            else if(percentDiff < -30)
                 likelySigCount++;
             else
                 notSigCount++;

@@ -1,7 +1,13 @@
 package analyzer;
 
-import analyzer.maxEntScan.MESRunner;
-import htsjdk.variant.variantcontext.VariantContextBuilder;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
 import analyzer.AnnovarRunners.AnnovarRunner;
 import analyzer.RefSeq.PullRegionsFromRef;
 import analyzer.RefSeq.RefSeqParser;
@@ -10,15 +16,11 @@ import analyzer.annovarParsers.GeneParser;
 import analyzer.annovarParsers.GeneralAnnotationParser;
 import analyzer.fileWriters.VCFWriter;
 import analyzer.fileWriters.annovarWriter;
+import analyzer.maxEntScan.MESRunner;
 import analyzer.variantInfo.Variant;
+import htsjdk.variant.variantcontext.VariantContextBuilder;
 //import analyzer.transcriptInfo.CDS;
 import net.sourceforge.argparse4j.inf.Namespace;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
 
 /*
  * This class is used to run the splice detection algorithm. 

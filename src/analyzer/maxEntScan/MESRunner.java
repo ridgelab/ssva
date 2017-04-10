@@ -1,13 +1,13 @@
 package analyzer.maxEntScan;
 
-import analyzer.Utilities.Utilities;
-import analyzer.fileWriters.VCFWriter;
-import analyzer.variantInfo.Variant;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+
+import analyzer.Utilities.Utilities;
+import analyzer.fileWriters.VCFWriter;
+import analyzer.variantInfo.Variant;
 
 /**
  * This class runs MaxEntScan to score each splice site which contains a variant.
@@ -131,9 +131,9 @@ public class MESRunner {
             results = Utilities.getProcessOutput(p).split("\n");
             error = Utilities.getProcessError(p);
 
-            for(int i = 0; i < results.length; i++) {
+            /*for(int i = 0; i < results.length; i++) {
                 System.out.println("results: " + results[i]);
-            }
+            }*/
             p.waitFor();
             p.destroyForcibly();
 

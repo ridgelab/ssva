@@ -1,12 +1,12 @@
 package analyzer.annovarParsers;
 
-import analyzer.fileWriters.annovarWriter;
-import analyzer.variantInfo.Variant;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.TreeMap;
+
+import analyzer.fileWriters.annovarWriter;
+import analyzer.variantInfo.Variant;
 
 /**
  * Created by mwads on 1/15/16.
