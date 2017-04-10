@@ -171,9 +171,6 @@ public class Variant {
             }
         }
         
-        //System.out.println("Variant: " + this.toString());
-        //System.out.println(this.transcripts.toString());
-        
     }
 
     private ArrayList<String> parseCDot(String cDot){
@@ -326,9 +323,9 @@ public class Variant {
             Double percentDiff = ((Double.valueOf(VariantMesScores.get(i))-Double.valueOf(OriginalMesScores.get(i))) / Double.valueOf(OriginalMesScores.get(i)) * 100);
             percentDiffList.add(percentDiff);
             //System.out.println(Utilities.GREEN + "Percent Diff: " + Utilities.RESET + Double.toString(percentDiff));
-            if(percentDiff < -20)
+            if(percentDiff < -75)
                 sigCount++;
-            else if(percentDiff < -30)
+            else if(percentDiff < -50)
                 likelySigCount++;
             else
                 notSigCount++;
