@@ -111,7 +111,7 @@ public class SpliceRunner {
                 MESRunner mr = new MESRunner(var,this.outputFolder,vw, this.algorithmPath); //Run MES and set info for each variant 
                 if (!mr.IsEmpty()){
                     int sig = var.checkMesSignificance(); //3 levels. 2 = highly significant, 1 = likely significant, 0 = not significant
-                    var.makeModifiedProtein();
+                    //var.makeModifiedProtein();
                     if(sig == 2){
                         //var.makeModifiedProtein();
                         System.out.println(Utilities.GREEN+"significant difference"+ Utilities.RESET);
