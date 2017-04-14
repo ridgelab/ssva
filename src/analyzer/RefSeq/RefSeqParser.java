@@ -11,8 +11,8 @@ import java.util.Scanner;
  */
 public class RefSeqParser {
 
-    private HashMap<String,String> refSeq;
-    private HashMap<String,ArrayList<String>> gene2transcript;
+    private HashMap<String,String> refSeq; // <"NM_342434", "#0bin\t1name\t2chrom\t3strand\t4txStart\t5txEnd\t6cdsStart\t7cdsEnd\t8exonCount\t9exonStarts\t10exonEnds\t11score\t12name2\t13cdsStartStat\t14cdsEndStat\t15exonFrames"; >
+    private HashMap<String,ArrayList<String>> gene2transcript; // < "POTED", <NM_32423,NM_45345>; >
 
     public RefSeqParser(String refSeqPath){
         this.refSeq = new HashMap<>();

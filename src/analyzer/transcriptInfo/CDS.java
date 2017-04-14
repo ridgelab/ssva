@@ -18,7 +18,7 @@ public class CDS {
     private ArrayList<Intron> Introns;
     private String Protein;
     //private String geneName;
-    private String transName;
+    private String transName; //'NM_0011'
     private String cdsStart; // column 6 refseq
     private String cdsEnd; // column 7 refseq
     private String chr; // column 2 refseq
@@ -36,7 +36,7 @@ public class CDS {
 
     public CDS(String transName, String gene) {
         //this.geneName = gene;
-        this.transName = transName;
+        this.transName = transName; //'NM_0011'
         this.Exons = new ArrayList<>();
         this.Introns = new ArrayList<>();
         this.seq = new StringBuilder();
@@ -117,8 +117,12 @@ public class CDS {
     
     public void extractCDS(RefSeqParser rsp, PullRegionsFromRef prfr) {
     	//System.out.println("---- CDS ---- extractCDS ----");
-
-        String info = rsp.getRefSeqData(transName);
+    	
+    	// info:
+    	//0) bin 1) name 2) chrom 3) strand 4) txStart 5) txEnd 6) cdsStart 7) cdsEnd
+    	//8) exonCount 9) exonStarts 10) exonEnds 11) score 12) name2 13) cdsStartStat 14) cdsEndStat 15) exonFrames
+    	
+        String info = rsp.getRefSeqData(transName); //'NM_0011'
         String[] data = info.split("\\t");
         this.chr = data[2];
         this.strand = data[3];
@@ -132,10 +136,12 @@ public class CDS {
 
         boolean firstExon = true;
 
-        if(this.strand.equals("+")){
-            extractCDSRegionPosStrand(prfr,exonNum,firstExon);
+        if(this.strand.equals("+"))
+        {
+            extractCDSRegionPosStrand(prfr,exonNum,firstExon); // CDS:extractCDSRegionPosStrand
         }
-        else{
+        else
+        {
             extractCDSRegionNegStrand(prfr,exonNum,firstExon);
         }
 
@@ -218,55 +224,27 @@ public class CDS {
         this.Protein = Utilities.translateProt(this.seq);
     }
 
-    public String getMES3Prime(Integer pos){
-    	//System.out.println("---- CDS ---- getMES3Prime ----");
-
-//        if(this.strand.equals("+")){
+    public String getMES3Prime(Integer pos){ // creates 23 base sequence (20 intron + 3 exon)
+    	
             StringBuilder sb = new StringBuilder();
             Integer e = -1;
-//            if (this.strand.equals("+")){
-                e = getPosExon(pos);
-//            }
-//            else{
-//                e = getNegExon(pos);
-//            }
-//            System.out.println(String.valueOf(e));
+            e = getPosExon(pos);
 
             this.exonSpliceMissed = e;
             this.prime = 3;
-//            System.out.println(this.Introns.get(e-1).getStart()+":"+this.Introns.get(e-1).getEnd()+"-"+this.Introns.get(e-1).getSeq());
 
             StringBuilder intron = new StringBuilder(this.Introns.get(e-1).getSeq());
             sb.append(intron.substring(intron.length()-20,intron.length()));
             StringBuilder seq = new StringBuilder(this.Exons.get(e).getSeq());
             sb.append(seq.substring(0,3));
             return sb.toString();
-//        }
-//        else{
-//            StringBuilder sb = new StringBuilder();
-//            Integer e = getNegExon(pos);
-//            StringBuilder intron = new StringBuilder(this.Introns.get(e-1).getSeq());
-//            sb.append(intron.substring(intron.length()-20,intron.length()));
-//            StringBuilder seq = new StringBuilder(this.Exons.get(e).getSeq());
-//            sb.append(seq.substring(0,3));
-//            return sb.toString();
-//        }
     }
-
-    public String getMES5Prime(Integer pos){
-    	//System.out.println("---- CDS ---- getMES5Prime ----");
-
-//        if(this.strand.equals("+")){
+    
+    public String getMES5Prime(Integer pos){ // creates 9 base sequence (3 exon + 6 intron)
+    	
             StringBuilder sb = new StringBuilder();
             Integer e = -1;
-//            if (this.strand.equals("+")){
-                e = getPosExon(pos);
-//            }
-//            else{
-//                e = getNegExon(pos);
-//            }
-//            System.out.println(e);
-
+            e = getPosExon(pos);
 
             this.exonSpliceMissed = e;
             this.prime = 5;
@@ -275,40 +253,16 @@ public class CDS {
             StringBuilder intron = new StringBuilder(this.Introns.get(e).getSeq());
             sb.append(intron.substring(0,6));
             return sb.toString();
-//        }
-//        else{
-//            StringBuilder sb = new StringBuilder();
-//            Integer e = getNegExon(pos);
-//            StringBuilder seq = new StringBuilder(this.Exons.get(e).getSeq());
-//            sb.append(seq.substring(seq.length()-3,seq.length()));
-//            StringBuilder intron = new StringBuilder(this.Introns.get(e-1).getSeq());
-//            sb.append(intron.substring(0,6));
-//            return sb.toString();
-//        }
+
     }
 
-    /*private Integer getNegExon(Integer Pos){
-        Integer total = 0;
-        Integer i;
-        for(i = 0; i < this.Exons.size(); i++){
-//            System.out.println("start: "+this.exonStarts[i]+" end: "+this.exonEnds[i]);
-            total += this.Exons.get(i).getLength();
-//            System.out.println("Negative: "+String.valueOf(Pos)+"<"+String.valueOf(total));
-            if(Pos < total)
-                continue;
-            break;
-        }
-        return i;
-    }
-*/
-    private Integer getPosExon(Integer Pos){
+    private Integer getPosExon(Integer Pos){ // get the position of the exon in the sequence
     	//System.out.println("---- CDS ---- getPosExon ----");
 
         Integer total = 0;
         Integer i;
         for(i = 0; i < this.Exons.size(); i++){
             total += this.Exons.get(i).getLength();
-//            System.out.println("Positive: "+String.valueOf(Pos)+">"+String.valueOf(total));
             if(Pos > total)
                 continue;
             break;
@@ -331,10 +285,6 @@ public class CDS {
             }
         }
         modifiedProtein = Utilities.translateProt(sb);
-        //System.out.print("protein:");
-        //System.out.println(this.Protein + "\n");
-        //System.out.print("modified protein:");
-        //System.out.println(this.modifiedProtein);
 
         return modifiedProtein;
     }

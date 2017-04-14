@@ -11,8 +11,8 @@ import java.io.InputStreamReader;
  */
 public class PullRegionsFromRef {
 
-    private String Path2Ref;
-    private String Path2Samtools;
+    private String Path2Ref; // hg19
+    private String Path2Samtools; // Sam tools
 
     public PullRegionsFromRef(String Path2Ref, String Path2Samtools){
         StringBuilder sb = new StringBuilder(Path2Ref);

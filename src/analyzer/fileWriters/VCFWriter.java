@@ -29,7 +29,7 @@ public class VCFWriter {
 			SAMSequenceDictionary dict = new IndexedFastaSequenceFile(RefPath).getSequenceDictionary();
             VariantContextWriterBuilder builder = new VariantContextWriterBuilder();
             HashSet<VCFHeaderLine> headerlines = new HashSet<>();
-            headerlines.add(new VCFHeaderLine("INFO","<ID=Gene,Number=1,Type=String,Description=The Gene name>"));
+            headerlines.add(new VCFHeaderLine("INFO","<ID=Gene,Number=1,Type=String,Description=The gene name>"));
             headerlines.add(new VCFHeaderLine("INFO","<ID=Transcripts,Number=1,Type=String,Description=The transcript names of variants that were more than 20 bases off the 3' end of the intron and 6 bases off the 5' end of the intron>"));
             headerlines.add(new VCFHeaderLine("INFO","<ID=MesScore,Number=1,Type=Double,Description=The MaxEntScan score for the variant>"));
 

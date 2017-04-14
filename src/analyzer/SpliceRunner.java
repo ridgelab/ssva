@@ -90,7 +90,7 @@ public class SpliceRunner {
         String newFile = geneBasedAnnotation(varfunc); // SETS VARS / Parse the annotated file. (Returns the file name of a "splice file" containing splice variants) 
         runAnnotations(newFile); // Runs annovar 3 times to get 3 different conserved scores. New information is added to the "vars" map.
         RefSeqParser rsp = new RefSeqParser(this.refSeq); //Parses the refseq data file. (2 files created) 
-        PullRegionsFromRef prfr = new PullRegionsFromRef(ref,SamtoolsPath); 
+        PullRegionsFromRef prfr = new PullRegionsFromRef(ref,SamtoolsPath);  //hg19 / Sam tools
         Iterator<Map.Entry<String,Variant>> iter = this.vars.entrySet().iterator();
 
         // Create new files
@@ -106,14 +106,14 @@ public class SpliceRunner {
             Variant var = entry.getValue();
             var.parseSpliceInfo(rsp, prfr);
 
-            System.out.println(var.getSpliceInfo());
+            //System.out.println(var.getSpliceInfo());
             if(this.algorithm.equals("MES")){ 
                 MESRunner mr = new MESRunner(var,this.outputFolder,vw, this.algorithmPath); //Run MES and set info for each variant 
                 if (!mr.IsEmpty()){
                     int sig = var.checkMesSignificance(); //3 levels. 2 = highly significant, 1 = likely significant, 0 = not significant
                     var.makeModifiedProtein();
                     if(sig == 2){
-                        var.makeModifiedProtein();
+                        //var.makeModifiedProtein();
                         System.out.println(Utilities.GREEN+"significant difference"+ Utilities.RESET);
                         VariantContextBuilder vcb = var.createVariantContext();
                         vcb.attribute("MesScore",mr.getScores());
@@ -183,6 +183,7 @@ public class SpliceRunner {
         String exac = AR.Exac(newFile,this.human);
         parser = new GeneralAnnotationParser(this.outputFolder+exac, true);
         this.vars = parser.parse(this.vars);
+        
     }
 
     private String convertAnnovar(){
