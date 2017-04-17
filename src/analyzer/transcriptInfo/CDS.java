@@ -123,6 +123,7 @@ public class CDS {
     	//8) exonCount 9) exonStarts 10) exonEnds 11) score 12) name2 13) cdsStartStat 14) cdsEndStat 15) exonFrames
     	
         String info = rsp.getRefSeqData(transName); //'NM_0011'
+        System.out.println(info+'\n');
         String[] data = info.split("\\t");
         this.chr = data[2];
         this.strand = data[3];
@@ -284,6 +285,7 @@ public class CDS {
                 sb.append(Introns.get(exonSpliceMissed).getSeq());
             }
         }
+        System.out.println("seq: " + sb.toString());
         modifiedProtein = Utilities.translateProt(sb);
 
         return modifiedProtein;
