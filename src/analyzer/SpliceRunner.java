@@ -114,13 +114,13 @@ public class SpliceRunner {
                     //var.makeModifiedProtein();
                     if(sig == 2){
                         //var.makeModifiedProtein();
-                        System.out.println(Utilities.GREEN+"significant difference"+ Utilities.RESET);
+                        System.out.println(Utilities.GREEN+"significant difference\n"+ Utilities.RESET);
                         VariantContextBuilder vcb = var.createVariantContext();
                         vcb.attribute("MesScore",mr.getScores());
                         sig_vw.writeVar(vcb.make());
                     }
                     else if(sig == 1){
-                        System.out.println(Utilities.GREEN+"possibly significant difference"+ Utilities.RESET);
+                        System.out.println(Utilities.GREEN+"possibly significant difference\n"+ Utilities.RESET);
                         VariantContextBuilder vcb = var.createVariantContext();
                         vcb.attribute("MesScore",mr.getScores());
                         possiblySig_vw.writeVar(vcb.make());
@@ -128,7 +128,7 @@ public class SpliceRunner {
                         continue;
                     }
                     else if(sig == 0){
-                        System.out.println(Utilities.GREEN+"not significant difference"+ Utilities.RESET);
+                        System.out.println(Utilities.GREEN+"not significant difference\n"+ Utilities.RESET);
                         VariantContextBuilder vcb = var.createVariantContext();
                         vcb.attribute("MesScore",mr.getScores());
                         notSig_vw.writeVar(vcb.make());
