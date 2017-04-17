@@ -118,7 +118,7 @@ public class MESRunner {
      * @param file
      * @throws Exception
      */
-    public void (String file) throws Exception{
+    public void run3Prime(String file) throws Exception{
     	//System.out.println("---- MESRunner ---- run3Prime ----");
 
         System.out.println(Utilities.GREEN+"Running Max Ent Scan 3\'"+ Utilities.RESET);
