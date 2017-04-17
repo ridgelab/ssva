@@ -124,8 +124,6 @@ public class CDS {
     	
         String info = rsp.getRefSeqData(transName); //'NM_0011'
         	
-        	
-        System.out.println(info+'\n');
         String[] data = info.split("\\t");
         this.chr = data[2];
         this.strand = data[3];
