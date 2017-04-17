@@ -162,12 +162,14 @@ public class Variant {
             String[] transInfo = gene2trans[1].replace(")","").split(","); // ['NM_0011:exon47:c.4451+37C>A', 'NM_015151:exon37:c.4463+37C>A']
             for (String trans : transInfo) { // NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A
                 String[] info = trans.split(":"); // ['NM_0011', 'exon47', 'c.4451+37C>A']
-                CDS cds = new CDS(info[0], gene2trans[0]);
-                cds.setcDot(info[2]); // c.4451+37C>A
-                cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
-                cds.setExon(info[1]);
-                cds.extractCDS(rsp, prfr);
-                this.transcripts.add(cds);
+                if (rsp.getRefSeqData(info[0]) != null) {; // if it is in the refSeq Data!
+                	CDS cds = new CDS(info[0], gene2trans[0]);
+                	cds.setcDot(info[2]); // c.4451+37C>A
+                	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
+                	cds.setExon(info[1]);
+                	cds.extractCDS(rsp, prfr);
+                	this.transcripts.add(cds);
+                }
             }
         }
         

@@ -123,8 +123,6 @@ public class CDS {
     	//8) exonCount 9) exonStarts 10) exonEnds 11) score 12) name2 13) cdsStartStat 14) cdsEndStat 15) exonFrames
     	
         String info = rsp.getRefSeqData(transName); //'NM_0011'
-        if (info != null) 
-        {
         	
         	
         System.out.println(info+'\n');
@@ -151,8 +149,6 @@ public class CDS {
         }
         
         
-        } else { System.out.println("NULL RefSeq entry"); }
-
     }
 
     private void extractCDSRegionNegStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
