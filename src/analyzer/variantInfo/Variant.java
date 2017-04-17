@@ -334,10 +334,10 @@ public class Variant {
         }
         
         if(sigCount > (likelySigCount+notSigCount))
-            if(this.Annotations.get(0).equals("NA")&&this.Annotations.get(1).equals("NA")&&this.Annotations.get(2).equals("NA")) //This checks to make sure that the variant doesn't have any annotations from 1KG, Exac, or Gerp++
+            //if(this.Annotations.get(0).equals("NA")&&this.Annotations.get(1).equals("NA")&&this.Annotations.get(2).equals("NA")) //This checks to make sure that the variant doesn't have any annotations from 1KG, Exac, or Gerp++
                 return 2;
-            else
-                return 1;
+            //else
+              //  return 1;
         if(sigCount == (likelySigCount+notSigCount) || likelySigCount > (sigCount+notSigCount))
             return 1;
         return 0;
