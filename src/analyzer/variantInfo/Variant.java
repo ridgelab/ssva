@@ -213,7 +213,7 @@ public class Variant {
         
         for (CDS cds : transcripts){
 
-            List<String> CDotList = cds.getCDotList(); // ["4451","+","37","C","A"]
+            List<String> CDotList = cds.getCDotList(); // ["4451","+","11","C","A"]
             if(CDotList.get(1).equals("-")){
                 if ( Integer.valueOf(CDotList.get(2)) <= 20) {
                     threePrime = new String(outFolder+"threePrime.txt");
@@ -283,7 +283,7 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
+            sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0)); // TODO! why is it 20-  ??
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -298,7 +298,7 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
+            sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0)); // TODO! why is it 2+  ??
             fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
