@@ -262,21 +262,21 @@ public class CDS {
     	//System.out.println("---- CDS ---- getPosExon ----");
 
         Integer total = 0;
-        Integer i;
-        for(i = 0; i < this.Exons.size(); i++){
-            total += this.Exons.get(i).getLength();
+        Integer j;
+        for(j = 0; j < this.Exons.size(); ++j){
+            total += this.Exons.get((j)).getLength();
             System.out.println("list: " + this.Exons.size());
             if(Pos < total) {
-                System.out.println("break_i: " + i);
+                System.out.println("break_i: " + j);
                 break;
             }
-            System.out.println("i: " + i);
+            System.out.println("i: " + j);
             //break;
         }
-        System.out.println("exon number=" + i);
+        System.out.println("exon number=" + j);
         System.out.println("  exon size=" + this.Exons.size());
 
-        return i;
+        return j;
     }
 
 
