@@ -265,6 +265,7 @@ public class CDS {
         Integer i;
         for(i = 0; i < this.Exons.size(); i++){
             total += this.Exons.get(i).getLength();
+            System.out.println("i: " + i);
             if(Pos > total)
                 continue;
             break;
