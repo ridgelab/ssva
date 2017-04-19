@@ -266,12 +266,12 @@ public class CDS {
         for(i = 0; i < this.Exons.size(); i++){
             total += this.Exons.get(i).getLength();
             System.out.println("list: " + this.Exons.size());
-            if(Pos > total) {
-                System.out.println("i: " + i);
-                continue;
+            if(Pos < total) {
+                System.out.println("break_i: " + i);
+                break;
             }
-            System.out.println("break_i: " + i);
-            break;
+            System.out.println("i: " + i);
+            //break;
         }
         System.out.println("exon number=" + i);
         System.out.println("  exon size=" + this.Exons.size());
