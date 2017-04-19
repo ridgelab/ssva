@@ -137,15 +137,15 @@ public class Variant {
     public String toString() {
         return "Variant{" +
                 "Chr='" + Chr + '\'' +
-                ", Pos=" + Pos +
-                ", Ref='" + Ref + '\'' +
-                ", Alt='" + Alt + '\'' +
-                ", homhet='" + homhet + '\'' +
-                ", spliceInfo='" + spliceInfo + '\'' +
-                ", Annotations=" + String.valueOf(Annotations.size()) +
-                ", transcripts=" + String.valueOf(transcripts.size()) +
-                ", GeneName='" + GeneName + '\'' +
-                '}';
+                ",\nPos=" + Pos +
+                ",\nRef='" + Ref + '\'' +
+                ",\nAlt='" + Alt + '\'' +
+                ",\nhomhet='" + homhet + '\'' +
+                ",\nspliceInfo='" + spliceInfo + '\'' +
+                ",\nAnnotations=" + String.valueOf(Annotations.size()) +
+                ",\ntranscripts=" + String.valueOf(transcripts.size()) +
+                ",\nGeneName='" + GeneName + '\'' +
+                "}\n\n";
     }
 
     public void parseSpliceInfo(RefSeqParser rsp, PullRegionsFromRef prfr){ // info from the varfunct (.vcf.avinput.variant_function)
@@ -167,6 +167,7 @@ public class Variant {
                 	cds.setcDot(info[2]); // c.4451+37C>A
                 	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
                 	cds.setExon(info[1]);
+                	System.out.println(this.toString());
                 	cds.extractCDS(rsp, prfr);
                 	this.transcripts.add(cds);
                 }
@@ -283,7 +284,7 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0)); // TODO! why is it 20-  ??
+            sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
             threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -298,7 +299,7 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0)); // TODO! why is it 2+  ??
+            sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
             fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
