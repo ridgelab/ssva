@@ -269,6 +269,9 @@ public class CDS {
                 continue;
             break;
         }
+        System.out.println("exon number=" + i);
+        System.out.println("  exon size=" + this.Exons.size());
+
         return i;
     }
 
