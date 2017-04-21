@@ -204,7 +204,7 @@ public class CDS {
 
     	
         for(int i=0;i < exonNum;i++){
-            if(Integer.valueOf(this.exonFrames[i]) != -1) { // in the UTR
+            if(Integer.valueOf(this.exonFrames[i]) != -1) { // not in the UTR
                 if(!firstExon && Integer.valueOf(this.cdsEnd) > Integer.valueOf(this.exonEnds[i])){
                     StringBuilder exon = prfr.getRegion(this.chr, Integer.valueOf(this.exonStarts[i]), Integer.valueOf(this.exonEnds[i]), this.strand);
                     Exon e = new Exon(this.exonStarts[i],this.exonEnds[i],exon,this.strand);
@@ -232,6 +232,9 @@ public class CDS {
 
                     this.Introns.add(I);
                 }
+            	System.out.println("exonNumber: " + i);
+            	System.out.println("exonLength: " + Exons.get(i).getLength());
+
             }
         }
     	System.out.println("exonSize: " + Exons.size());

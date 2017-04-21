@@ -167,7 +167,6 @@ public class Variant {
                 	cds.setcDot(info[2]); // c.4451+37C>A
                 	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
                 	cds.setExon(info[1]);
-                	System.out.println(this.toString());
                 	cds.extractCDS(rsp, prfr);
                 	this.transcripts.add(cds);
                 }
