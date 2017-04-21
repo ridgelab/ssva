@@ -273,12 +273,12 @@ public class CDS {
         Integer total = 0;
         Integer j;
         Integer curr_exon = -1;
-        //System.out.println("position: " + Pos);
+        System.out.println("position: " + Pos);
 
         for(j = 0; j < this.Exons.size(); ++j){
             total += this.Exons.get((j)).getLength();
-            //System.out.println("total: " + total);
-            //System.out.println("j: " + j);
+            System.out.println("total: " + total);
+            System.out.println("j: " + j);
 
             if(Pos <= total) {
                 return j;
@@ -287,10 +287,10 @@ public class CDS {
             }
             	
         }
-        //System.out.println("exon number=" + j);
-        //System.out.println("curr_exon  =" + curr_exon);
+        System.out.println("exon number=" + j);
+        System.out.println("curr_exon  =" + curr_exon);
 
-        //System.out.println("  exon size=" + this.Exons.size());
+        System.out.println("  exon size=" + this.Exons.size());
 
         return curr_exon;
     }
