@@ -196,7 +196,8 @@ public class Variant {
 
         String threePrime = null;
         String fivePrime = null;
-
+        boolean three = false;
+        boolean five = false;
 
         FileWriter threePrimeFile = null;
         FileWriter fivePrimeFile = null;
@@ -217,7 +218,7 @@ public class Variant {
             if(CDotList.get(1).equals("-")){
                 if ( Integer.valueOf(CDotList.get(2)) <= 20) {
                     threePrime = new String(outFolder+"threePrime.txt");
-                    write3Prime(threePrimeFile,cds);
+                    three = write3Prime(threePrimeFile,cds);
                 }
                 else{
                     filteredNames.add(cds.getTransName());
@@ -227,7 +228,7 @@ public class Variant {
             {
                 if(Integer.valueOf(CDotList.get(2)) <= 6) {
                     fivePrime = new String(outFolder+"fivePrime.txt");  
-                    write5Prime(fivePrimeFile,cds);
+                    five = write5Prime(fivePrimeFile,cds);
                 }
                 else{
                     filteredNames.add(cds.getTransName());
@@ -250,7 +251,7 @@ public class Variant {
         if(threePrime!= null && fivePrime != null)
             throw new Exception("The variant shouldn't end up on both ends of the intron.");
 
-        if(threePrime == null) {
+        /*if(threePrime == null) {
             if(fivePrime != null) {
                 try {
                     fivePrimeFile.close();
@@ -271,26 +272,57 @@ public class Variant {
             }
             return threePrime;
 
+        }*/
+        
+        if(!three) {
+            if(five) {
+                try {
+                    fivePrimeFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return fivePrime;
+            }
+            else{
+                return null;
+            }
         }
+        else if (!five){
+            try {
+                threePrimeFile.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return threePrime;
+
+        }
+        
+        return null;
         
 
     }
 
-    private void write3Prime(FileWriter threePrime, CDS cds){
+    private boolean write3Prime(FileWriter threePrime, CDS cds){
     	//System.out.println("---- Variant ---- write3Prime ----");
     	
         try {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
-            threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
+            if (sb.toString() != "SEQ TOO SHORT") {
+            	sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
+                threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
+                return true;
+            } else {
+            	return false;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    private void write5Prime(FileWriter fivePrime, CDS cds){
+    private boolean write5Prime(FileWriter fivePrime, CDS cds){
     	//System.out.println("---- Variant ---- write5Prime ----");
 
     	
@@ -298,11 +330,18 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
-            fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
+            if (sb.toString() != "SEQ TOO SHORT") {
+            	sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
+                fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
+            return true;
+            } else {
+            	return false;
+            }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
+		return false;
     }
 
     public void makeModifiedProtein(){

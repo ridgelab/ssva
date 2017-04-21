@@ -264,7 +264,11 @@ public class CDS {
             StringBuilder intron = new StringBuilder(this.Introns.get(e-1).getSeq());
             sb.append(intron.substring(intron.length()-20,intron.length()));
             StringBuilder seq = new StringBuilder(this.Exons.get(e).getSeq());
-            sb.append(seq.substring(0,3));
+            if (seq.length() < 3) {
+            	sb = new StringBuilder("SEQ TOO SHORT");
+            } else {
+                sb.append(seq.substring(0,3));
+            }
             return sb.toString();
     }
     
@@ -280,6 +284,11 @@ public class CDS {
             sb.append(seq.substring(seq.length()-3,seq.length()));
             StringBuilder intron = new StringBuilder(this.Introns.get(e).getSeq());
             sb.append(intron.substring(0,6));
+            if (intron.length() < 6) {
+            	sb = new StringBuilder("SEQ TOO SHORT");
+            } else {
+                sb.append(intron.substring(0,6));
+            }
             return sb.toString();
 
     }
