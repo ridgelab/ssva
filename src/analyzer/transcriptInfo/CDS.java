@@ -197,7 +197,7 @@ public class CDS {
             	//System.out.println("exonLength: " + Exons.get(i).getLength());
             }
         }
-    	System.out.println("exonSize: " + Exons.size());
+    	//System.out.println("exonSize: " + Exons.size());
 
         this.Protein = Utilities.translateProt(this.seq);
     }
@@ -244,7 +244,7 @@ public class CDS {
             	
             }
         }
-    	System.out.println("exonSize: " + Exons.size());
+    	//System.out.println("exonSize: " + Exons.size());
 
         this.Protein = Utilities.translateProt(this.seq);
     }
@@ -259,13 +259,21 @@ public class CDS {
             this.prime = 3;
 
             StringBuilder intron = new StringBuilder(this.Introns.get(e-1).getSeq());
-            sb.append(intron.substring(intron.length()-20,intron.length()));
+            if (intron.length() < 20) {
+            	sb = new StringBuilder("SEQ TOO SHORT");
+                System.out.println("MES3Prime: " + sb.toString());
+            	return sb.toString();
+            } else {
+                sb.append(intron.substring(intron.length()-20,intron.length()));
+            }
             StringBuilder seq = new StringBuilder(this.Exons.get(e).getSeq());
             if (seq.length() < 3) {
             	sb = new StringBuilder("SEQ TOO SHORT");
             } else {
                 sb.append(seq.substring(0,3));
             }
+            System.out.println("MES3Prime: " + sb.toString());
+
             return sb.toString();
     }
     
@@ -278,14 +286,21 @@ public class CDS {
             this.exonSpliceMissed = e;
             this.prime = 5;
             StringBuilder seq = new StringBuilder(this.Exons.get(e).getSeq());
-            sb.append(seq.substring(seq.length()-3,seq.length()));
+            if (seq.length() < 3) {
+            	sb = new StringBuilder("SEQ TOO SHORT");
+                System.out.println("MES5Prime: " + sb.toString());
+
+            	return sb.toString();
+            } else {
+                sb.append(seq.substring(seq.length()-3,seq.length()));
+            }
             StringBuilder intron = new StringBuilder(this.Introns.get(e).getSeq());
-            sb.append(intron.substring(0,6));
             if (intron.length() < 6) {
             	sb = new StringBuilder("SEQ TOO SHORT");
             } else {
                 sb.append(intron.substring(0,6));
             }
+            System.out.println("MES5Prime: " + sb.toString());
             return sb.toString();
 
     }
@@ -296,12 +311,12 @@ public class CDS {
         Integer total = 0;
         Integer j;
         Integer curr_exon = -1;
-        System.out.println("position: " + Pos);
+        //System.out.println("position: " + Pos);
 
         for(j = 0; j < this.Exons.size(); ++j){
             total += this.Exons.get((j)).getLength();
-            System.out.println("total: " + total);
-            System.out.println("j: " + j);
+            //System.out.println("total: " + total);
+            //System.out.println("j: " + j);
 
             if(Pos <= total) {
                 return j;
@@ -310,10 +325,10 @@ public class CDS {
             }
             	
         }
-        System.out.println("exon number=" + j);
-        System.out.println("curr_exon  =" + curr_exon);
+        //System.out.println("exon number=" + j);
+        //System.out.println("curr_exon  =" + curr_exon);
 
-        System.out.println("  exon size=" + this.Exons.size());
+        //System.out.println("  exon size=" + this.Exons.size());
 
         return curr_exon;
     }

@@ -295,11 +295,11 @@ public class Variant {
             }
             return threePrime;
 
+        } else {
+            return null;
         }
         
-        return null;
         
-
     }
 
     private boolean write3Prime(FileWriter threePrime, CDS cds){
