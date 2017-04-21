@@ -261,7 +261,7 @@ public class CDS {
             StringBuilder intron = new StringBuilder(this.Introns.get(e-1).getSeq());
             if (intron.length() < 20) {
             	sb = new StringBuilder("SEQ TOO SHORT");
-                System.out.println("MES3Prime: " + sb.toString());
+                //System.out.println("MES3Prime: " + sb.toString());
             	return sb.toString();
             } else {
                 sb.append(intron.substring(intron.length()-20,intron.length()));
@@ -272,7 +272,7 @@ public class CDS {
             } else {
                 sb.append(seq.substring(0,3));
             }
-            System.out.println("MES3Prime: " + sb.toString());
+            //System.out.println("MES3Prime: " + sb.toString());
 
             return sb.toString().toUpperCase();
     }
@@ -288,7 +288,7 @@ public class CDS {
             StringBuilder seq = new StringBuilder(this.Exons.get(e).getSeq());
             if (seq.length() < 3) {
             	sb = new StringBuilder("SEQ TOO SHORT");
-                System.out.println("MES5Prime: " + sb.toString());
+                //System.out.println("MES5Prime: " + sb.toString());
 
             	return sb.toString();
             } else {
@@ -300,7 +300,7 @@ public class CDS {
             } else {
                 sb.append(intron.substring(0,6));
             }
-            System.out.println("MES5Prime: " + sb.toString());
+            //System.out.println("MES5Prime: " + sb.toString());
             return sb.toString().toUpperCase();
 
     }
