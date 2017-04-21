@@ -171,7 +171,10 @@ public class Variant {
                 	this.transcripts.add(cds);
                 }
             }
+
         }
+    	System.out.println(this.toString());
+
         
     }
 
@@ -310,7 +313,7 @@ public class Variant {
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
             System.out.println("originalSeq: " + originalSeq);
-            if (originalSeq != "SEQ TOO SHORT") {
+            if (originalSeq.length() != 13) {
                 System.out.println("inside if");
             	sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
                 threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
@@ -334,7 +337,7 @@ public class Variant {
             StringBuilder sb = new StringBuilder(originalSeq);
             System.out.println("originalSeq: " + originalSeq);
 
-            if (originalSeq != "SEQ TOO SHORT") {
+            if (originalSeq.length() != 13) {
                 System.out.println("inside if");
 
             	sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
