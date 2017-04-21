@@ -309,7 +309,7 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            if (sb.toString() != "SEQ TOO SHORT") {
+            if (originalSeq != "SEQ TOO SHORT") {
             	sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
                 threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
                 return true;
@@ -330,10 +330,10 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            if (sb.toString() != "SEQ TOO SHORT") {
+            if (originalSeq != "SEQ TOO SHORT") {
             	sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
                 fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
-            return true;
+                return true;
             } else {
             	return false;
             }
