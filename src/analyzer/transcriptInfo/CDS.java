@@ -191,6 +191,11 @@ public class CDS {
 
                     this.Introns.add(I);
                 }
+                System.out.println("\nexonNumber: " + i);
+            	System.out.println("exonStart: " + this.exonStarts[i]);
+            	System.out.println("exonEnd: " + this.exonEnds[i]);
+
+            	System.out.println("exonLength: " + Exons.get(i).getLength());
             }
         }
     	System.out.println("exonSize: " + Exons.size());
@@ -232,7 +237,11 @@ public class CDS {
 
                     this.Introns.add(I);
                 }
-            	System.out.println("exonNumber: " + i);
+                
+            	System.out.println("\nexonNumber: " + i);
+            	System.out.println("exonStart: " + this.exonStarts[i]);
+            	System.out.println("exonEnd: " + this.exonEnds[i]);
+
             	System.out.println("exonLength: " + Exons.get(i).getLength());
 
             }
