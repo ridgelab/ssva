@@ -115,6 +115,15 @@ public class CDS {
     	
     }
     
+    // made by CS 4/20/17
+    public void exonStartStop_printString() {
+    	System.out.println("\nExon Starts and Stops:");
+    	for (int i = 0; i < exonStarts.length; ++i) 
+    	{
+    		System.out.println(exonStarts[i] + "-" + exonEnds[i]);
+    	}
+    }
+    
     public void extractCDS(RefSeqParser rsp, PullRegionsFromRef prfr) {
     	//System.out.println("---- CDS ---- extractCDS ----");
     	
@@ -153,7 +162,7 @@ public class CDS {
     	//System.out.println("---- CDS ---- extractCDSRegionNegStrand ----");
 
     	
-        for(int i=exonNum-1;i >= 0;i--){
+        for(int i=exonNum;i >= 0;i--){
             if(Integer.valueOf(this.exonFrames[i]) != -1) {
                 if(!firstExon && Integer.valueOf(this.cdsStart) < Integer.valueOf(this.exonStarts[i])){
                     StringBuilder exon = prfr.getRegion(this.chr, Integer.valueOf(this.exonStarts[i]), Integer.valueOf(this.exonEnds[i]), this.strand);
@@ -266,12 +275,11 @@ public class CDS {
         for(j = 0; j < this.Exons.size(); ++j){
             total += this.Exons.get((j)).getLength();
             System.out.println("list: " + this.Exons.size());
-            if(Pos < total) {
+            if(Pos <= total) {
                 System.out.println("break_i: " + j);
-                break;
+                return j;
             }
             System.out.println("i: " + j);
-            //break;
         }
         System.out.println("exon number=" + j);
         System.out.println("  exon size=" + this.Exons.size());
