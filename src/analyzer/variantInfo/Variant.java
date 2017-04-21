@@ -303,13 +303,15 @@ public class Variant {
     }
 
     private boolean write3Prime(FileWriter threePrime, CDS cds){
-    	//System.out.println("---- Variant ---- write3Prime ----");
+    	System.out.println("---- Variant ---- write3Prime ----");
     	
         try {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
+            System.out.println("originalSeq: " + originalSeq);
             if (originalSeq != "SEQ TOO SHORT") {
+                System.out.println("inside if");
             	sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
                 threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
                 return true;
@@ -323,14 +325,18 @@ public class Variant {
     }
 
     private boolean write5Prime(FileWriter fivePrime, CDS cds){
-    	//System.out.println("---- Variant ---- write5Prime ----");
+    	System.out.println("---- Variant ---- write5Prime ----");
 
     	
         try {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
+            System.out.println("originalSeq: " + originalSeq);
+
             if (originalSeq != "SEQ TOO SHORT") {
+                System.out.println("inside if");
+
             	sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
                 fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
                 return true;

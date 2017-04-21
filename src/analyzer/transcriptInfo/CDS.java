@@ -274,7 +274,7 @@ public class CDS {
             }
             System.out.println("MES3Prime: " + sb.toString());
 
-            return sb.toString();
+            return sb.toString().toUpperCase();
     }
     
     public String getMES5Prime(Integer pos){ // creates 9 base sequence (3 exon + 6 intron)
@@ -301,7 +301,7 @@ public class CDS {
                 sb.append(intron.substring(0,6));
             }
             System.out.println("MES5Prime: " + sb.toString());
-            return sb.toString();
+            return sb.toString().toUpperCase();
 
     }
 
