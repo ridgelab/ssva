@@ -159,7 +159,8 @@ public class CDS {
     }
 
     private void extractCDSRegionNegStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
-    	//System.out.println("---- CDS ---- extractCDSRegionNegStrand ----");
+    	System.out.println("---- CDS ---- extractCDSRegionNegStrand ----");
+    	System.out.println("exonNum: " + exonNum);
 
     	
         for(int i=exonNum - 1;i >= 0;i--){
@@ -192,12 +193,14 @@ public class CDS {
                 }
             }
         }
+    	System.out.println("exonSize: " + Exons.size());
 
         this.Protein = Utilities.translateProt(this.seq);
     }
 
     private void extractCDSRegionPosStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
-    	//System.out.println("---- CDS ---- extractCDSRegionPosStrand ----");
+    	System.out.println("---- CDS ---- extractCDSRegionPosStrand ----");
+    	System.out.println("exonNum: " + exonNum);
 
     	
         for(int i=0;i < exonNum;i++){
@@ -231,6 +234,7 @@ public class CDS {
                 }
             }
         }
+    	System.out.println("exonSize: " + Exons.size());
 
         this.Protein = Utilities.translateProt(this.seq);
     }
