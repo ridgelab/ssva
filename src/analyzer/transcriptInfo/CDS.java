@@ -162,8 +162,8 @@ public class CDS {
     	//System.out.println("---- CDS ---- extractCDSRegionNegStrand ----");
 
     	
-        for(int i=exonNum;i >= 0;i--){
-            if(Integer.valueOf(this.exonFrames[i]) != -1) {
+        for(int i=exonNum - 1;i >= 0;i--){
+            if(Integer.valueOf(this.exonFrames[i]) != -1) { // in the UTR
                 if(!firstExon && Integer.valueOf(this.cdsStart) < Integer.valueOf(this.exonStarts[i])){
                     StringBuilder exon = prfr.getRegion(this.chr, Integer.valueOf(this.exonStarts[i]), Integer.valueOf(this.exonEnds[i]), this.strand);
                     Exon e = new Exon(this.exonEnds[i],this.exonStarts[i],exon,this.strand);
@@ -201,7 +201,7 @@ public class CDS {
 
     	
         for(int i=0;i < exonNum;i++){
-            if(Integer.valueOf(this.exonFrames[i]) != -1) {
+            if(Integer.valueOf(this.exonFrames[i]) != -1) { // in the UTR
                 if(!firstExon && Integer.valueOf(this.cdsEnd) > Integer.valueOf(this.exonEnds[i])){
                     StringBuilder exon = prfr.getRegion(this.chr, Integer.valueOf(this.exonStarts[i]), Integer.valueOf(this.exonEnds[i]), this.strand);
                     Exon e = new Exon(this.exonStarts[i],this.exonEnds[i],exon,this.strand);
@@ -272,14 +272,16 @@ public class CDS {
 
         Integer total = 0;
         Integer j;
+        System.out.println("position: " + Pos);
+
         for(j = 0; j < this.Exons.size(); ++j){
             total += this.Exons.get((j)).getLength();
-            System.out.println("list: " + this.Exons.size());
+            System.out.println("total: " + total);
+            System.out.println("j: " + j);
+
             if(Pos <= total) {
-                System.out.println("break_i: " + j);
                 return j;
             }
-            System.out.println("i: " + j);
         }
         System.out.println("exon number=" + j);
         System.out.println("  exon size=" + this.Exons.size());
