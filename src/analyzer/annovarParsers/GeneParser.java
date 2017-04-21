@@ -33,7 +33,7 @@ public class GeneParser {
         while(varFunct.hasNextLine()){
             String Line = varFunct.nextLine();
             String[] columns = Line.split("\t");
-            if (columns[0].equals("splicing") || columns[0].equals("ncRNA_splicing")){
+            if (columns[0].equals("splicing")){
 
                 if (!columns[5].equals("-") && !columns[6].equals("-")) { //Excludes indels
                     Variant var = new Variant(columns[2], Integer.valueOf(columns[3]), columns[1], columns[5], columns[6], columns[7]);
