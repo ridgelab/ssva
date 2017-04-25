@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.StringBuilder;
 
+import analyzer.Utilities.Utilities;
 import analyzer.variantInfo.Variant;
 
 /**
@@ -48,13 +49,17 @@ public class TSVWriter {
     					  var.getOriginalMesScores().get(0) + '\t');
     	
 		for	(double MESScore : var.getVariantMesScores()) {
-    		variantTSV.append(MESScore +';');
+    		variantTSV.append(Double.toString(MESScore) +';');
+            System.out.println(Utilities.GREEN + "MESScore: " + Utilities.RESET + Double.toString(MESScore));
+
     	}
 		
 		variantTSV.append('\t');
 		
 		for	(double DiffScore : var.getPercentDiffList()) {
-    		variantTSV.append(DiffScore +';');
+    		variantTSV.append(Double.toString(DiffScore) +';');
+            System.out.println(Utilities.GREEN + "DiffScore: " + Utilities.RESET + Double.toString(DiffScore));
+
     	}
 		
 		variantTSV.append('\t' + var.getSpliceInfo() + '\n');
