@@ -3,6 +3,8 @@ package analyzer.fileWriters;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.StringBuilder;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 import analyzer.Utilities.Utilities;
 import analyzer.variantInfo.Variant;
@@ -36,6 +38,20 @@ public class TSVWriter {
     private ArrayList<Double> OriginalMesScores;
     private ArrayList<Double> VariantMesScores;
     private ArrayList<Double> percentDiffList;*/
+
+    	/* ROUNDING
+    	 * DecimalFormat df = new DecimalFormat("#.####");
+			df.setRoundingMode(RoundingMode.CEILING);
+			for (Number n : Arrays.asList(12, 123.12345, 0.23, 0.1, 2341234.212431324)) {
+    		Double d = n.doubleValue();
+    		System.out.println(df.format(d));
+			}
+    	 */
+    	
+    	// rounding
+    	DecimalFormat df = new DecimalFormat("#.####");
+    	df.setRoundingMode(RoundingMode.CEILING);
+    	
     	
     	StringBuilder variantTSV = new StringBuilder();
     	variantTSV.append(var.getChr() + '\t' +
@@ -46,20 +62,25 @@ public class TSVWriter {
     					  var.Annotations.get(0) + '\t' +
     					  var.Annotations.get(1) + '\t' +
     					  var.Annotations.get(2) + '\t' +
-    					  var.getOriginalMesScores().get(0) + '\t');
+    					  df.format(var.getOriginalMesScores().get(0)) + '\t');
     	
-		for	(double MESScore : var.getVariantMesScores()) {
-    		variantTSV.append(Double.toString(MESScore) +';');
-            System.out.println(Utilities.GREEN + "MESScore: " + Utilities.RESET + Double.toString(MESScore));
-
+    	
+    	if (var.getVariantMesScores().size() == 1) {
+    		variantTSV.append(df.format(var.getVariantMesScores().get(0).doubleValue()));
+    	} else {
+    		for	(Double MESScore : var.getVariantMesScores()) {
+        		variantTSV.append(df.format(MESScore) +';');
+        	}
     	}
 		
 		variantTSV.append('\t');
 		
-		for	(double DiffScore : var.getPercentDiffList()) {
-    		variantTSV.append(Double.toString(DiffScore) +';');
-            System.out.println(Utilities.GREEN + "DiffScore: " + Utilities.RESET + Double.toString(DiffScore));
-
+		if (var.getPercentDiffList().size() == 1) {
+    		variantTSV.append(df.format(var.getPercentDiffList().get(0).doubleValue()));
+    	} else {
+    		for	(double DiffScore : var.getPercentDiffList()) {
+    			variantTSV.append(df.format(DiffScore) +';');
+    		}
     	}
 		
 		variantTSV.append('\t' + var.getSpliceInfo() + '\n');
