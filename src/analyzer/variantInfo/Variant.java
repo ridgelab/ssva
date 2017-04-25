@@ -114,6 +114,10 @@ public class Variant {
     	return transcripts;
     }
     
+	public ArrayList<Double> getPercentDiffList() {
+		return percentDiffList;
+	}
+    
     // Creating variants to write
 
     public VariantContextBuilder createVariantContext(){
@@ -353,4 +357,6 @@ public class Variant {
             return 1;
         return 0;
     }
+
+
 }

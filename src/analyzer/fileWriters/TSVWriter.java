@@ -2,10 +2,8 @@ package analyzer.fileWriters;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.lang.StringBuilder;
 
-import analyzer.transcriptInfo.CDS;
 import analyzer.variantInfo.Variant;
 
 /**
@@ -20,7 +18,7 @@ public class TSVWriter {
     	path = tsvPath;
     	file = new FileWriter(tsvPath);
     	
-    	file.write("CHR\tPOS\tREF\tALT\tGENE\tGERP2\t1000GEN\tEXAC\n");
+    	file.write("CHR\tPOS\tREF\tALT\tGENE\tGERP2\t1000GEN\tEXAC\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
     }
     
     public void writeVariant(Variant var) throws IOException {
@@ -46,7 +44,20 @@ public class TSVWriter {
     					  var.getGeneName() + '\t'+
     					  var.Annotations.get(0) + '\t' +
     					  var.Annotations.get(1) + '\t' +
-    					  var.Annotations.get(2) + '\n');
+    					  var.Annotations.get(2) + '\t' +
+    					  var.getOriginalMesScores().get(0) + '\t');
+    	
+		for	(double MESScore : var.getVariantMesScores()) {
+    		variantTSV.append(MESScore +';');
+    	}
+		
+		variantTSV.append('\t');
+		
+		for	(double DiffScore : var.getPercentDiffList()) {
+    		variantTSV.append(DiffScore +';');
+    	}
+		
+		variantTSV.append('\t' + var.getSpliceInfo() + '\n');
     	
     	file.write(variantTSV.toString());
     }

@@ -154,19 +154,6 @@ public class SpliceRunner {
         notSig_vw.close();
         possiblySig_vw.close();
         vw.close();
-        
-    	/*for (Map.Entry<String, Variant> entry : vars.entrySet()) {
-    	    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-    	    Variant v = entry.getValue();
-    	    ArrayList<CDS> cdsList = v.getCDSList();
-    	    for(CDS cds : cdsList) {
-    	    	String protein1 = cds.getOriginalProtein();
-    	    	String modifiedProtein = cds.getModifiedProtein();
-    	    	//System.out.println(cds);
-    	    	//System.out.println("THIS IS THE Original Protein: " + protein1);
-    	    	//System.out.println("THIS IS THE Modified Protein: " +  modifiedProtein + "\n");
-    	    }
-    	}*/
     }
 
     private void runAnnotations(String newFile) {
@@ -193,7 +180,6 @@ public class SpliceRunner {
     private String convertAnnovar(){
         AnnovarRunner AR = new AnnovarRunner(this.annovar,this.outputFolder);
         String avinput = AR.convert2Annovar(this.input);
-        //System.out.println(avinput);
         String varfunc = AR.Gene(avinput,this.human);
         return varfunc;
     }

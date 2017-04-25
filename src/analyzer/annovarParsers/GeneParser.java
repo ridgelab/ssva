@@ -41,13 +41,11 @@ public class GeneParser {
                     vars.put(key.toString(), var);
                 }
                 else{ //indels get written to same file as others.
-//                    VariantContext vc = buildContext(columns);
                     StringBuilder sb = new StringBuilder(columns[2]+"\t"+columns[3]+"\t"+columns[4]+"\t"+columns[5]+"\t"+columns[6]+"\t"+columns[7]+"\t"+columns[8]+"\t"+columns[9]+"\t"+columns[0]+"\t"+columns[1]);
                     nonSplice.writeLine(sb.toString());
                 }
             }
             else{//These go to the vcf writer to write the non splice site file.
-//                VariantContext vc = buildContext(columns);
                 StringBuilder sb = new StringBuilder(columns[2]+"\t"+columns[3]+"\t"+columns[4]+"\t"+columns[5]+"\t"+columns[6]+"\t"+columns[7]+"\t"+columns[8]+"\t"+columns[9]+"\t"+columns[0]+"\t"+columns[1]);
                 nonSplice.writeLine(sb.toString());
             }
