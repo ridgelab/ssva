@@ -149,8 +149,6 @@ public class Variant {
     }
 
     public void parseSpliceInfo(RefSeqParser rsp, PullRegionsFromRef prfr){ // info from the varfunct (.vcf.avinput.variant_function)
-    	//System.out.println("---- Variant ---- parseSpliceInfo ----");
-
     	
         String[] geneList = this.spliceInfo.split("\\),"); // DIP2A(NM_001146116:exon37:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A)
         for(String gene : geneList) { // ['GENE', 'NM_0011:exon47:c.4451+37C>A,NM_015151:exon37:c.4463+37C>A']
@@ -171,11 +169,7 @@ public class Variant {
                 	this.transcripts.add(cds);
                 }
             }
-
         }
-    	//System.out.println(this.toString());
-
-        
     }
 
     private ArrayList<String> parseCDot(String cDot){
@@ -193,7 +187,6 @@ public class Variant {
     }
 
     public String makeMESSequenceFile(String outFolder, VCFWriter vw) throws Exception{
-    	//System.out.println("---- Variant ---- makeMESSequenceFile ----");
     	
         VariantContextBuilder vcb = createVariantContext();
 
@@ -253,29 +246,6 @@ public class Variant {
 
         if(threePrime!= null && fivePrime != null)
             throw new Exception("The variant shouldn't end up on both ends of the intron.");
-
-        /*if(threePrime == null) {
-            if(fivePrime != null) {
-                try {
-                    fivePrimeFile.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return fivePrime;
-            }
-            else{
-                return null;
-            }
-        }
-        else{
-            try {
-                threePrimeFile.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return threePrime;
-
-        }*/
         
         if(!three) {
             if(five) {
@@ -306,7 +276,6 @@ public class Variant {
     }
 
     private boolean write3Prime(FileWriter threePrime, CDS cds){
-    	//System.out.println("---- Variant ---- write3Prime ----");
     	
         try {
             List<String> CDotList = cds.getCDotList();
@@ -328,18 +297,13 @@ public class Variant {
     }
 
     private boolean write5Prime(FileWriter fivePrime, CDS cds){
-    	//System.out.println("---- Variant ---- write5Prime ----");
-
     	
         try {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES5Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            //System.out.println("originalSeq: " + originalSeq);
 
             if (originalSeq.length() != 13) {
-                //System.out.println("inside if");
-
             	sb.setCharAt(Integer.valueOf(2 + Integer.valueOf(CDotList.get(2))), CDotList.get(4).charAt(0));
                 fivePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
                 return true;
@@ -354,17 +318,13 @@ public class Variant {
     }
 
     public void makeModifiedProtein(){
-    	//System.out.println("---- Variant ---- makeModifiedProtein ----");
-
         for(CDS cds : transcripts){
             cds.makeModifiedProtein();
         }
-
     }
 
     public int checkMesSignificance(){
-    	//System.out.println("---- Variant ---- checkMesSignificance ----");
-
+    	
         this.percentDiffList = new ArrayList<>();
         int sigCount = 0;
         int likelySigCount = 0;
@@ -384,8 +344,6 @@ public class Variant {
         if(sigCount > (likelySigCount+notSigCount))
             //if(this.Annotations.get(0).equals("NA")&&this.Annotations.get(1).equals("NA")&&this.Annotations.get(2).equals("NA")) //This checks to make sure that the variant doesn't have any annotations from 1KG, Exac, or Gerp++
                 return 2;
-            //else
-              //  return 1;
         if(sigCount == (likelySigCount+notSigCount) || likelySigCount > (sigCount+notSigCount))
             return 1;
         return 0;

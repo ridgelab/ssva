@@ -14,6 +14,7 @@ import analyzer.RefSeq.RefSeqParser;
 import analyzer.Utilities.Utilities;
 import analyzer.annovarParsers.GeneParser;
 import analyzer.annovarParsers.GeneralAnnotationParser;
+import analyzer.fileWriters.TSVWriter;
 import analyzer.fileWriters.VCFWriter;
 import analyzer.fileWriters.annovarWriter;
 import analyzer.maxEntScan.MESRunner;
@@ -99,6 +100,8 @@ public class SpliceRunner {
         VCFWriter possiblySig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_PossiblySignificant.vcf"),new File(this.ref+"hg19.fa"));
         VCFWriter notSig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_NonSignificant.vcf"),new File(this.ref+"hg19.fa"));
 
+        TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"MaxEntScan.tsv");
+        
         System.out.println(Utilities.GREEN+"Going through the variants\n"+ Utilities.RESET);
 
         while(iter.hasNext()){ //iterate over keys in the vars map
@@ -106,18 +109,17 @@ public class SpliceRunner {
             Variant var = entry.getValue();
             var.parseSpliceInfo(rsp, prfr);
 
-            //System.out.println(var.getSpliceInfo());
             if(this.algorithm.equals("MES")){ 
                 MESRunner mr = new MESRunner(var,this.outputFolder,vw, this.algorithmPath); //Run MES and set info for each variant 
                 if (!mr.IsEmpty()){
                     int sig = var.checkMesSignificance(); //3 levels. 2 = highly significant, 1 = likely significant, 0 = not significant
-                    //var.makeModifiedProtein();
+
                     if(sig == 2){
-                        //var.makeModifiedProtein();
                         System.out.println(Utilities.GREEN+"significant difference\n"+ Utilities.RESET);
                         VariantContextBuilder vcb = var.createVariantContext();
                         vcb.attribute("MesScore",mr.getScores());
                         sig_vw.writeVar(vcb.make());
+                        sig_tsv.writeVariant(var);
                     }
                     else if(sig == 1){
                         System.out.println(Utilities.GREEN+"possibly significant difference\n"+ Utilities.RESET);
@@ -146,6 +148,8 @@ public class SpliceRunner {
 
         }
 
+        sig_tsv.close();
+        
         sig_vw.close();
         notSig_vw.close();
         possiblySig_vw.close();
