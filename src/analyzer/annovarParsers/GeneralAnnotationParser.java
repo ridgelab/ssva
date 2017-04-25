@@ -44,9 +44,6 @@ public class GeneralAnnotationParser {
             String var = sb.toString();
             String anno = columns[1];
             Variant v = Vars.get(var);
-            //System.out.println("dropped: ");
-            //System.out.println(var + "--" + anno);
-            //System.out.println();
             v.addAnnotation(anno);
             Vars.put(var, v);
         }
@@ -61,9 +58,6 @@ public class GeneralAnnotationParser {
             String anno = "NA";
             Variant v = Vars.get(var);
             v.addAnnotation(anno);
-            //System.out.println("filtered: ");
-            //System.out.println(var + "--" + anno);
-            //System.out.println();
             Vars.put(var, v);
         }
         return Vars;

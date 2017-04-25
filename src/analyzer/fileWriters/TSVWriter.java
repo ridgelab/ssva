@@ -20,7 +20,7 @@ public class TSVWriter {
     	path = tsvPath;
     	file = new FileWriter(tsvPath);
     	
-    	
+    	file.write("CHR\tPOS\tREF\tALT\tGENE\tGERP2\t1000GEN\tEXAC\n");
     }
     
     public void writeVariant(Variant var) throws IOException {
@@ -31,7 +31,7 @@ public class TSVWriter {
     private String Alt; // T
     private String homhet; // hom het
     private String spliceInfo; // NONE(dist=NONE),MIR3648(dist=414230)
-    private ArrayList<String> Annotations;
+    public ArrayList<String> Annotations;
     private ArrayList<CDS> transcripts;
     private String GeneName;
     private ArrayList<Double> OriginalMesScores;
@@ -42,7 +42,11 @@ public class TSVWriter {
     	variantTSV.append(var.getChr() + '\t' +
     					  var.getPos() + '\t' +
     					  var.getRef() + '\t' +
-    					  var.getAlt());
+    					  var.getAlt() + '\t' +
+    					  var.getGeneName() + '\t'+
+    					  var.Annotations.get(0) + '\t' +
+    					  var.Annotations.get(1) + '\t' +
+    					  var.Annotations.get(2) + '\n');
     	
     	file.write(variantTSV.toString());
     }

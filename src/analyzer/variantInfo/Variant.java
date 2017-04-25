@@ -27,13 +27,12 @@ public class Variant {
     private String Alt; // T
     private String homhet; // hom het
     private String spliceInfo; // NONE(dist=NONE),MIR3648(dist=414230)
-    private ArrayList<String> Annotations;
+    public ArrayList<String> Annotations;
     private ArrayList<CDS> transcripts;
     private String GeneName;
     private ArrayList<Double> OriginalMesScores;
     private ArrayList<Double> VariantMesScores;
     private ArrayList<Double> percentDiffList;
-
 
 
     public Variant(String chr, Integer pos, String spliceInfo, String ref, String alt, String homhet){
@@ -79,6 +78,10 @@ public class Variant {
         Alt = alt;
     }
 
+    public String getGeneName() {
+        return GeneName;
+    }
+    
     public String getHomhet() {
         return homhet;
     }
@@ -330,8 +333,10 @@ public class Variant {
         int likelySigCount = 0;
         int notSigCount = 0;
         for(int i=0; i < OriginalMesScores.size(); i++){
-            Double percentDiff = ((Double.valueOf(VariantMesScores.get(i))-Double.valueOf(OriginalMesScores.get(i))) / Double.valueOf(OriginalMesScores.get(i)) * 100);
+            Double percentDiff = ((Double.valueOf(VariantMesScores.get(i))-Double.valueOf(OriginalMesScores.get(i))) / Math.abs(Double.valueOf(OriginalMesScores.get(i))) * 100);
             percentDiffList.add(percentDiff);
+            
+            
             //System.out.println(Utilities.GREEN + "Percent Diff: " + Utilities.RESET + Double.toString(percentDiff));
             if(percentDiff <= -20)
                 sigCount++;
