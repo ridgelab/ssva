@@ -6,7 +6,7 @@ import java.lang.StringBuilder;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import analyzer.Utilities.Utilities;
+//import analyzer.Utilities.Utilities;
 import analyzer.variantInfo.Variant;
 
 /**

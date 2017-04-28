@@ -8,18 +8,19 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import analyzer.AnnovarRunners.AnnovarRunner;
 import analyzer.RefSeq.PullRegionsFromRef;
 import analyzer.RefSeq.RefSeqParser;
 import analyzer.Utilities.Utilities;
 import analyzer.annovarParsers.GeneParser;
 import analyzer.annovarParsers.GeneralAnnotationParser;
+import analyzer.databaseRunners.AnnovarRunner;
+import analyzer.databaseRunners.MESRunner;
+import analyzer.databaseRunners.rpsBlastRunner;
 import analyzer.fileWriters.TSVWriter;
 import analyzer.fileWriters.VCFWriter;
 import analyzer.fileWriters.annovarWriter;
-import analyzer.maxEntScan.MESRunner;
 import analyzer.variantInfo.Variant;
-import htsjdk.variant.variantcontext.VariantContextBuilder;
+//import htsjdk.variant.variantcontext.VariantContextBuilder;
 //import analyzer.transcriptInfo.CDS;
 import net.sourceforge.argparse4j.inf.Namespace;
 
@@ -93,6 +94,7 @@ public class SpliceRunner {
         RefSeqParser rsp = new RefSeqParser(this.refSeq); //Parses the refseq data file. (2 files created) 
         PullRegionsFromRef prfr = new PullRegionsFromRef(ref,SamtoolsPath);  //hg19 / Sam tools
         Iterator<Map.Entry<String,Variant>> iter = this.vars.entrySet().iterator();
+        rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder);
 
         // Create new files
         VCFWriter vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Filtered.vcf"),new File(this.ref+"hg19.fa"));
@@ -109,43 +111,19 @@ public class SpliceRunner {
             Variant var = entry.getValue();
             var.parseSpliceInfo(rsp, prfr);
 
-            if(this.algorithm.equals("MES")){ 
-                MESRunner mr = new MESRunner(var,this.outputFolder,vw, this.algorithmPath); //Run MES and set info for each variant 
-                if (!mr.IsEmpty()){
-                    int sig = var.checkMesSignificance(); //3 levels. 2 = highly significant, 1 = likely significant, 0 = not significant
-
-                    if(sig == 2){
-                        System.out.println(Utilities.GREEN+"significant difference\n"+ Utilities.RESET);
-                        VariantContextBuilder vcb = var.createVariantContext();
-                        vcb.attribute("MesScore",mr.getScores());
-                        sig_vw.writeVar(vcb.make());
-                        sig_tsv.writeVariant(var);
-                    }
-                    else if(sig == 1){
-                        System.out.println(Utilities.GREEN+"possibly significant difference\n"+ Utilities.RESET);
-                        VariantContextBuilder vcb = var.createVariantContext();
-                        vcb.attribute("MesScore",mr.getScores());
-                        possiblySig_vw.writeVar(vcb.make());
-                        iter.remove();
-                        continue;
-                    }
-                    else if(sig == 0){
-                        System.out.println(Utilities.GREEN+"not significant difference\n"+ Utilities.RESET);
-                        VariantContextBuilder vcb = var.createVariantContext();
-                        vcb.attribute("MesScore",mr.getScores());
-                        notSig_vw.writeVar(vcb.make());
-                        iter.remove();
-                        continue;
-                    }
-                    else{
-                        iter.remove();
-                        continue;
-                    }
-
-                }
+          //Run MES and set scores for each variant
+            MESRunner mr = new MESRunner(var,this.outputFolder,vw, this.algorithmPath);  
+            if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
+                //populate percentDiffList
+            	var.checkMesSignificance(); 
             }
-
-
+            
+            //Run rpsblast through Cdd Database and find all conserved domains
+            rpsRunner.runRPSBlast(var);
+            
+            // WRITE OUT RESULTS
+            sig_tsv.writeVariant(var);
+            iter.remove();
         }
 
         sig_tsv.close();
@@ -215,3 +193,28 @@ public class SpliceRunner {
         return writeNewAvinput();
     }
 }
+
+
+//USED TO BE IN mr.IsEmpty() if statement:
+//DEPRECATED
+/*
+int sig = var.checkMesSignificance();
+if(sig == 2){
+    System.out.println(Utilities.GREEN+"significant difference\n"+ Utilities.RESET);
+    VariantContextBuilder vcb = var.createVariantContext();
+    vcb.attribute("MesScore",mr.getScores());
+    sig_vw.writeVar(vcb.make());
+}
+else if(sig == 1){
+    System.out.println(Utilities.GREEN+"possibly significant difference\n"+ Utilities.RESET);
+    VariantContextBuilder vcb = var.createVariantContext();
+    vcb.attribute("MesScore",mr.getScores());
+    possiblySig_vw.writeVar(vcb.make());
+}
+else if(sig == 0){
+    System.out.println(Utilities.GREEN+"not significant difference\n"+ Utilities.RESET);
+    VariantContextBuilder vcb = var.createVariantContext();
+    vcb.attribute("MesScore",mr.getScores());
+    notSig_vw.writeVar(vcb.make());
+}
+*/

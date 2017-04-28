@@ -1,4 +1,4 @@
-package analyzer.AnnovarRunners;
+package analyzer.databaseRunners;
 
 import analyzer.Utilities.Utilities;
 import java.io.IOException;

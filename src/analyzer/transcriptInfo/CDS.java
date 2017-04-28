@@ -261,7 +261,6 @@ public class CDS {
             StringBuilder intron = new StringBuilder(this.Introns.get(e-1).getSeq());
             if (intron.length() < 20) {
             	sb = new StringBuilder("SEQ TOO SHORT");
-                //System.out.println("MES3Prime: " + sb.toString());
             	return sb.toString();
             } else {
                 sb.append(intron.substring(intron.length()-20,intron.length()));
@@ -272,7 +271,6 @@ public class CDS {
             } else {
                 sb.append(seq.substring(0,3));
             }
-            //System.out.println("MES3Prime: " + sb.toString());
 
             return sb.toString().toUpperCase();
     }
@@ -285,11 +283,10 @@ public class CDS {
 
             this.exonSpliceMissed = e;
             this.prime = 5;
+            
             StringBuilder seq = new StringBuilder(this.Exons.get(e).getSeq());
             if (seq.length() < 3) {
             	sb = new StringBuilder("SEQ TOO SHORT");
-                //System.out.println("MES5Prime: " + sb.toString());
-
             	return sb.toString();
             } else {
                 sb.append(seq.substring(seq.length()-3,seq.length()));
@@ -300,23 +297,19 @@ public class CDS {
             } else {
                 sb.append(intron.substring(0,6));
             }
-            //System.out.println("MES5Prime: " + sb.toString());
+
             return sb.toString().toUpperCase();
 
     }
 
     private Integer getPosExon(Integer Pos){ // get the position of the exon in the sequence
-    	//System.out.println("---- CDS ---- getPosExon ----");
 
         Integer total = 0;
         Integer j;
         Integer curr_exon = -1;
-        //System.out.println("position: " + Pos);
 
         for(j = 0; j < this.Exons.size(); ++j){
             total += this.Exons.get((j)).getLength();
-            //System.out.println("total: " + total);
-            //System.out.println("j: " + j);
 
             if(Pos <= total) {
                 return j;
@@ -325,11 +318,7 @@ public class CDS {
             }
             	
         }
-        //System.out.println("exon number=" + j);
-        //System.out.println("curr_exon  =" + curr_exon);
-
-        //System.out.println("  exon size=" + this.Exons.size());
-
+       
         return curr_exon;
     }
 

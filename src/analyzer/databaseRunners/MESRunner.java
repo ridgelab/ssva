@@ -1,4 +1,4 @@
-package analyzer.maxEntScan;
+package analyzer.databaseRunners;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class MESRunner {
             this.isEmpty = false;
             assignScores(var);
         }
-        else{
+        else {
 
             run5Prime(file);
             this.isEmpty = false;
