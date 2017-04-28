@@ -42,8 +42,9 @@ public class rpsBlastRunner {
     public void runRPSBlastCommand() {
     	System.out.println(Utilities.GREEN+"Running rpsblast to find Conserved Domains"+ Utilities.RESET);
     	try {
-    		String[] call = new String[]{"rpsblast", "-query", tempfaaPath, "-db Cdd",
-    									 "-out", tempoutPath, "-evalue .05", "-outfmt '6 OPTIONS'"};
+    		String[] call = new String[]{"rpsblast", "-query", tempfaaPath, "-db", "Cdd",
+    									 "-out", tempoutPath, "-evalue", ".05", "-outfmt", "7"};
+    		
     		ProcessBuilder pb = new ProcessBuilder(call);
 
     		Process p = pb.start();
