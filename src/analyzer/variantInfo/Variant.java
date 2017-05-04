@@ -178,8 +178,11 @@ public class Variant {
                 	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
                 	
                 	if (cds.getCDotList().get(1).equals("+")) {
+                		System.out.println(Integer.parseInt(cds.getCDotList().get(0)) + " + " + Integer.parseInt(cds.getCDotList().get(2)));
                     	this.WithinGenePos = Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2));
                 	} else {
+                		System.out.println(Integer.parseInt(cds.getCDotList().get(0)) + " - " + Integer.parseInt(cds.getCDotList().get(2)));
+
                 		this.WithinGenePos = Integer.parseInt(cds.getCDotList().get(0)) - Integer.parseInt(cds.getCDotList().get(2));
                 	}		
                 			

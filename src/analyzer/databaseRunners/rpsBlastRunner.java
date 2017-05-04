@@ -84,7 +84,12 @@ public class rpsBlastRunner {
     		Integer cddStart = Integer.parseInt(splitLine[1]);
     		Integer cddEnd = Integer.parseInt(splitLine[2]);
     		Double percentLost;
-    		
+            System.out.println("cddStart: " + cddStart);
+            System.out.println("cddEnd: " + cddEnd);
+            System.out.println();
+            System.out.println("withinGenePos: " + var.WithinGenePos);
+            System.out.println();
+            
     		DecimalFormat df = new DecimalFormat("#.##");
 			df.setRoundingMode(RoundingMode.CEILING);
 			
@@ -98,7 +103,6 @@ public class rpsBlastRunner {
     			percentLost = 0.0;
     		}
     		
-            System.out.println(thisLine);
             System.out.println("PercentLost: " + df.format(percentLost));
 
          }  
