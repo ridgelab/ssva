@@ -37,6 +37,7 @@ public class Variant {
     public ArrayList<Integer> WithinGenePos;    // from cDot list
     
     public ArrayList<String> ConservedDomains;
+    public ArrayList<String> PDBList;
 
 
     public Variant(String chr, Integer pos, String spliceInfo, String ref, String alt, String homhet){
@@ -55,6 +56,7 @@ public class Variant {
 
 
         this.ConservedDomains = new ArrayList<>();
+        this.PDBList = new ArrayList<>();
 
 
     }

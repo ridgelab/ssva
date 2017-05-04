@@ -93,8 +93,8 @@ public class pdbBlastRunner {
     	BufferedReader pdbResults = new BufferedReader(new FileReader(new File(tempoutPath)));
     	while ((thisLine = pdbResults.readLine()) != null) {
     		
-    		/*
-    		//gnl|CDD|306940	419  	526 	108 	2e-07	pfam00567, TUDOR
+    		
+    		//4j4j_A	8	180	180	4e-28	4j4j_A mol:protein length:209  DNA dC->dU-editing enzyme APOBEC-3F
 
     		String[] splitLine = thisLine.split("\t");
     		
@@ -130,11 +130,9 @@ public class pdbBlastRunner {
         					 splitLine[5] + '\n'
         				);
         	
-    		var.ConservedDomains.add(outCD.toString());
-        	*/
-    		
-    		System.out.println(thisLine);
-    		//}
+    		var.PDBList.add(outCD.toString());
+        	
+       		}
     		
          }  
     	
@@ -142,23 +140,6 @@ public class pdbBlastRunner {
 		Files.deleteIfExists(new File(tempoutPath).toPath());
     	
     	pdbResults.close();
-    
-    	
-    	/* ROUNDING
-    	 * System.out.println("cddStart: " + cddStart);
-                System.out.println("cddEnd: " + cddEnd);
-                System.out.println();
-                System.out.println("withinGenePos: " + position);
-                System.out.println();
-                System.out.println("PercentLost: " + df.format(percentLost));
-                
-    	 * DecimalFormat df = new DecimalFormat("#.####");
-			df.setRoundingMode(RoundingMode.CEILING);
-			for (Number n : Arrays.asList(12, 123.12345, 0.23, 0.1, 2341234.212431324)) {
-    		Double d = n.doubleValue();
-    		System.out.println(df.format(d));
-			}
-    	 */
     }
     
 }

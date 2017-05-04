@@ -99,6 +99,9 @@ public class TSVWriter {
     	if (var.ConservedDomains.size() != 0) {
         	this.writeConservedDomains(var);
     	}
+    	if (var.PDBList.size() != 0) {
+        	this.writePDB(var);
+    	}
 
     }
     
@@ -106,6 +109,14 @@ public class TSVWriter {
     	file.write("\t#TRANSCRIPT\tCDDid\t%LOST\tE-VAL\tINFO\n");
 
     	for (String out : var.ConservedDomains) {
+        	file.write('\t' + out);
+    	}
+    }
+    
+    public void writePDB(Variant var) throws IOException {
+    	file.write("\t#TRANSCRIPT\tPDBid\t%LOST\tE-VAL\tINFO\n");
+
+    	for (String out : var.PDBList) {
         	file.write('\t' + out);
     	}
     }
@@ -117,5 +128,5 @@ public class TSVWriter {
     public void close() throws IOException {
         this.file.close();
     }
-    
+   
 }
