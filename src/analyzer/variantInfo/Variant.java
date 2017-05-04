@@ -5,7 +5,7 @@ import htsjdk.variant.variantcontext.VariantContextBuilder;
 import analyzer.RefSeq.PullRegionsFromRef;
 import analyzer.RefSeq.RefSeqParser;
 //import analyzer.Utilities.Utilities;
-import analyzer.fileWriters.VCFWriter;
+//import analyzer.fileWriters.VCFWriter;
 import analyzer.transcriptInfo.CDS;
 
 import java.io.FileWriter;
@@ -226,7 +226,7 @@ public class Variant {
         return info;
     }
 
-    public String makeMESSequenceFile(String outFolder, VCFWriter vw) throws Exception{
+    public String makeMESSequenceFile(String outFolder) throws Exception{
     	
         VariantContextBuilder vcb = createVariantContext();
 
@@ -280,8 +280,6 @@ public class Variant {
             }
             sb.replace(sb.length()-1,sb.length(),"");
             vcb.attribute("Transcripts", sb.toString());
-            
-            vw.writeVar(vcb.make());
         }
 
         if(threePrime!= null && fivePrime != null)

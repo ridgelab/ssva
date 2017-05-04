@@ -95,7 +95,7 @@ public class TSVWriter {
 		
 		variantTSV.append('\t' + var.getSpliceInfo() + '\n');
     	
-    	file.write('\n' + variantTSV.toString());
+    	file.write(variantTSV.toString());
     	if (var.ConservedDomains.size() != 0) {
         	this.writeConservedDomains(var);
     	}

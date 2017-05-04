@@ -17,7 +17,7 @@ import analyzer.databaseRunners.AnnovarRunner;
 import analyzer.databaseRunners.MESRunner;
 import analyzer.databaseRunners.rpsBlastRunner;
 import analyzer.fileWriters.TSVWriter;
-import analyzer.fileWriters.VCFWriter;
+//import analyzer.fileWriters.VCFWriter;
 import analyzer.fileWriters.annovarWriter;
 import analyzer.variantInfo.Variant;
 //import htsjdk.variant.variantcontext.VariantContextBuilder;
@@ -97,10 +97,10 @@ public class SpliceRunner {
         rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder);
 
         // Create new files
-        VCFWriter vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Filtered.vcf"),new File(this.ref+"hg19.fa"));
-        VCFWriter sig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Significant.vcf"),new File(this.ref+"hg19.fa"));
-        VCFWriter possiblySig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_PossiblySignificant.vcf"),new File(this.ref+"hg19.fa"));
-        VCFWriter notSig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_NonSignificant.vcf"),new File(this.ref+"hg19.fa"));
+        //VCFWriter vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Filtered.vcf"),new File(this.ref+"hg19.fa"));
+        //VCFWriter sig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Significant.vcf"),new File(this.ref+"hg19.fa"));
+        //VCFWriter possiblySig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_PossiblySignificant.vcf"),new File(this.ref+"hg19.fa"));
+        //VCFWriter notSig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_NonSignificant.vcf"),new File(this.ref+"hg19.fa"));
 
         TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"MaxEntScan.tsv");
         
@@ -112,7 +112,7 @@ public class SpliceRunner {
             var.parseSpliceInfo(rsp, prfr);
 
           //Run MES and set scores for each variant
-            MESRunner mr = new MESRunner(var,this.outputFolder,vw, this.algorithmPath);  
+            MESRunner mr = new MESRunner(var,this.outputFolder, this.algorithmPath);  
             if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
                 //populate percentDiffList
             	var.checkMesSignificance(); 
@@ -132,10 +132,10 @@ public class SpliceRunner {
 
         sig_tsv.close();
         
-        sig_vw.close();
-        notSig_vw.close();
-        possiblySig_vw.close();
-        vw.close();
+        //sig_vw.close();
+        //notSig_vw.close();
+        //possiblySig_vw.close();
+        //vw.close();
     }
 
     private void runAnnotations(String newFile) {

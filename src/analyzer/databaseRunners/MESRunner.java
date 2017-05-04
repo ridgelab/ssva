@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 import analyzer.Utilities.Utilities;
-import analyzer.fileWriters.VCFWriter;
+//import analyzer.fileWriters.VCFWriter;
 import analyzer.variantInfo.Variant;
 
 /**
@@ -36,11 +36,11 @@ public class MESRunner {
      * @param algorithmPath
      * @throws Exception
      */
-    public MESRunner(Variant var, String outFolder, VCFWriter vw, String algorithmPath) throws Exception{
+    public MESRunner(Variant var, String outFolder, String algorithmPath) throws Exception{
     	//System.out.println("---- MESRunner ---- MESRunner ----");
 
         this.path = algorithmPath;
-        String file = var.makeMESSequenceFile(outFolder, vw);
+        String file = var.makeMESSequenceFile(outFolder);
         if (file == null){
             this.isEmpty = true;
         }
