@@ -21,7 +21,7 @@ public class TSVWriter {
     	path = tsvPath;
     	file = new FileWriter(tsvPath);
     	
-    	file.write("CHR\tPOS\tREF\tALT\tGENE\tGERP2\t1000GEN\tEXAC\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+    	file.write("#CHR\tPOS\tREF\tALT\tGENE\tGERP2\t1000GEN\tEXAC\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
     }
     
     public void writeVariant(Variant var) throws IOException {
@@ -89,7 +89,20 @@ public class TSVWriter {
     }
     
     public void writeConservedDomains(Variant var) throws IOException {
-   
+    	file.write("#CDDid\tSTART\t%LOST\tE-VAL\tINFO\n");
+    	
+    	StringBuilder variantTSV = new StringBuilder();
+    	variantTSV.append(var.getChr() + '\t' +
+    					  var.getPos() + '\t' +
+    					  var.getRef() + '\t' +
+    					  var.getAlt() + '\t' +
+    					  var.getGeneName() + '\t'+
+    					  var.Annotations.get(0) + '\t' +
+    					  var.Annotations.get(1) + '\t' +
+    					  var.Annotations.get(2));    	
+
+    	
+    	file.write(variantTSV.toString());
     }
 	
     public String getPath(){

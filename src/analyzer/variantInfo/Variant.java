@@ -23,6 +23,7 @@ public class Variant {
 
     private String Chr; // chr21
     private Integer Pos; // 1827643
+    public Integer WithinGenePos; // from cDot list
     private String Ref; // A
     private String Alt; // T
     private String homhet; // hom het
@@ -175,6 +176,17 @@ public class Variant {
                 	CDS cds = new CDS(info[0], gene2trans[0]);
                 	cds.setcDot(info[2]); // c.4451+37C>A
                 	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
+                	
+            		System.out.println(cds.getCDotList().get(1));
+
+                	if (cds.getCDotList().get(1) == "+") {
+                		System.out.println("in +");
+                    	this.WithinGenePos = Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2));
+                	} else {
+                		System.out.println("in -");
+                		this.WithinGenePos = Integer.parseInt(cds.getCDotList().get(0)) - Integer.parseInt(cds.getCDotList().get(2));
+                	}		
+                			
                 	cds.setExon(info[1]);
                 	cds.extractCDS(rsp, prfr);
                 	this.transcripts.add(cds);

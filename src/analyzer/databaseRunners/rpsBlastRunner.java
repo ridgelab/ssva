@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 import analyzer.Utilities.Utilities;
 import analyzer.variantInfo.Variant;
@@ -75,6 +76,11 @@ public class rpsBlastRunner {
     	
     	BufferedReader rpsResults = new BufferedReader(new FileReader(new File(tempoutPath)));
     	while ((thisLine = rpsResults.readLine()) != null) {
+    		
+    		//gnl|CDD|306940	419  	526 	108 	2e-07	pfam00567, TUDOR
+
+    		String[] splitLine = thisLine.split("\t");
+    		//if (splitLine[1] > var.)
             System.out.println(thisLine);
          }  
     	
