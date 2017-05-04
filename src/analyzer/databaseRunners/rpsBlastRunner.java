@@ -26,13 +26,18 @@ public class rpsBlastRunner {
     
     public void runRPSBlast(Variant var) throws IOException {
     	
-    	buildRPSQuery(var); 	
-    	try {
-			runRPSBlastCommand();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	extractRPSBlastResults(var);
+    	if (var.getCDSList().size() != 0) {
+    		buildRPSQuery(var); 	
+        	try {
+    			runRPSBlastCommand();
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+        	extractRPSBlastResults(var);
+    	} else {
+    		System.out.println("zero CDSList");
+    	}
+    	
     	
     }
 
