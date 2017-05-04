@@ -102,7 +102,7 @@ public class SpliceRunner {
         //VCFWriter possiblySig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_PossiblySignificant.vcf"),new File(this.ref+"hg19.fa"));
         //VCFWriter notSig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_NonSignificant.vcf"),new File(this.ref+"hg19.fa"));
 
-        TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"MaxEntScan.tsv");
+        TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv");
         
         System.out.println(Utilities.GREEN+"Going through the variants\n"+ Utilities.RESET);
 
@@ -116,7 +116,7 @@ public class SpliceRunner {
             if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
                 //populate percentDiffList
             	var.checkMesSignificance(); 
-            }
+            //}
             
             //Run NNSplice and Human Splicing Finder
             
@@ -127,6 +127,7 @@ public class SpliceRunner {
             
             // WRITE OUT RESULTS
             sig_tsv.writeVariant(var);
+            } // inside of valid Max Ent Scan only for now!
             iter.remove();
         }
 
