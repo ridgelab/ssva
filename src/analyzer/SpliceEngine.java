@@ -1,7 +1,7 @@
 package analyzer;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
-import net.sourceforge.argparse4j.inf.ArgumentChoice;
+//import net.sourceforge.argparse4j.inf.ArgumentChoice;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
@@ -78,7 +78,7 @@ public class SpliceEngine {
         	  .required(true)
         	  .type(String.class);
         
-        parser.addArgument("-h","--hg19")
+        parser.addArgument("-g","--hg19")
           	  .dest("Ref")
           	  .help("This is the path to the directory that contains the UCSC reference genome by chromosome downloaded.")
           	  .required(true)
