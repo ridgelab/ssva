@@ -96,23 +96,18 @@ public class TSVWriter {
 		variantTSV.append('\t' + var.getSpliceInfo() + '\n');
     	
     	file.write(variantTSV.toString());
+    	if (var.ConservedDomains.size() != 0) {
+        	this.writeConservedDomains(var);
+    	}
+
     }
     
     public void writeConservedDomains(Variant var) throws IOException {
     	file.write("#CDDid\tSTART\t%LOST\tE-VAL\tINFO\n");
-    	
-    	StringBuilder variantTSV = new StringBuilder();
-    	variantTSV.append(var.getChr() + '\t' +
-    					  var.getPos() + '\t' +
-    					  var.getRef() + '\t' +
-    					  var.getAlt() + '\t' +
-    					  var.getGeneName() + '\t'+
-    					  var.Annotations.get(0) + '\t' +
-    					  var.Annotations.get(1) + '\t' +
-    					  var.Annotations.get(2));    	
 
-    	
-    	file.write(variantTSV.toString());
+    	for (String out : var.ConservedDomains) {
+        	file.write(out);
+    	}
     }
 	
     public String getPath(){

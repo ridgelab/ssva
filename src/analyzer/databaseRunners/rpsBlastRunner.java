@@ -26,7 +26,7 @@ public class rpsBlastRunner {
     
     public void runRPSBlast(Variant var) throws IOException {
     	
-    	System.out.println(var.toString());
+    	//System.out.println(var.toString());
     	
     	if (var.getCDSList().size() == 1) {
     		buildRPSQuery(var, 0); 	
@@ -100,39 +100,47 @@ public class rpsBlastRunner {
     		Integer cddEnd = Integer.parseInt(splitLine[2]);
     		Double percentLost;
             Double position = Math.ceil(var.WithinGenePos.get(num) / 3.0); // convert to the protein position
-
             
     		DecimalFormat df = new DecimalFormat("#.##");
 			df.setRoundingMode(RoundingMode.CEILING);
 			
     		if (cddStart >= position) { // starts after the lost splice site
     			percentLost = 100.0;
-    			System.out.println("cddStart: " + cddStart);
-                System.out.println("cddEnd: " + cddEnd);
-                System.out.println();
-                System.out.println("withinGenePos: " + position);
-                System.out.println();
-                System.out.println("PercentLost: " + df.format(percentLost));
 
     		} else if (cddEnd >= position) { // variant within this domain
     			Double totalDomainLength = (double) (cddEnd - cddStart + 1);
     			Double lostAmount = (double) (cddEnd - position + 1);
     			percentLost = lostAmount / totalDomainLength * 100;
-    			System.out.println("cddStart: " + cddStart);
+    			
+
+    		} else {
+    			percentLost = 0.0;
+    		}
+
+    		StringBuilder outCD = new StringBuilder();
+    		outCD.append(var.getCDSList().get(num).cDot + "\t" + 
+    					 splitLine[0] + '\t' + // gnl|CDD|306940
+    					 percentLost + "%\t" + // percentLost
+    					 splitLine[4] + '\t' + // e-val for match
+    					 splitLine[5] + '\n'
+    				);
+    		var.ConservedDomains.add(outCD.toString());
+         }  
+    	
+    	
+		Files.deleteIfExists(new File(tempoutPath).toPath());
+    	
+    	rpsResults.close();
+    
+    	
+    	/* ROUNDING
+    	 * System.out.println("cddStart: " + cddStart);
                 System.out.println("cddEnd: " + cddEnd);
                 System.out.println();
                 System.out.println("withinGenePos: " + position);
                 System.out.println();
                 System.out.println("PercentLost: " + df.format(percentLost));
-
-    		} else {
-    			percentLost = 0.0;
-    		}
-    		
-
-         }  
-    	
-    	/* ROUNDING
+                
     	 * DecimalFormat df = new DecimalFormat("#.####");
 			df.setRoundingMode(RoundingMode.CEILING);
 			for (Number n : Arrays.asList(12, 123.12345, 0.23, 0.1, 2341234.212431324)) {
@@ -140,10 +148,6 @@ public class rpsBlastRunner {
     		System.out.println(df.format(d));
 			}
     	 */
-		Files.deleteIfExists(new File(tempoutPath).toPath());
-    	
-    	rpsResults.close();
-    	
     }
     
 }

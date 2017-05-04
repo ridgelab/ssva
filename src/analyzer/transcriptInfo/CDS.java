@@ -27,7 +27,7 @@ public class CDS {
     private String[] exonEnds; // column 10 refseq
     private String[] exonFrames; // column 15 refseq
     private StringBuilder seq;
-    private String cDot; // .vcf.avinput.variant_functions
+    public String cDot; // .vcf.avinput.variant_functions
     private ArrayList<String> CDotList; // ["4451","+","37","C","A"] .vcf.avinput.variant_functions
     private String exon; // .vcf.avinput.variant_functions
     private Integer prime; //this will be either 3 or 5 depending on which side of the intron it is
