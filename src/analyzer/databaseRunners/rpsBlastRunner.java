@@ -26,26 +26,36 @@ public class rpsBlastRunner {
     
     public void runRPSBlast(Variant var) throws IOException {
     	
-    	if (var.getCDSList().size() != 0) {
-    		buildRPSQuery(var); 	
+    	System.out.println(var.toString());
+    	
+    	if (var.getCDSList().size() == 1) {
+    		buildRPSQuery(var, 0); 	
         	try {
     			runRPSBlastCommand();
     		} catch (Exception e) {
     			e.printStackTrace();
     		}
-        	extractRPSBlastResults(var);
-    	} else {
-    		System.out.println("zero CDSList");
+        	extractRPSBlastResults(var, 0);
+    	} else if (var.getCDSList().size() != 0){
+    		for (int i = 0; i < var.getCDSList().size(); ++i) {
+    			buildRPSQuery(var, i); 	
+            	try {
+        			runRPSBlastCommand();
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+            	extractRPSBlastResults(var, i);
+    		}
     	}
     	
     	
     }
 
-    public void buildRPSQuery(Variant var) throws IOException {
+    public void buildRPSQuery(Variant var, Integer num) throws IOException {
     
     	FileWriter tempFAA = new FileWriter(tempfaaPath);
     	StringBuilder fasta = new StringBuilder('>' + var.getChr() + ':' + var.getPos() + '\n' +
-    											var.getCDSList().get(0).getOriginalProtein().substring(0, var.getCDSList().get(0).getOriginalProtein().length() - 1) //take off *
+    											var.getCDSList().get(num).getOriginalProtein().substring(0, var.getCDSList().get(num).getOriginalProtein().length() - 1) //take off *
     											+ '\n');
     	tempFAA.write(fasta.toString());
     	tempFAA.close();
@@ -77,7 +87,7 @@ public class rpsBlastRunner {
     	}
     }
     
-    public void extractRPSBlastResults(Variant var) throws IOException {
+    public void extractRPSBlastResults(Variant var, Integer num) throws IOException {
     	String thisLine = null;
     	
     	BufferedReader rpsResults = new BufferedReader(new FileReader(new File(tempoutPath)));
@@ -92,18 +102,18 @@ public class rpsBlastRunner {
             System.out.println("cddStart: " + cddStart);
             System.out.println("cddEnd: " + cddEnd);
             System.out.println();
-            System.out.println("withinGenePos: " + var.WithinGenePos);
+            System.out.println("withinGenePos: " + var.WithinGenePos.get(num));
             System.out.println();
             
     		DecimalFormat df = new DecimalFormat("#.##");
 			df.setRoundingMode(RoundingMode.CEILING);
 			
-    		if (cddStart >= var.WithinGenePos) { // starts after the lost splice site
+    		if (cddStart >= var.WithinGenePos.get(num)) { // starts after the lost splice site
     			percentLost = 100.0;
-    		} else if (cddEnd >= var.WithinGenePos) { // variant within this domain
+    		} else if (cddEnd >= var.WithinGenePos.get(num)) { // variant within this domain
     			Double totalDomainLength = (double) (cddEnd - cddStart + 1);
-    			Double lostAmount = (double) (cddEnd - var.WithinGenePos + 1);
-    			percentLost = lostAmount / totalDomainLength;
+    			Double lostAmount = (double) (cddEnd - var.WithinGenePos.get(num) + 1);
+    			percentLost = lostAmount / totalDomainLength * 100;
     		} else {
     			percentLost = 0.0;
     		}

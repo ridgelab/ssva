@@ -23,7 +23,7 @@ public class Variant {
 
     private String Chr; // chr21
     private Integer Pos; // 1827643
-    public Integer WithinGenePos; // from cDot list
+
     private String Ref; // A
     private String Alt; // T
     private String homhet; // hom het
@@ -34,6 +34,7 @@ public class Variant {
     private ArrayList<Double> OriginalMesScores;
     private ArrayList<Double> VariantMesScores;
     private ArrayList<Double> percentDiffList;
+    public ArrayList<Integer> WithinGenePos;    // from cDot list
     
     public ArrayList<String> ConservedDomains;
 
@@ -50,6 +51,7 @@ public class Variant {
         this.OriginalMesScores = new ArrayList<>();
         this.VariantMesScores = new ArrayList<>();
         this.percentDiffList = new ArrayList<>();
+        this.WithinGenePos = new ArrayList<>();
 
 
         this.ConservedDomains = new ArrayList<>();
@@ -151,7 +153,7 @@ public class Variant {
 
     @Override
     public String toString() {
-        return "Variant{" +
+        /*return "Variant{" +
                 "Chr='" + Chr + '\'' +
                 ",\nPos=" + Pos +
                 ",\nRef='" + Ref + '\'' +
@@ -162,6 +164,19 @@ public class Variant {
                 ",\ntranscripts=" + String.valueOf(transcripts.size()) +
                 ",\nGeneName='" + GeneName + '\'' +
                 "}\n\n";
+                */
+    	StringBuilder sb = new StringBuilder();
+    	for (CDS cd : transcripts) {
+    		sb.append(cd.toString());
+    	}
+    	
+    	return "Variant{" +
+        "Chr='" + Chr + '\'' +
+        ",\nPos=" + Pos +
+        ",\nspliceInfo='" + spliceInfo + '\'' +
+        ",\ntranscripts=" + String.valueOf(transcripts.size()) +
+        ",\n" + sb.toString() +
+        "}\n\n";
     }
 
     public void parseSpliceInfo(RefSeqParser rsp, PullRegionsFromRef prfr){ // info from the varfunct (.vcf.avinput.variant_function)
@@ -182,12 +197,11 @@ public class Variant {
                 	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
                 	
                 	if (cds.getCDotList().get(1).equals("+")) {
-                		System.out.println(Integer.parseInt(cds.getCDotList().get(0)) + " + " + Integer.parseInt(cds.getCDotList().get(2)));
-                    	this.WithinGenePos = Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2));
+                		//System.out.println(Integer.parseInt(cds.getCDotList().get(0)) + " + " + Integer.parseInt(cds.getCDotList().get(2)));
+                    	this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2)));
                 	} else {
-                		System.out.println(Integer.parseInt(cds.getCDotList().get(0)) + " - " + Integer.parseInt(cds.getCDotList().get(2)));
-
-                		this.WithinGenePos = Integer.parseInt(cds.getCDotList().get(0)) - Integer.parseInt(cds.getCDotList().get(2));
+                		//System.out.println(Integer.parseInt(cds.getCDotList().get(0)) + " - " + Integer.parseInt(cds.getCDotList().get(2)));
+                		this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) - Integer.parseInt(cds.getCDotList().get(2)));
                 	}		
                 			
                 	cds.setExon(info[1]);

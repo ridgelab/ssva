@@ -97,7 +97,7 @@ public class CDS {
     private ArrayList<String> CDotList; // ["4451","+","37","C","A"] .vcf.avinput.variant_functions
 */
 
-    	return "\tCDS:\n" +
+    	/*return "\tCDS:\n" +
                 "Protein='" + Protein + '\'' +
                 ", transName='" + transName + '\'' +
                 ", geneName='" + cdsStart + '\'' +
@@ -112,7 +112,10 @@ public class CDS {
                 ", exonSpliceMissed='" + exonSpliceMissed + '\'' +
                 ", modifiedProtein='" + modifiedProtein + '\'' +
                 '}';
-    	
+*/
+    	return "\tCDS:\n" +
+        "ProteinLength='" + Protein.length() +
+        "}\n";
     }
     
     // made by CS 4/20/17
