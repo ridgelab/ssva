@@ -49,6 +49,7 @@ public class Variant {
         this.transcripts = new ArrayList<>();
         this.OriginalMesScores = new ArrayList<>();
         this.VariantMesScores = new ArrayList<>();
+        this.percentDiffList = new ArrayList<>();
 
 
         this.ConservedDomains = new ArrayList<>();
