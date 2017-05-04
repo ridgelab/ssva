@@ -95,7 +95,7 @@ public class TSVWriter {
 		
 		variantTSV.append('\t' + var.getSpliceInfo() + '\n');
     	
-    	file.write(variantTSV.toString());
+    	file.write('\n' + variantTSV.toString());
     	if (var.ConservedDomains.size() != 0) {
         	this.writeConservedDomains(var);
     	}
@@ -103,7 +103,7 @@ public class TSVWriter {
     }
     
     public void writeConservedDomains(Variant var) throws IOException {
-    	file.write("#CDDid\tSTART\t%LOST\tE-VAL\tINFO\n");
+    	file.write("#TRANSCRIPT\tCDDid\t%LOST\tE-VAL\tINFO\n");
 
     	for (String out : var.ConservedDomains) {
         	file.write(out);

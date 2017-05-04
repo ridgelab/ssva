@@ -65,7 +65,7 @@ public class rpsBlastRunner {
     	System.out.println(Utilities.GREEN+"Running rpsblast to find Conserved Domains"+ Utilities.RESET);
     	try {
     		String[] call = new String[]{"rpsblast", "-query", tempfaaPath, "-db", "Cdd",
-    									 "-out", tempoutPath, "-evalue", ".01", "-outfmt", "6 sseqid qstart qend length evalue stitle"};
+    									 "-out", tempoutPath, "-evalue", ".005", "-outfmt", "6 sseqid qstart qend length evalue stitle"};
     		
     		ProcessBuilder pb = new ProcessBuilder(call);
 
@@ -118,9 +118,9 @@ public class rpsBlastRunner {
     		}
 
     		StringBuilder outCD = new StringBuilder();
-    		outCD.append(var.getCDSList().get(num).cDot + "\t" + 
+    		outCD.append(var.getCDSList().get(num).getTransName() + ':' + var.getCDSList().get(num).cDot + "\t" + 
     					 splitLine[0] + '\t' + // gnl|CDD|306940
-    					 percentLost + "%\t" + // percentLost
+    					 df.format(percentLost) + "%\t" + // percentLost
     					 splitLine[4] + '\t' + // e-val for match
     					 splitLine[5] + '\n'
     				);
