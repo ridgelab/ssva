@@ -13,15 +13,13 @@ import net.sourceforge.argparse4j.inf.Namespace;
 */
 public class SpliceEngine {
 
-    private static String algorithm;
-
     public static void main( String[] args)
     {
         SpliceEngine se = new SpliceEngine();
         ArgumentParser parser = se.setup_parser(); //Set up the argument parser 
         try {
             Namespace res = parser.parseArgs(args);
-            SpliceRunner sr = new SpliceRunner(res, SpliceEngine.algorithm); 
+            SpliceRunner sr = new SpliceRunner(res); 
             sr.run(); // Run the algorithm with the arguments passed in. 
         } catch (ArgumentParserException e) {
             parser.handleError(e);
@@ -35,100 +33,105 @@ public class SpliceEngine {
     // This method used to create a command line argument parser, which will set up required 
     //  arguments and flags to be entered through running the the algorithm on the command line
     // Flags:
-    // -S = which scoring algorithm to use. (Currently only supports MES) 
-    // -A = path to annovar 
-    // -H = path to the HumandDB created using annovar. 
-    // -F = path to the Reference Genome from USCS (ex = hg19)
-    // -D = path to file that contains analyzer.refseq data 
-    // -S = path to Samtools 
-    // -R = define the splice site by the number of bases away from an exon-intron region 
     // -i = the input file in VCF format 
     // -o = the name of the directory to save the output to
-    // -a = the full path to the algorithm directory
+    // -a = path to annovar 
+    // -d = path to the HumandDB (databases like grep++, exac, and 1kgenomes) downloaded using annovar. 
+    // -h = path to the Reference Genome from USCS (ex = hg19)
+    // -r = path to file that contains refSeq data from UCSC table browser 
+    // -m = the full path to the MaxEntScan directory
+    // -s = path to Samtools // assumed to be in path
     //-------------------------------------------------------------------------------------
     private ArgumentParser setup_parser(){
         ArgumentParser parser = ArgumentParsers.newArgumentParser("SpliceSiteIdentifier.py")
                 .description("This program analyzes a vcf file to find and score Splice Site Variants");
 
-        parser.addArgument("-S","--scoringAlgorithm").dest("score").choices(new ArgumentChoice() {
-            @Override
-            public boolean contains(Object o) {
-                String val = String.valueOf(o);
-                if (val.equals("MaxEntScan") || val.equals("MES")) {
-                    SpliceEngine.algorithm = "MES";
-                    return true;
-                } else if (val.equals("Ensemble") || val.equals("EN")) {
-                    SpliceEngine.algorithm = "EN";
-                    return true;
-                }
-                return false;
-            }
+        //REQUIRED
+        
+        parser.addArgument("-i","--input")
+  	  		  .dest("Input")
+  	  		  .help("Here you provide the input in VCF format only.")
+  	  		  .required(true)
+  	  		  .type(String.class);
 
-            @Override
-            public String textualFormat() {
-                return "The choices are \"MaxEntScan\" aka \"MES\", and \"Ensemble\" aka \"EN\"";
-            }
-        }).required(true).help("Choose the desired algorithm.");
-
-
-
-        parser.addArgument("-A","--Annovar")
+        parser.addArgument("-o","--output")
+   	  		  .dest("Output")
+   	  		  .help("Here you provide the name of the directory to which the output files are saved.")
+   	  		  .required(true)
+   	  		  .type(String.class); 
+  
+        parser.addArgument("-a","--annovar")
         	  .dest("Annovar")
         	  .help("This is the path to annovar.")
         	  .required(true)
         	  .type(String.class);
 
-        parser.addArgument("-H","--humandb")
+        parser.addArgument("-d","--humandb")
          	  .dest("human")
          	  .help("This is the path to the humandb that Annovar uses.")
               .required(true)
               .type(String.class);
-
-        parser.addArgument("-F","--RefFile")
+        
+        parser.addArgument("-m","--MaxEntScan")
+        	  .dest("MaxEntPath")
+        	  .help("This is the full path to the MaxEntScan directory.")
+        	  .required(true)
+        	  .type(String.class);
+        
+        parser.addArgument("-h","--hg19")
           	  .dest("Ref")
           	  .help("This is the path to the directory that contains the UCSC reference genome by chromosome downloaded.")
           	  .required(true)
           	  .type(String.class);
-
-        parser.addArgument("-D","--RefSeqFile")
+      
+        parser.addArgument("-r","--RefSeqFile")
         	  .dest("analyzer/RefSeq")
         	  .help("This is the path to the file that contains the UCSC table viewer RefSeq data.")
         	  .required(true)
         	  .type(String.class);
 
+        
+        
+        // NOT REQUIRED (DEFAULTS SET)
         parser.addArgument("-s","--Samtools")
          	  .dest("Samtools")
          	  .help("This is the path to the Samtools executable.")
-         	  .required(true)
+         	  .required(false)
+         	  .setDefault("samtools") // in path assumed
          	  .type(String.class);
 
-        parser.addArgument("-R","--spliceSiteRange")
-         	  .dest("range")
-         	  .help("Give the number of bases that you want defined as a splice site. It will look that many bases to either side of the splice site.")
-         	  .type(Integer.class);
 
-        parser.addArgument("-i","--input")
-        	  .dest("Input")
-        	  .help("Here you provide the input in VCF format only.")
-        	  .required(true)
-              .type(String.class);
-
-
-        parser.addArgument("-o","--output")
-         	  .dest("Output")
-         	  .help("Here you provide the name of the directory to which I will save the output files.")
-         	  .required(true)
-         	  .type(String.class);
-
-        parser.addArgument("-a","--algorithm")
-        	  .dest("AlgorithmPath")
-        	  .help("This is the full path to the algorithm directory.")
-        	  .required(true)
-        	  .type(String.class);
-
+       
         return parser;
     }
 }
+
+
+/*parser.addArgument("-R","--spliceSiteRange")
+.dest("range")
+.help("Give the number of bases that you want defined as a splice site. It will look that many bases to either side of the splice site.")
+.type(Integer.class);
+*/
+/*parser.addArgument("-S","--scoringAlgorithm").dest("score").choices(new ArgumentChoice() {
+@Override
+public boolean contains(Object o) {
+String val = String.valueOf(o);
+if (val.equals("MaxEntScan") || val.equals("MES")) {
+  SpliceEngine.algorithm = "MES";
+  return true;
+} else if (val.equals("Ensemble") || val.equals("EN")) {
+  SpliceEngine.algorithm = "EN";
+  return true;
+}
+return false;
+}
+
+@Override
+public String textualFormat() {
+return "The choices are \"MaxEntScan\" aka \"MES\", and \"Ensemble\" aka \"EN\"";
+}
+}).required(true).help("Choose the desired algorithm.");
+*/
 
 
 // ************ Example Bash script to run the algorithm *********************

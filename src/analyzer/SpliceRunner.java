@@ -15,6 +15,7 @@ import analyzer.annovarParsers.GeneParser;
 import analyzer.annovarParsers.GeneralAnnotationParser;
 import analyzer.databaseRunners.AnnovarRunner;
 import analyzer.databaseRunners.MESRunner;
+import analyzer.databaseRunners.pdbBlastRunner;
 import analyzer.databaseRunners.rpsBlastRunner;
 import analyzer.fileWriters.TSVWriter;
 //import analyzer.fileWriters.VCFWriter;
@@ -37,14 +38,13 @@ public class SpliceRunner {
     private String refSeq;                 // Path to the file that contains the refseq data 
     private TreeMap<String,Variant> vars;  // A map of the splicing variants. keys = chromsome:position, values = splicing variant. 
     private String SamtoolsPath;           // Path to Samtools 
-    private String algorithm;              // The algorithm variable passed from splice engine. 
-    private String algorithmPath;          // Path to the algorithm directory 
+    private String MaxEntPath;          // Path to the algorithm directory 
 
 
     //-------------------------------------------------------------------------------------
     // Constructor method 
     //-------------------------------------------------------------------------------------
-    public SpliceRunner(Namespace res, String algorithm){
+    public SpliceRunner(Namespace res){
 
         this.annovar = res.getString("Annovar");
         this.input = res.getString("Input");
@@ -57,31 +57,8 @@ public class SpliceRunner {
         this.ref = res.getString("Ref");
         this.refSeq = res.getString("analyzer/RefSeq");
         this.SamtoolsPath = res.getString("Samtools");
-        this.algorithm = algorithm;
-        this.algorithmPath = res.getString("AlgorithmPath");
+        this.MaxEntPath = res.getString("MaxEntPath");
 
-    }
-
-    //-------------------------------------------------------------------------------------
-    // New toString method 
-    //-------------------------------------------------------------------------------------
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("analyzer.SpliceRunner{" +
-                "annovar='" + annovar + '\'' +
-                ", input='" + input + '\'' +
-                ", human='" + human + '\'' +
-                ", outputFolder='" + outputFolder + '\'' +
-                ", ref='" + ref + '\'' +
-                ", refSeq='" + refSeq + "\'vars=");
-//        for(Map.Entry<String, Variant> entry : vars.entrySet()){
-//            sb.append("\n\tkey= "+entry.getKey()+"\t"+entry.getValue().toString());
-//        }
-
-        sb.append(", SamtoolsPath='" + SamtoolsPath + '\'' +
-                ", algorithm='" + algorithm + '\'' +
-                '}');
-        return sb.toString();
     }
 
     //-------------------------------------------------------------------------------------
@@ -95,6 +72,7 @@ public class SpliceRunner {
         PullRegionsFromRef prfr = new PullRegionsFromRef(ref,SamtoolsPath);  //hg19 / Sam tools
         Iterator<Map.Entry<String,Variant>> iter = this.vars.entrySet().iterator();
         rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder);
+        pdbBlastRunner pdbRunner = new pdbBlastRunner(outputFolder);
 
         // Create new files
         //VCFWriter vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Filtered.vcf"),new File(this.ref+"hg19.fa"));
@@ -112,7 +90,7 @@ public class SpliceRunner {
             var.parseSpliceInfo(rsp, prfr);
 
           //Run MES and set scores for each variant
-            MESRunner mr = new MESRunner(var,this.outputFolder, this.algorithmPath);  
+            MESRunner mr = new MESRunner(var,this.outputFolder, this.MaxEntPath);  
             if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
                 //populate percentDiffList
             	var.checkMesSignificance(); 
@@ -121,7 +99,8 @@ public class SpliceRunner {
             //Run NNSplice and Human Splicing Finder
             
             //Run PDB site losses
-            
+            pdbRunner.runPDBBlast(var);
+
             //Run rpsblast through Cdd Database and find all conserved domains
             rpsRunner.runRPSBlast(var);
             
