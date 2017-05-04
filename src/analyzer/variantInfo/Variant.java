@@ -179,7 +179,7 @@ public class Variant {
                 	
             		System.out.println(cds.getCDotList().get(1));
 
-                	if (cds.getCDotList().get(1) == "+") {
+                	if (cds.getCDotList().get(1).equals("+")) {
                 		System.out.println("in +");
                     	this.WithinGenePos = Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2));
                 	} else {
