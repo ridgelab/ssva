@@ -84,7 +84,7 @@ public class TSVWriter {
 		variantTSV.append('\t');
 		
 		if (var.getPercentDiffList().size() == 1) {
-    		variantTSV.append(df.format(var.getPercentDiffList().get(0).doubleValue()));
+    		variantTSV.append(df.format(var.getPercentDiffList().get(0).doubleValue()) + '%');
     	} else if (var.getPercentDiffList().size() == 0){
     		variantTSV.append("NA\t");
     	} else {
@@ -103,10 +103,10 @@ public class TSVWriter {
     }
     
     public void writeConservedDomains(Variant var) throws IOException {
-    	file.write("#TRANSCRIPT\tCDDid\t%LOST\tE-VAL\tINFO\n");
+    	file.write("\t#TRANSCRIPT\tCDDid\t%LOST\tE-VAL\tINFO\n");
 
     	for (String out : var.ConservedDomains) {
-        	file.write(out);
+        	file.write('\t' + out);
     	}
     }
 	
