@@ -113,8 +113,8 @@ public class CDS {
                 ", modifiedProtein='" + modifiedProtein + '\'' +
                 '}';
 */
-    	return "\tCDS:\n" +
-        "ProteinLength='" + Protein.length() +
+    	return "\tProteinLength=" + Protein.length() +
+    			"\n\tSeqLength=" + seq.length() +
         "}\n";
     }
     

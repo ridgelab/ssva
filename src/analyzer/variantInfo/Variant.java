@@ -170,11 +170,11 @@ public class Variant {
     		sb.append(cd.toString());
     	}
     	
-    	return "Variant{" +
-        "Chr='" + Chr + '\'' +
-        ",\nPos=" + Pos +
-        ",\nspliceInfo='" + spliceInfo + '\'' +
-        ",\ntranscripts=" + String.valueOf(transcripts.size()) +
+    	return "Variant{\n" +
+        "\tChr='" + Chr + '\'' +
+        ",\tPos=" + Pos + ",\n" +
+        "\tspliceInfo='" + spliceInfo + "\',\n" +
+        "\ttranscripts=" + String.valueOf(transcripts.size()) +
         ",\n" + sb.toString() +
         "}\n\n";
     }
