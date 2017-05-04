@@ -118,6 +118,10 @@ public class SpliceRunner {
             	var.checkMesSignificance(); 
             }
             
+            //Run NNSplice and Human Splicing Finder
+            
+            //Run PDB site losses
+            
             //Run rpsblast through Cdd Database and find all conserved domains
             rpsRunner.runRPSBlast(var);
             

@@ -40,7 +40,7 @@ public class Utilities {
         try {
             while( (line = reader.readLine()) != null){
                 sb.append(line);
-                System.out.println(line);
+                //System.out.println(line);
                 sb.append(System.getProperty("line.separator"));
             }
             reader.close();
