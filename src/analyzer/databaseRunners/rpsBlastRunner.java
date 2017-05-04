@@ -99,7 +99,7 @@ public class rpsBlastRunner {
     		Integer cddStart = Integer.parseInt(splitLine[1]);
     		Integer cddEnd = Integer.parseInt(splitLine[2]);
     		Double percentLost;
-            Integer position = (int) Math.ceil(var.WithinGenePos.get(num) / 3);
+            Double position = Math.ceil(var.WithinGenePos.get(num) / 3.0); // convert to the protein position
 
             
     		DecimalFormat df = new DecimalFormat("#.##");
