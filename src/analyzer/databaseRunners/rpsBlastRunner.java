@@ -101,25 +101,34 @@ public class rpsBlastRunner {
     		Double percentLost;
             Integer position = (int) Math.ceil(var.WithinGenePos.get(num) / 3);
 
-            System.out.println("cddStart: " + cddStart);
-            System.out.println("cddEnd: " + cddEnd);
-            System.out.println();
-            System.out.println("withinGenePos: " + position);
-            System.out.println();
+            
     		DecimalFormat df = new DecimalFormat("#.##");
 			df.setRoundingMode(RoundingMode.CEILING);
 			
     		if (cddStart >= position) { // starts after the lost splice site
     			percentLost = 100.0;
+    			System.out.println("cddStart: " + cddStart);
+                System.out.println("cddEnd: " + cddEnd);
+                System.out.println();
+                System.out.println("withinGenePos: " + position);
+                System.out.println();
+                System.out.println("PercentLost: " + df.format(percentLost));
+
     		} else if (cddEnd >= position) { // variant within this domain
     			Double totalDomainLength = (double) (cddEnd - cddStart + 1);
     			Double lostAmount = (double) (cddEnd - position + 1);
     			percentLost = lostAmount / totalDomainLength * 100;
+    			System.out.println("cddStart: " + cddStart);
+                System.out.println("cddEnd: " + cddEnd);
+                System.out.println();
+                System.out.println("withinGenePos: " + position);
+                System.out.println();
+                System.out.println("PercentLost: " + df.format(percentLost));
+
     		} else {
     			percentLost = 0.0;
     		}
     		
-            System.out.println("PercentLost: " + df.format(percentLost));
 
          }  
     	
