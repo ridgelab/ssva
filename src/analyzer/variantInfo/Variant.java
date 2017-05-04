@@ -33,6 +33,8 @@ public class Variant {
     private ArrayList<Double> OriginalMesScores;
     private ArrayList<Double> VariantMesScores;
     private ArrayList<Double> percentDiffList;
+    
+    public ArrayList<String> ConservedDomains;
 
 
     public Variant(String chr, Integer pos, String spliceInfo, String ref, String alt, String homhet){
@@ -44,6 +46,8 @@ public class Variant {
         this.spliceInfo = spliceInfo;
         this.Annotations = new ArrayList<>();
         this.transcripts = new ArrayList<>();
+
+        this.ConservedDomains = new ArrayList<>();
 
 
     }
@@ -288,9 +292,8 @@ public class Variant {
             List<String> CDotList = cds.getCDotList();
             String originalSeq = cds.getMES3Prime(Integer.valueOf(CDotList.get(0)));
             StringBuilder sb = new StringBuilder(originalSeq);
-            //System.out.println("originalSeq: " + originalSeq);
+            
             if (originalSeq.length() != 13) {
-                //System.out.println("inside if");
             	sb.setCharAt(20-Integer.valueOf(CDotList.get(2)), CDotList.get(4).charAt(0));
                 threePrime.write(">original\n" + originalSeq + "\n>newSeq\n" + sb.toString() + "\n");
                 return true;

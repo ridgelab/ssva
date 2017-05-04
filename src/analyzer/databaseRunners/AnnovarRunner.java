@@ -23,8 +23,8 @@ public class AnnovarRunner {
 
             Process p = pb.start();
             p.waitFor();
-            System.out.println(Utilities.getProcessOutput(p));
-            System.out.println(Utilities.getProcessError(p));
+            //System.out.println(Utilities.getProcessOutput(p));
+            //System.out.println(Utilities.getProcessError(p));
             p.destroy();
 
             String[] temp = vcf.split("/");
@@ -46,7 +46,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            System.out.println(Utilities.getProcessError(p));
+            //System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();

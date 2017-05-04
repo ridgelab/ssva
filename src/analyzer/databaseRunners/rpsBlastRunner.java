@@ -25,8 +25,12 @@ public class rpsBlastRunner {
     public void runRPSBlast(Variant var) throws IOException {
     	
     	buildRPSQuery(var); 	
-    	runRPSBlastCommand();
-    	extractRPSBlastResults();
+    	try {
+			runRPSBlastCommand();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	extractRPSBlastResults(var);
     	
     }
 
@@ -34,27 +38,31 @@ public class rpsBlastRunner {
     
     	FileWriter tempFAA = new FileWriter(tempfaaPath);
     	StringBuilder fasta = new StringBuilder('>' + var.getChr() + ':' + var.getPos() + '\n' +
-    											var.getCDSList().get(0).getOriginalProtein().substring(0, var.getCDSList().get(0).getOriginalProtein().length() - 1) + '\n');
+    											var.getCDSList().get(0).getOriginalProtein().substring(0, var.getCDSList().get(0).getOriginalProtein().length() - 1) //take off *
+    											+ '\n');
     	tempFAA.write(fasta.toString());
     	tempFAA.close();
     }
     
-    public void runRPSBlastCommand() {
+    public void runRPSBlastCommand() throws Exception {
     	System.out.println(Utilities.GREEN+"Running rpsblast to find Conserved Domains"+ Utilities.RESET);
     	try {
     		String[] call = new String[]{"rpsblast", "-query", tempfaaPath, "-db", "Cdd",
-    									 "-out", tempoutPath, "-evalue", ".05", "-outfmt", "7 qseqid sseqid qstart length evalue stitle"};
+    									 "-out", tempoutPath, "-evalue", ".01", "-outfmt", "6 sseqid qstart qend length evalue stitle"};
     		
     		ProcessBuilder pb = new ProcessBuilder(call);
 
     		Process p = pb.start();
     		p.waitFor();
-    		System.out.println(Utilities.getProcessOutput(p));
-    		System.out.println(Utilities.getProcessError(p));
+    		//System.out.println(Utilities.getProcessOutput(p));
+    		String error = Utilities.getProcessError(p);
     		p.destroy();
     		
     		Files.deleteIfExists(new File(tempfaaPath).toPath());
     		
+    		if(!error.isEmpty()){
+                throw new Exception("rpsblast threw the following error: " + error);
+            }
     	} catch (IOException e) {
     		e.printStackTrace();
     	} catch (InterruptedException e) {
@@ -62,7 +70,7 @@ public class rpsBlastRunner {
     	}
     }
     
-    public void extractRPSBlastResults() throws IOException {
+    public void extractRPSBlastResults(Variant var) throws IOException {
     	String thisLine = null;
     	
     	BufferedReader rpsResults = new BufferedReader(new FileReader(new File(tempoutPath)));

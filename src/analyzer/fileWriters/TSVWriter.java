@@ -87,6 +87,10 @@ public class TSVWriter {
     	
     	file.write(variantTSV.toString());
     }
+    
+    public void writeConservedDomains(Variant var) throws IOException {
+   
+    }
 	
     public String getPath(){
         return this.path;

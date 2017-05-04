@@ -159,8 +159,6 @@ public class CDS {
     }
 
     private void extractCDSRegionNegStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
-    	//System.out.println("---- CDS ---- extractCDSRegionNegStrand ----");
-    	//System.out.println("exonNum: " + exonNum);
 
         for(int i=exonNum - 1;i >= 0;i--){
             if(Integer.valueOf(this.exonFrames[i]) != -1) { // in the UTR
@@ -190,21 +188,13 @@ public class CDS {
 
                     this.Introns.add(I);
                 }
-                //System.out.println("\nexonNumber: " + i);
-            	//System.out.println("exonStart: " + this.exonStarts[i]);
-            	//System.out.println("exonEnd: " + this.exonEnds[i]);
 
-            	//System.out.println("exonLength: " + Exons.get(i).getLength());
             }
         }
-    	//System.out.println("exonSize: " + Exons.size());
-
         this.Protein = Utilities.translateProt(this.seq);
     }
 
     private void extractCDSRegionPosStrand(PullRegionsFromRef prfr, Integer exonNum, boolean firstExon){
-    	//System.out.println("---- CDS ---- extractCDSRegionPosStrand ----");
-    	//System.out.println("exonNum: " + exonNum);
 
         for(int i=0;i < exonNum;i++){
             if(Integer.valueOf(this.exonFrames[i]) != -1) { // not in the UTR
@@ -236,16 +226,8 @@ public class CDS {
                     this.Introns.add(I);
                 }
                 
-            	//System.out.println("\nexonNumber: " + i);
-            	//System.out.println("exonStart: " + this.exonStarts[i]);
-            	//System.out.println("exonEnd: " + this.exonEnds[i]);
-
-            	//System.out.println("exonLength: " + Exons.get(i).getLength());
-            	
             }
         }
-    	//System.out.println("exonSize: " + Exons.size());
-
         this.Protein = Utilities.translateProt(this.seq);
     }
 
@@ -316,7 +298,6 @@ public class CDS {
             } else {
             	curr_exon = j;
             }
-            	
         }
        
         return curr_exon;
