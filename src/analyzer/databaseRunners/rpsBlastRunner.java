@@ -99,20 +99,21 @@ public class rpsBlastRunner {
     		Integer cddStart = Integer.parseInt(splitLine[1]);
     		Integer cddEnd = Integer.parseInt(splitLine[2]);
     		Double percentLost;
+            Integer position = (int) Math.ceil(var.WithinGenePos.get(num) / 3);
+
             System.out.println("cddStart: " + cddStart);
             System.out.println("cddEnd: " + cddEnd);
             System.out.println();
-            System.out.println("withinGenePos: " + var.WithinGenePos.get(num));
+            System.out.println("withinGenePos: " + position);
             System.out.println();
-            
     		DecimalFormat df = new DecimalFormat("#.##");
 			df.setRoundingMode(RoundingMode.CEILING);
 			
-    		if (cddStart >= var.WithinGenePos.get(num)) { // starts after the lost splice site
+    		if (cddStart >= position) { // starts after the lost splice site
     			percentLost = 100.0;
-    		} else if (cddEnd >= var.WithinGenePos.get(num)) { // variant within this domain
+    		} else if (cddEnd >= position) { // variant within this domain
     			Double totalDomainLength = (double) (cddEnd - cddStart + 1);
-    			Double lostAmount = (double) (cddEnd - var.WithinGenePos.get(num) + 1);
+    			Double lostAmount = (double) (cddEnd - position + 1);
     			percentLost = lostAmount / totalDomainLength * 100;
     		} else {
     			percentLost = 0.0;
