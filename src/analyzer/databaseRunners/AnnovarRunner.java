@@ -69,7 +69,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            System.out.println(Utilities.getProcessError(p));
+            //System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -91,7 +91,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            System.out.println(Utilities.getProcessError(p));
+            //System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -112,7 +112,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            System.out.println(Utilities.getProcessError(p));
+            //System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -134,7 +134,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            System.out.println(Utilities.getProcessError(p));
+            //System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();

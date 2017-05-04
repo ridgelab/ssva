@@ -5,8 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 
 import analyzer.Utilities.Utilities;
 import analyzer.variantInfo.Variant;
@@ -80,10 +81,36 @@ public class rpsBlastRunner {
     		//gnl|CDD|306940	419  	526 	108 	2e-07	pfam00567, TUDOR
 
     		String[] splitLine = thisLine.split("\t");
-    		//if (splitLine[1] > var.)
+    		Integer cddStart = Integer.parseInt(splitLine[1]);
+    		Integer cddEnd = Integer.parseInt(splitLine[2]);
+    		Double percentLost;
+    		
+    		DecimalFormat df = new DecimalFormat("#.##");
+			df.setRoundingMode(RoundingMode.CEILING);
+			
+    		if (cddStart >= var.WithinGenePos) { // starts after the lost splice site
+    			percentLost = 100.0;
+    		} else if (cddEnd >= var.WithinGenePos) { // variant within this domain
+    			Double totalDomainLength = (double) (cddEnd - cddStart + 1);
+    			Double lostAmount = (double) (cddEnd - var.WithinGenePos + 1);
+    			percentLost = lostAmount / totalDomainLength;
+    		} else {
+    			percentLost = 0.0;
+    		}
+    		
             System.out.println(thisLine);
+            System.out.println("PercentLost: " + df.format(percentLost));
+
          }  
     	
+    	/* ROUNDING
+    	 * DecimalFormat df = new DecimalFormat("#.####");
+			df.setRoundingMode(RoundingMode.CEILING);
+			for (Number n : Arrays.asList(12, 123.12345, 0.23, 0.1, 2341234.212431324)) {
+    		Double d = n.doubleValue();
+    		System.out.println(df.format(d));
+			}
+    	 */
 		Files.deleteIfExists(new File(tempoutPath).toPath());
     	
     	rpsResults.close();
