@@ -47,6 +47,9 @@ public class Variant {
         this.spliceInfo = spliceInfo;
         this.Annotations = new ArrayList<>();
         this.transcripts = new ArrayList<>();
+        this.OriginalMesScores = new ArrayList<>();
+        this.VariantMesScores = new ArrayList<>();
+
 
         this.ConservedDomains = new ArrayList<>();
 

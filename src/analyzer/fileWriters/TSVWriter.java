@@ -61,12 +61,20 @@ public class TSVWriter {
     					  var.getGeneName() + '\t'+
     					  var.Annotations.get(0) + '\t' +
     					  var.Annotations.get(1) + '\t' +
-    					  var.Annotations.get(2) + '\t' +
-    					  df.format(var.getOriginalMesScores().get(0)) + '\t');
+    					  var.Annotations.get(2) + '\t'
+    					  );
     	
+    	
+    	if (var.getOriginalMesScores().size() != 0) {
+    		variantTSV.append(df.format(var.getOriginalMesScores().get(0)) + '\t');
+    	} else {
+    		variantTSV.append("NA\t");
+    	}
     	
     	if (var.getVariantMesScores().size() == 1) {
     		variantTSV.append(df.format(var.getVariantMesScores().get(0).doubleValue()));
+    	} else if (var.getVariantMesScores().size() == 0){
+    		variantTSV.append("NA\t");
     	} else {
     		for	(Double MESScore : var.getVariantMesScores()) {
         		variantTSV.append(df.format(MESScore) +';');
@@ -77,6 +85,8 @@ public class TSVWriter {
 		
 		if (var.getPercentDiffList().size() == 1) {
     		variantTSV.append(df.format(var.getPercentDiffList().get(0).doubleValue()));
+    	} else if (var.getPercentDiffList().size() == 0){
+    		variantTSV.append("NA\t");
     	} else {
     		for	(double DiffScore : var.getPercentDiffList()) {
     			variantTSV.append(df.format(DiffScore) +';');
