@@ -1,6 +1,6 @@
 # SpliceVariantAnalyzer
 
-##### Table of Contents  
+#### Table of Contents  
 [I. Introduction](#introduction)  
 [II. Installation Instructions](#installation)  
 [III. Usage Instructions and Examples](#instruct)   
@@ -11,38 +11,45 @@
 
 <a name="introduction"/>   
 
-## Introduction
+## I. Introduction
 
-SpliceVariantAnalyzer (SVA) is a splice site diagnosis tool which outputs a comprehensive annotation for splice site variants.
+SpliceVariantAnalyzer (SVA) is a splice site variant diagnosis tool which outputs a comprehensive annotation for splice site variants.
 This output includes the following:
   - GERP++2 score
   - Exac03 score
   - 1000 Genomes score
   - MaxEntScan wild-type and variant score
-  - MaxEntScan % difference
-  - list of lost conserved domains
-  - list of lost pdb sequences
+  - MaxEntScan % difference between WT and Mut
+  - list of lost conserved domains (rpsblast of Cdd)
+  - list of lost pdb sequences (blastp of pdb)
   
   
 
 <a name="installation"/>
 
-## Installation Instructions
+## II. Installation Instructions
 
 <a name="instruct"/>
 
-## Usage Instructions and Examples
+## III. Usage Instructions and Examples
+
+To install SVA locally follow these steps:
+  - clone project
+  - from the main directory of the project run maven using `mvn clean -U install`
+  - run `java -jar target/SVA-1.0-SNAPSHOT-jar-with-dependencies.jar -help` to see command line options
+  
+Required command line arguments:
 
 <a name="license"/>
 
-## License
+## IV. License
 
 <a name="funding"/>
 
-## Funding and Acknowledgements
+## V. Funding and Acknowledgements
 
 <a name="contact"/>
 
-## Contact
+## VI. Contact
 
 
