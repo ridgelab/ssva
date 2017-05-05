@@ -94,19 +94,20 @@ public class SpliceRunner {
             if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
                 //populate percentDiffList
             	var.checkMesSignificance(); 
-            //}
+           
+            	//Run NNSplice and Human Splicing Finder
             
-            //Run NNSplice and Human Splicing Finder
-            
-            //Run PDB site losses
-            pdbRunner.runPDBBlast(var);
+            	//Run PDB site losses
+            	pdbRunner.runPDBBlast(var);
 
-            //Run rpsblast through Cdd Database and find all conserved domains
-            rpsRunner.runRPSBlast(var);
+            	//Run rpsblast through Cdd Database and find all conserved domains lost
+            	rpsRunner.runRPSBlast(var);
             
-            // WRITE OUT RESULTS
-            sig_tsv.writeVariant(var);
-            } // inside of valid Max Ent Scan only for now!
+            	// WRITE OUT RESULTS
+            	sig_tsv.writeVariant(var);
+            	
+            	
+           	} // inside of valid Max Ent Scan only
             iter.remove();
         }
 
@@ -124,10 +125,6 @@ public class SpliceRunner {
         String gerp = AR.Gerp2(newFile, this.human);
         GeneralAnnotationParser parser = new GeneralAnnotationParser(this.outputFolder+gerp, true);
         this.vars = parser.parse(this.vars);
-
-//        String phastCons = AR.PhastCons(newFile, this.human);
-//        parser = new GeneralAnnotationParser(this.outputFolder+phastCons, false);
-//        this.vars = parser.parsePhastCons(this.vars);
 
         String oneKGenomes = AR.onekGenomes(newFile,this.human);
         parser = new GeneralAnnotationParser(this.outputFolder+oneKGenomes,true);

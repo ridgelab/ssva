@@ -84,15 +84,15 @@ public class SpliceEngine {
           	  .required(true)
           	  .type(String.class);
       
+
+        // NOT REQUIRED (DEFAULTS SET)
         parser.addArgument("-r","--RefSeqFile")
         	  .dest("analyzer/RefSeq")
         	  .help("This is the path to the file that contains the UCSC table viewer RefSeq data.")
-        	  .required(true)
-        	  .type(String.class);
-
+        	  .required(false)
+        	  .setDefault("RefSeq_hg19.txt")
+        	  .type(String.class);  
         
-        
-        // NOT REQUIRED (DEFAULTS SET)
         parser.addArgument("-s","--Samtools")
          	  .dest("Samtools")
          	  .help("This is the path to the Samtools executable.")
