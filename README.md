@@ -13,7 +13,7 @@
 
 ## I. Introduction
 
-SpliceVariantAnalyzer (SVA) is a splice site variant diagnosis tool which outputs a comprehensive annotation for splice site variants.
+SpliceVariantAnalyzer (SVA) is a splice site variant diagnosis tool which outputs a comprehensive annotation for splice site variants using hg19 as a reference.
 This output includes the following:
   - GERP++2 score
   - Exac03 score
@@ -41,9 +41,26 @@ Required Databases:
 
 ### Annovar
 
-The main package download for Annovar can be found [here](http://annovar.openbioinformatics.org/en/latest/user-guide/download/). Once Annovar software has been downloaded, it can be used to download 4 other required databases.
-    
-    
+The main package download for Annovar can be found [here](http://annovar.openbioinformatics.org/en/latest/user-guide/download/). Once Annovar software has been downloaded, it can be used to download 3 other required databases. To
+download the additional databases use the following command three times:
+
+`./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar <name of db> <output_folder(usually humandb/)>`
+
+The abbreviations for the databases used by SVA are as follows:
+  - gerp++gt2
+  - exac03
+  - 1000g2015aug
+  
+### hg19 Reference Genome
+
+SVA requires the hg19 genome separated by chromosome. Instructions on how to download this are given on UCSC website [here](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/). The files must be uncompressed as explained in the previous
+link.
+
+### UCSC RefSeq file
+
+The required RefSeq file comes from the [UCSC table browser](https://genome.ucsc.edu/cgi-bin/hgTables). Included in the main directory of the github directory, the user does not need to download their own RefSeq file.
+  
+
 <a name="instruct"/>
 
 ## III. Usage Instructions and Examples
