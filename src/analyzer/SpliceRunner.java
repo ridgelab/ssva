@@ -109,6 +109,8 @@ public class SpliceRunner {
             	
            	} // inside of valid Max Ent Scan only
             iter.remove();
+            System.out.println("removed");
+
         }
 
         sig_tsv.close();
