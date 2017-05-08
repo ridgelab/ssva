@@ -24,67 +24,61 @@ public class TSVWriter {
 
     	this.build = build;
     	if (build.equals("hg19")) {
-        	file.write("#CHR\tPOS\tREF\tALT\tGENE\t1000GEN\tEXAC\tdbscSNV\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+        	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT,CDDid;%LOST,E-VAL,INFO)\n");
     	} else if (build.equals("hg38")) {
-        	file.write("#CHR\tPOS\tREF\tALT\tGENE\t1000GEN\tEXAC\tdbscSNV\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+        	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT,CDDid,%LOST,E-VAL,INFO)\n");
     	}
     }
     
     public void writeVariant(Variant var) throws IOException {
 
-    	// rounding
-    	DecimalFormat df = new DecimalFormat("#.####");
-    	df.setRoundingMode(RoundingMode.CEILING);
-    	
-    	
-    	StringBuilder variantTSV = new StringBuilder();
-    	
-    	variantTSV.append(var.getChr() + '\t' +
-    					  var.getPos() + '\t' +
-    					  var.getRef() + '\t' +
-    					  var.getAlt() + '\t' +
-    					  var.getGeneName() + '\t'+
-    					  var.Annotations.get(0) + '\t' +
-    					  var.Annotations.get(1) + '\t' +
-    					  var.Annotations.get(2) + '\t');
-    	
-    	if (build.equals("hg19")) {
-    		variantTSV.append( var.Annotations.get(3) + '\t');
-    	}
-    	
-    	if (var.getOriginalMesScores().size() != 0) {
-    		variantTSV.append(df.format(var.getOriginalMesScores().get(0)) + '\t');
-    	} else {
-    		variantTSV.append("NA\t");
-    	}
-    	
-    	if (var.getVariantMesScores().size() == 1) {
-    		variantTSV.append(df.format(var.getVariantMesScores().get(0).doubleValue()));
-    	} else if (var.getVariantMesScores().size() == 0){
-    		variantTSV.append("NA\t");
-    	} else {
-    		for	(Double MESScore : var.getVariantMesScores()) {
-        		variantTSV.append(df.format(MESScore) +';');
+    	for (int i = 0; i < var.getCDSList().size(); ++i) {
+    		// rounding
+        	DecimalFormat df = new DecimalFormat("#.####");
+        	df.setRoundingMode(RoundingMode.CEILING);	
+        	
+        	StringBuilder variantTSV = new StringBuilder();
+        	
+        	variantTSV.append(var.getChr() + '\t' +
+        					  var.getPos() + '\t' +
+        					  var.getRef() + '\t' +
+        					  var.getAlt() + '\t' +
+        					  var.getGeneName() + '\t'+
+        					  var.getCDSList().get(i).transName + '\t' +
+        					  var.Annotations.get(0) + '\t' +
+        					  var.Annotations.get(1) + '\t' +
+        					  var.Annotations.get(2) + '\t');
+        	
+        	if (build.equals("hg19")) {
+        		variantTSV.append( var.Annotations.get(3) + '\t');
         	}
-    	}
-		
-		variantTSV.append('\t');
-		
-		if (var.getPercentDiffList().size() == 1) {
-    		variantTSV.append(df.format(var.getPercentDiffList().get(0).doubleValue()) + '%');
-    	} else if (var.getPercentDiffList().size() == 0){
-    		variantTSV.append("NA\t");
-    	} else {
-    		for	(double DiffScore : var.getPercentDiffList()) {
-    			variantTSV.append(df.format(DiffScore) +';');
-    		}
-    	}
-		
-		variantTSV.append('\t' + var.getSpliceInfo() + '\n');
-    	
-    	file.write(variantTSV.toString());
-    	if (var.ConservedDomains.size() != 0) {
-        	this.writeConservedDomains(var);
+        	
+        	if (var.getOriginalMesScores().size() != 0) {
+        		variantTSV.append(df.format(var.getOriginalMesScores().get(0)) + '\t');
+        	} else {
+        		variantTSV.append("NA\t");
+        	}
+        	        	
+        	if (var.getVariantMesScores().size() != 0) {
+        		variantTSV.append(df.format(var.getVariantMesScores().get(i).doubleValue()) + '\t');
+        	} else {
+        		variantTSV.append("NA\t");
+        	}
+    		    		
+    		if (var.getPercentDiffList().size() != 0) {
+        		variantTSV.append(df.format(var.getPercentDiffList().get(i).doubleValue()) + '%');
+        	} else {
+        		variantTSV.append("NA\t");
+        	} 
+    		
+    		variantTSV.append('\t' + var.getCDSList().get(i).getcDot() + '\t');
+        	
+        	file.write(variantTSV.toString());
+        	if (var.ConservedDomains.size() != 0) {
+            	this.writeConservedDomains(var, var.getCDSList().get(i).transName);
+        	}
+        	
+        	
     	}
     	/*if (var.PDBList.size() != 0) {
         	this.writePDB(var);
@@ -92,12 +86,21 @@ public class TSVWriter {
 
     }
     
-    public void writeConservedDomains(Variant var) throws IOException {
-    	file.write("\t#TRANSCRIPT\tCDDid\t%LOST\tE-VAL\tINFO\n");
+    public void writeConservedDomains(Variant var, String transName) throws IOException {
+    	//file.write("\t#TRANSCRIPT\tCDDid\t%LOST\tE-VAL\tINFO\n");
 
+    	boolean first = true;
+    	
     	for (String out : var.ConservedDomains) {
-        	file.write('\t' + out);
+    		if (out.contains(transName)) {
+    			if (first) {
+        			file.write(out);
+    			} else {
+    				file.write(out);
+    			}
+    		}
     	}
+    	file.write('\n');
     }
     
     /*public void writePDB(Variant var) throws IOException {
