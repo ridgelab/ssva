@@ -50,13 +50,13 @@ public class SpliceEngine {
         
         parser.addArgument("-i","--input")
   	  		  .dest("Input")
-  	  		  .help("Here you provide the input in VCF format only.")
+  	  		  .help("This is the input file (VCF format only).")
   	  		  .required(true)
   	  		  .type(String.class);
 
         parser.addArgument("-o","--output")
    	  		  .dest("Output")
-   	  		  .help("Here you provide the name of the directory to which the output files are saved.")
+   	  		  .help("This is the the name of the directory to which the output files are saved.")
    	  		  .required(true)
    	  		  .type(String.class); 
   
