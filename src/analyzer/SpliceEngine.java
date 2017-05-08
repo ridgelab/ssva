@@ -96,9 +96,9 @@ public class SpliceEngine {
         		  @Override
         		  public boolean contains(Object o) {
         			  String val = String.valueOf(o);
-        			  if (val.equals("MaxEntScan") || val.equals("MES")) {
+        			  if (val.equals("hg19")) {
         				  return true;
-        			  } else if (val.equals("Ensemble") || val.equals("EN")) {
+        			  } else if (val.equals("hg38")) {
         				  return true;
         			  }
         			  return false;
