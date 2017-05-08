@@ -18,6 +18,7 @@ This output includes the following:
   - GERP++2 score
   - Exac03 score
   - 1000 Genomes score
+  - dbSCSNV scores
   - MaxEntScan wild-type and variant score
   - MaxEntScan % difference between WT and Mut
   - list of lost conserved domains (rpsblast of Cdd)
@@ -47,13 +48,14 @@ download the additional databases use the following command three times:
 `./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar <name of db> <output_folder(usually humandb/)>`
 
 The abbreviations for the databases used by SVA are as follows:
-  - gerp++gt2
+  - dbscsnv11
+  - gerp++gt2 (hg19 only)
   - exac03
   - 1000g2015aug
   
-### hg19 Reference Genome
+### Reference Genome (hg19/hg38)
 
-SVA requires the hg19 genome separated by chromosome. Instructions on how to download this are given on UCSC website [here](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/). The files must be uncompressed as explained in the previous
+SVA requires either the hg19 or hg38 genome separated by chromosome. Instructions on how to download this are given on UCSC website [here](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/). The files must be uncompressed as explained in the previous
 link.
 
 ### UCSC RefSeq file

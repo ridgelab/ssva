@@ -167,29 +167,6 @@ public class AnnovarRunner {
         annotate_variation.pl -filter -dbtype 1000g2012apr_eur -buildver hg19 -out ex1 example/ex1.avinput humandb/
         annotate_variation.pl -filter -build hg19 -dbtype exac03 example/ex1.avinput humandb/
         annotate_variation.pl -filter -dbtype gerp++gt2 -out ex1 -build hg19 example/ex1.avinput humandb/
-
-
-   public String PhastCons(String input, String human){
-        System.out.println(Utilities.GREEN+"Running PhastCons Annotation"+ Utilities.RESET);
-
-        try {
-            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-regionanno","-buildver","hg19","-dbtype","phastConsElements46way","-out",this.OutputFolder+input,this.OutputFolder+input,human};
-            ProcessBuilder pb = new ProcessBuilder(call);
-            Process p = pb.start();
-            p.waitFor();
-            //System.out.println(Utilities.getProcessError(p));
-            Utilities.getProcessOutput(p);
-            p.destroyForcibly();
-            p.waitFor();
-            return input+".hg19_phastConsElements46way";
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-     */
+        */
 
 }

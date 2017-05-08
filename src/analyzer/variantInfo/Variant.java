@@ -206,7 +206,10 @@ public class Variant {
                 			
                 	cds.setExon(info[1]);
                 	cds.extractCDS(rsp, prfr);
-                	boolean dupl = false;
+                	
+                	// somehow check for duplicate transcripts?
+                	
+                	/*boolean dupl = false;
                 	for (CDS t : transcripts){
                 		System.out.println(t.cDot + ": " + t.seq);
                 		System.out.println(cds.cDot + ": " + cds.seq);
@@ -216,8 +219,9 @@ public class Variant {
                 			t.addDupl(cds);
                 			dupl = true;
                 		}
-                	}
-                	if (!dupl) this.transcripts.add(cds);             	
+                	}*/
+                	//if (!dupl) 
+                	this.transcripts.add(cds);             	
                 }
             }
         }
