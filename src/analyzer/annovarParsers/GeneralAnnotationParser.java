@@ -17,16 +17,11 @@ public class GeneralAnnotationParser {
     private Scanner phastCons;
 
 
-    public GeneralAnnotationParser(String annovarFile, Boolean twoFiles){
+    public GeneralAnnotationParser(String annovarFile){
         try {
 
-            if(twoFiles) {
                 this.dropped = new Scanner(new File(annovarFile + "dropped"));
                 this.filtered = new Scanner(new File(annovarFile + "filtered"));
-            }
-            else{
-                this.phastCons = new Scanner(new File(annovarFile));
-            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -56,23 +51,6 @@ public class GeneralAnnotationParser {
 
             String var = sb.toString();
             String anno = "NA";
-            Variant v = Vars.get(var);
-            v.addAnnotation(anno);
-            Vars.put(var, v);
-        }
-        return Vars;
-    }
-
-    public TreeMap<String, Variant> parsePhastCons(TreeMap<String, Variant> Vars){
-        while (this.phastCons.hasNextLine()){
-            String line = this.phastCons.nextLine();
-            String[] columns =line.split("\t");
-
-            StringBuilder sb = new StringBuilder();
-            sb.append(columns[2]+":"+columns[3]);
-
-            String var = sb.toString();
-            String anno = columns[1];
             Variant v = Vars.get(var);
             v.addAnnotation(anno);
             Vars.put(var, v);

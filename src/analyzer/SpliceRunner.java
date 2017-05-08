@@ -38,7 +38,8 @@ public class SpliceRunner {
     private String refSeq;                 // Path to the file that contains the refseq data 
     private TreeMap<String,Variant> vars;  // A map of the splicing variants. keys = chromsome:position, values = splicing variant. 
     private String SamtoolsPath;           // Path to Samtools 
-    private String MaxEntPath;          // Path to the algorithm directory 
+    private String MaxEntPath;             // Path to the algorithm directory 
+    private String build;				   // Build version of genome (default: hg19)
 
 
     //-------------------------------------------------------------------------------------
@@ -56,6 +57,10 @@ public class SpliceRunner {
         }
         this.ref = res.getString("Ref");
         this.refSeq = res.getString("analyzer/RefSeq");
+        this.build = res.getString("build");
+        if (this.build.equals("hg38") && this.refSeq.equals("RefSeq_hg19.txt")){
+        	this.refSeq = "RefSeq_hg38.txt";
+        }
         this.SamtoolsPath = res.getString("Samtools");
         this.MaxEntPath = res.getString("MaxEntPath");
 
@@ -74,7 +79,7 @@ public class SpliceRunner {
         rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder);
         //pdbBlastRunner pdbRunner = new pdbBlastRunner(outputFolder);
 
-        TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv");
+        TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv", this.build);
         
         System.out.println(Utilities.GREEN+"Going through the variants\n"+ Utilities.RESET);
 
@@ -110,24 +115,30 @@ public class SpliceRunner {
     }
 
     private void runAnnotations(String newFile) {
-        AnnovarRunner AR = new AnnovarRunner(this.annovar, this.outputFolder);
-
-        String gerp = AR.Gerp2(newFile, this.human);
-        GeneralAnnotationParser parser = new GeneralAnnotationParser(this.outputFolder+gerp, true);
-        this.vars = parser.parse(this.vars);
+        AnnovarRunner AR = new AnnovarRunner(this.annovar, this.outputFolder, this.build);
 
         String oneKGenomes = AR.onekGenomes(newFile,this.human);
-        parser = new GeneralAnnotationParser(this.outputFolder+oneKGenomes,true);
+        GeneralAnnotationParser parser = new GeneralAnnotationParser(this.outputFolder+oneKGenomes);
         this.vars = parser.parse(this.vars);
-
+        
         String exac = AR.Exac(newFile,this.human);
-        parser = new GeneralAnnotationParser(this.outputFolder+exac, true);
+        parser = new GeneralAnnotationParser(this.outputFolder+exac);
         this.vars = parser.parse(this.vars);
+        
+        String dbscsnv = AR.dbSCSNV(newFile,this.human);
+        parser = new GeneralAnnotationParser(this.outputFolder+dbscsnv);
+        this.vars = parser.parse(this.vars);
+        
+        if (!this.build.equals("hg38")) {
+        	String gerp = AR.Gerp2(newFile, this.human);
+        	parser = new GeneralAnnotationParser(this.outputFolder+gerp);
+        	this.vars = parser.parse(this.vars);
+        }
         
     }
 
     private String convertAnnovar(){
-        AnnovarRunner AR = new AnnovarRunner(this.annovar,this.outputFolder);
+        AnnovarRunner AR = new AnnovarRunner(this.annovar,this.outputFolder, this.build);
         String avinput = AR.convert2Annovar(this.input);
         String varfunc = AR.Gene(avinput,this.human);
         return varfunc;

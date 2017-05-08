@@ -15,55 +15,41 @@ import analyzer.variantInfo.Variant;
 public class TSVWriter {
 
     private String path;
-    FileWriter file;
+    public FileWriter file;
+    public String build;
 
-    public TSVWriter(String tsvPath) throws IOException{
+    public TSVWriter(String tsvPath, String build) throws IOException{
     	path = tsvPath;
     	file = new FileWriter(tsvPath);
-    	
-    	file.write("#CHR\tPOS\tREF\tALT\tGENE\tGERP2\t1000GEN\tEXAC\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+
+    	this.build = build;
+    	if (build.equals("hg19")) {
+        	file.write("#CHR\tPOS\tREF\tALT\tGENE\t1000GEN\tEXAC\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+    	} else if (build.equals("hg38")) {
+        	file.write("#CHR\tPOS\tREF\tALT\tGENE\t1000GEN\tEXAC\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+    	}
     }
     
     public void writeVariant(Variant var) throws IOException {
-    	
-    	/* private String Chr; // chr21
-    private Integer Pos; // 1827643
-    private String Ref; // A
-    private String Alt; // T
-    private String homhet; // hom het
-    private String spliceInfo; // NONE(dist=NONE),MIR3648(dist=414230)
-    public ArrayList<String> Annotations;
-    private ArrayList<CDS> transcripts;
-    private String GeneName;
-    private ArrayList<Double> OriginalMesScores;
-    private ArrayList<Double> VariantMesScores;
-    private ArrayList<Double> percentDiffList;*/
 
-    	/* ROUNDING
-    	 * DecimalFormat df = new DecimalFormat("#.####");
-			df.setRoundingMode(RoundingMode.CEILING);
-			for (Number n : Arrays.asList(12, 123.12345, 0.23, 0.1, 2341234.212431324)) {
-    		Double d = n.doubleValue();
-    		System.out.println(df.format(d));
-			}
-    	 */
-    	
     	// rounding
     	DecimalFormat df = new DecimalFormat("#.####");
     	df.setRoundingMode(RoundingMode.CEILING);
     	
     	
     	StringBuilder variantTSV = new StringBuilder();
+    	
     	variantTSV.append(var.getChr() + '\t' +
     					  var.getPos() + '\t' +
     					  var.getRef() + '\t' +
     					  var.getAlt() + '\t' +
     					  var.getGeneName() + '\t'+
     					  var.Annotations.get(0) + '\t' +
-    					  var.Annotations.get(1) + '\t' +
-    					  var.Annotations.get(2) + '\t'
-    					  );
+    					  var.Annotations.get(1) + '\t');
     	
+    	if (build.equals("hg19")) {
+    		variantTSV.append( var.Annotations.get(2) + '\t');
+    	}
     	
     	if (var.getOriginalMesScores().size() != 0) {
     		variantTSV.append(df.format(var.getOriginalMesScores().get(0)) + '\t');
@@ -113,13 +99,13 @@ public class TSVWriter {
     	}
     }
     
-    public void writePDB(Variant var) throws IOException {
+    /*public void writePDB(Variant var) throws IOException {
     	file.write("\t#TRANSCRIPT\tPDBid\t%LOST\tE-VAL\tINFO\n");
 
     	for (String out : var.PDBList) {
         	file.write('\t' + out);
     	}
-    }
+    }*/
 	
     public String getPath(){
         return this.path;

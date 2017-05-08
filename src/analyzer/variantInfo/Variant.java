@@ -206,13 +206,15 @@ public class Variant {
                 			
                 	cds.setExon(info[1]);
                 	cds.extractCDS(rsp, prfr);
+                	boolean dupl = false;
                 	for (CDS t : transcripts){
                 		if (t.seq.equals(cds.seq)) {
+                			System.out.println("\nDUPLICATE\n");
                 			t.addDupl(cds);
-                			continue;
+                			dupl = true;
                 		}
                 	}
-                	this.transcripts.add(cds);             	
+                	if (!dupl) this.transcripts.add(cds);             	
                 }
             }
         }

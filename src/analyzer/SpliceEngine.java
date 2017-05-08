@@ -1,6 +1,7 @@
 package analyzer;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.inf.ArgumentChoice;
 //import net.sourceforge.argparse4j.inf.ArgumentChoice;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
@@ -78,14 +79,44 @@ public class SpliceEngine {
         	  .required(true)
         	  .type(String.class);
         
-        parser.addArgument("-g","--hg19")
+        parser.addArgument("-g","--genome")
           	  .dest("Ref")
-          	  .help("This is the path to the directory that contains the UCSC reference genome by chromosome downloaded.")
+          	  .help("This is the path to the directory that contains the UCSC reference genome by chromosome downloaded (hg19/hg38).")
           	  .required(true)
           	  .type(String.class);
       
 
         // NOT REQUIRED (DEFAULTS SET)
+        parser.addArgument("-b","--buildver")
+        	  .dest("build")
+        	  .required(false)
+  	  		  .setDefault("hg19")
+  	  		  .type(String.class)
+        	  .choices(new ArgumentChoice() {
+        		  @Override
+        		  public boolean contains(Object o) {
+        			  String val = String.valueOf(o);
+        			  if (val.equals("MaxEntScan") || val.equals("MES")) {
+        				  return true;
+        			  } else if (val.equals("Ensemble") || val.equals("EN")) {
+        				  return true;
+        			  }
+        			  return false;
+        		  }
+
+        		  @Override
+        		  public String textualFormat() {
+        			  return "Valid options are 'hg19'(default) or 'hg38'";
+        		  }
+        	  });
+        	  
+        /*parser.addArgument("-b","--buildver")
+  	  		  .dest("build")
+  	  		  .help("This is the build of the human genome (default: hg19).")
+  	  		  .required(false)
+  	  		  .setDefault("hg19")
+  	  		  .type(String.class);
+        */
         parser.addArgument("-r","--RefSeqFile")
         	  .dest("analyzer/RefSeq")
         	  .help("This is the path to the file that contains the UCSC table viewer RefSeq data.")
