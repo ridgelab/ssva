@@ -15,7 +15,7 @@ import analyzer.annovarParsers.GeneParser;
 import analyzer.annovarParsers.GeneralAnnotationParser;
 import analyzer.databaseRunners.AnnovarRunner;
 import analyzer.databaseRunners.MESRunner;
-import analyzer.databaseRunners.pdbBlastRunner;
+//import analyzer.databaseRunners.pdbBlastRunner;
 import analyzer.databaseRunners.rpsBlastRunner;
 import analyzer.fileWriters.TSVWriter;
 //import analyzer.fileWriters.VCFWriter;
@@ -72,13 +72,7 @@ public class SpliceRunner {
         PullRegionsFromRef prfr = new PullRegionsFromRef(ref,SamtoolsPath);  //hg19 / Sam tools
         Iterator<Map.Entry<String,Variant>> iter = this.vars.entrySet().iterator();
         rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder);
-        pdbBlastRunner pdbRunner = new pdbBlastRunner(outputFolder);
-
-        // Create new files
-        //VCFWriter vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Filtered.vcf"),new File(this.ref+"hg19.fa"));
-        //VCFWriter sig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_Significant.vcf"),new File(this.ref+"hg19.fa"));
-        //VCFWriter possiblySig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_PossiblySignificant.vcf"),new File(this.ref+"hg19.fa"));
-        //VCFWriter notSig_vw = new VCFWriter(new File(this.outputFolder+"MaxEntScan_NonSignificant.vcf"),new File(this.ref+"hg19.fa"));
+        //pdbBlastRunner pdbRunner = new pdbBlastRunner(outputFolder);
 
         TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv");
         
@@ -98,7 +92,7 @@ public class SpliceRunner {
             	//Run NNSplice and Human Splicing Finder
             
             	//Run PDB site losses
-            	pdbRunner.runPDBBlast(var);
+            	//pdbRunner.runPDBBlast(var);
 
             	//Run rpsblast through Cdd Database and find all conserved domains lost
             	rpsRunner.runRPSBlast(var);
@@ -113,11 +107,6 @@ public class SpliceRunner {
         }
 
         sig_tsv.close();
-        
-        //sig_vw.close();
-        //notSig_vw.close();
-        //possiblySig_vw.close();
-        //vw.close();
     }
 
     private void runAnnotations(String newFile) {

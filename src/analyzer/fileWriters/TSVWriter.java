@@ -99,9 +99,9 @@ public class TSVWriter {
     	if (var.ConservedDomains.size() != 0) {
         	this.writeConservedDomains(var);
     	}
-    	if (var.PDBList.size() != 0) {
+    	/*if (var.PDBList.size() != 0) {
         	this.writePDB(var);
-    	}
+    	}*/
 
     }
     

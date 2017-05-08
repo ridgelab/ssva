@@ -18,7 +18,7 @@ public class CDS {
     private ArrayList<Intron> Introns;
     private String Protein;
     //private String geneName;
-    private String transName; //'NM_0011'
+    public String transName; //'NM_0011'
     private String cdsStart; // column 6 refseq
     private String cdsEnd; // column 7 refseq
     private String chr; // column 2 refseq
@@ -26,7 +26,7 @@ public class CDS {
     private String[] exonStarts; // column 9 refseq
     private String[] exonEnds; // column 10 refseq
     private String[] exonFrames; // column 15 refseq
-    private StringBuilder seq;
+    public StringBuilder seq;
     public String cDot; // .vcf.avinput.variant_functions
     private ArrayList<String> CDotList; // ["4451","+","37","C","A"] .vcf.avinput.variant_functions
     private String exon; // .vcf.avinput.variant_functions
@@ -325,6 +325,10 @@ public class CDS {
 
         return modifiedProtein;
     }
+
+	public void addDupl(CDS cds) {
+		this.transName.concat(cds.transName);
+	}
 
 
 }

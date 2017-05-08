@@ -199,16 +199,20 @@ public class Variant {
                 	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
                 	
                 	if (cds.getCDotList().get(1).equals("+")) {
-                		//System.out.println(Integer.parseInt(cds.getCDotList().get(0)) + " + " + Integer.parseInt(cds.getCDotList().get(2)));
                     	this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2)));
                 	} else {
-                		//System.out.println(Integer.parseInt(cds.getCDotList().get(0)) + " - " + Integer.parseInt(cds.getCDotList().get(2)));
                 		this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) - Integer.parseInt(cds.getCDotList().get(2)));
                 	}		
                 			
                 	cds.setExon(info[1]);
                 	cds.extractCDS(rsp, prfr);
-                	this.transcripts.add(cds);
+                	for (CDS t : transcripts){
+                		if (t.seq.equals(cds.seq)) {
+                			t.addDupl(cds);
+                			continue;
+                		}
+                	}
+                	this.transcripts.add(cds);             	
                 }
             }
         }
