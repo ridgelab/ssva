@@ -135,7 +135,7 @@ public class AnnovarRunner {
     }
     
     public String dbSCSNV(String input, String human){
-        System.out.println(Utilities.GREEN+"Running Exac Annotation"+ Utilities.RESET);
+        System.out.println(Utilities.GREEN+"Running dbscSNV Annotation"+ Utilities.RESET);
 
         try {
             String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","-filter","-dbtype","dbscsnv11","-buildver", build,"-out",this.OutputFolder+input,this.OutputFolder+input,human};

@@ -14,7 +14,6 @@ public class GeneralAnnotationParser {
 
     private Scanner dropped;
     private Scanner filtered;
-    private Scanner phastCons;
 
 
     public GeneralAnnotationParser(String annovarFile){

@@ -208,6 +208,9 @@ public class Variant {
                 	cds.extractCDS(rsp, prfr);
                 	boolean dupl = false;
                 	for (CDS t : transcripts){
+                		System.out.println(t.cDot + ": " + t.seq);
+                		System.out.println(cds.cDot + ": " + cds.seq);
+
                 		if (t.seq.equals(cds.seq)) {
                 			System.out.println("\nDUPLICATE\n");
                 			t.addDupl(cds);
