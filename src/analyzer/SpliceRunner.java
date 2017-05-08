@@ -125,9 +125,9 @@ public class SpliceRunner {
         parser = new GeneralAnnotationParser(this.outputFolder+exac);
         this.vars = parser.parse(this.vars);
         
-        String dbscsnv = AR.dbSCSNV(newFile,this.human);
-        parser = new GeneralAnnotationParser(this.outputFolder+dbscsnv);
-        this.vars = parser.parse(this.vars);
+        //String dbscsnv = AR.dbSCSNV(newFile,this.human);
+        //parser = new GeneralAnnotationParser(this.outputFolder+dbscsnv);
+        //this.vars = parser.parse(this.vars);
         
         if (!this.build.equals("hg38")) {
         	String gerp = AR.Gerp2(newFile, this.human);
