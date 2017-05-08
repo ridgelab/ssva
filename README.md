@@ -43,11 +43,12 @@ Required Databases:
 ### Annovar
 
 The main package download for Annovar can be found [here](http://annovar.openbioinformatics.org/en/latest/user-guide/download/). Once Annovar software has been downloaded, it can be used to download 3 other required databases. To
-download the additional databases use the following command three times:
+download the additional databases use the following command five times:
 
 `./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar <name of db> <output_folder(usually humandb/)>`
 
 The abbreviations for the databases used by SVA are as follows:
+  - refGene
   - dbscsnv11
   - gerp++gt2 (hg19 only)
   - exac03
