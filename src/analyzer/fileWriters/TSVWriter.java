@@ -24,9 +24,9 @@ public class TSVWriter {
 
     	this.build = build;
     	if (build.equals("hg19")) {
-        	file.write("#CHR\tPOS\tREF\tALT\tGENE\t1000GEN\tEXAC\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+        	file.write("#CHR\tPOS\tREF\tALT\tGENE\t1000GEN\tEXAC\tdbscSNV\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
     	} else if (build.equals("hg38")) {
-        	file.write("#CHR\tPOS\tREF\tALT\tGENE\t1000GEN\tEXAC\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+        	file.write("#CHR\tPOS\tREF\tALT\tGENE\t1000GEN\tEXAC\tdbscSNV\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
     	}
     }
     
@@ -45,10 +45,11 @@ public class TSVWriter {
     					  var.getAlt() + '\t' +
     					  var.getGeneName() + '\t'+
     					  var.Annotations.get(0) + '\t' +
-    					  var.Annotations.get(1) + '\t');
+    					  var.Annotations.get(1) + '\t' +
+    					  var.Annotations.get(2) + '\t');
     	
     	if (build.equals("hg19")) {
-    		variantTSV.append( var.Annotations.get(2) + '\t');
+    		variantTSV.append( var.Annotations.get(3) + '\t');
     	}
     	
     	if (var.getOriginalMesScores().size() != 0) {

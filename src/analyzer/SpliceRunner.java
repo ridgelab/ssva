@@ -125,7 +125,7 @@ public class SpliceRunner {
         parser = new GeneralAnnotationParser(this.outputFolder+exac);
         this.vars = parser.parse(this.vars);
         
-        String dbscsnv = AR.dbSCSNV(newFile,this.human);
+        String dbscsnv = AR.dbscSNV(newFile,this.human);
         parser = new GeneralAnnotationParser(this.outputFolder+dbscsnv);
         this.vars = parser.parse(this.vars);
         
