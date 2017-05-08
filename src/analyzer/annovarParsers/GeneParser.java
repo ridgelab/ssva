@@ -35,7 +35,7 @@ public class GeneParser {
             String[] columns = Line.split("\t");
             if (columns[0].equals("splicing")){
 
-                if (!columns[5].equals("-") && !columns[6].equals("-")) { //Excludes indels
+                if (!columns[5].equals("-") && !columns[6].equals("-") && !columns[5].equals("0") && !columns[6].equals("0")) { //Excludes indels
                     Variant var = new Variant(columns[2], Integer.valueOf(columns[3]), columns[1], columns[5], columns[6], columns[7]);
                     StringBuilder key = new StringBuilder(columns[2]+":"+columns[3]);
                     vars.put(key.toString(), var);

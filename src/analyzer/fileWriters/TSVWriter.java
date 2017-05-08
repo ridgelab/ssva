@@ -24,9 +24,9 @@ public class TSVWriter {
 
     	this.build = build;
     	if (build.equals("hg19")) {
-        	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT,CDDid;%LOST,E-VAL,INFO)\n");
+        	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT//CDDid//%LOST//E-VAL//INFO)\n");
     	} else if (build.equals("hg38")) {
-        	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT,CDDid,%LOST,E-VAL,INFO)\n");
+        	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT//CDDid//%LOST//E-VAL//INFO)\n");
     	}
     }
     

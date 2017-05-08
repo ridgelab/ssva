@@ -121,11 +121,11 @@ public class rpsBlastRunner {
     		if (!percentLost.equals(0.0)) {
     			
     			StringBuilder outCD = new StringBuilder();
-        		outCD.append(var.getCDSList().get(num).getTransName() + "," + 
-        					 splitLine[0] + ',' + // gnl|CDD|306940
-        					 df.format(percentLost) + "," + // percentLost
-        					 splitLine[4] + ',' + // e-val for match
-        					 splitLine[5] + ';'
+        		outCD.append(var.getCDSList().get(num).getTransName() + "//" + 
+        					 splitLine[0] + "//" + // gnl|CDD|306940
+        					 df.format(percentLost) + "//" + // percentLost
+        					 splitLine[4] + "//" + // e-val for match
+        					 splitLine[5] + "//"
         				);
         		var.ConservedDomains.add(outCD.toString());
     		}
