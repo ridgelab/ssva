@@ -111,10 +111,15 @@ public class SpliceRunner {
             	
             	
            	} // inside of valid Max Ent Scan only
+            
             iter.remove();
             ++varsFinished;
             
             double progressPercentage = varsFinished / totalVars;
+            System.out.println("VARS:");
+            System.out.println(varsFinished);
+            System.out.println(totalVars);
+
             
             // update progress
         	final int width = 50; // progress bar width in chars
@@ -127,7 +132,7 @@ public class SpliceRunner {
        	    for (; i < width; i++) {
        	      System.out.print(" ");
        	    }
-       	    System.out.print("] " + progressPercentage + "\n");
+       	    System.out.print("] " + progressPercentage);
 
         }
 
