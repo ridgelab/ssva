@@ -86,7 +86,7 @@ public class MESRunner {
     	//System.out.println("---- MESRunner ---- run5Prime ----");
 
     	
-        System.out.println(Utilities.GREEN+"Running Max Ent Scan 5\'"+ Utilities.RESET);
+        //System.out.println(Utilities.GREEN+"Running Max Ent Scan 5\'"+ Utilities.RESET);
         try {
             String[] call = new String[]{"perl",this.path+"score5.pl", "-fasta", file};
             ProcessBuilder pb = new ProcessBuilder(call);
@@ -121,7 +121,7 @@ public class MESRunner {
     public void run3Prime(String file) throws Exception{
     	//System.out.println("---- MESRunner ---- run3Prime ----");
 
-        System.out.println(Utilities.GREEN+"Running Max Ent Scan 3\'"+ Utilities.RESET);
+        //System.out.println(Utilities.GREEN+"Running Max Ent Scan 3\'"+ Utilities.RESET);
         try {
 
             String[] call = new String[]{"perl", this.path+"score3.pl", "-fasta", file};

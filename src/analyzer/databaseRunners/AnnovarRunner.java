@@ -157,16 +157,4 @@ public class AnnovarRunner {
         return null;
 
     }
-
-
-    //  Runtime.getRuntime().exec()
-    /*
-         convert2annovar.pl -format vcf4 example/ex2.vcf > ex2.avinput
-         annotate_variation.pl -out ex1 -build hg19 -hgvs example/ex1.avinput humandb/
-        annotate_variation.pl -regionanno -build hg19 -out ex1 -dbtype phastConsElements46way example/ex1.avinput humandb/ -normscore_threshold 400
-        annotate_variation.pl -filter -dbtype 1000g2012apr_eur -buildver hg19 -out ex1 example/ex1.avinput humandb/
-        annotate_variation.pl -filter -build hg19 -dbtype exac03 example/ex1.avinput humandb/
-        annotate_variation.pl -filter -dbtype gerp++gt2 -out ex1 -build hg19 example/ex1.avinput humandb/
-        */
-
 }

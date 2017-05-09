@@ -64,7 +64,7 @@ public class SpliceRunner {
         }
         this.SamtoolsPath = res.getString("Samtools");
         this.MaxEntPath = res.getString("MaxEntPath");
-        this.eval = res.getString(eval);
+        this.eval = res.getString("eval");
 
     }
 
@@ -83,8 +83,10 @@ public class SpliceRunner {
 
         TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv", this.build);
         
-        System.out.println(Utilities.GREEN+"Going through the variants\n"+ Utilities.RESET);
-
+        System.out.println(Utilities.GREEN+"Going through the variants\n\n"+ Utilities.RESET);
+        int totalVars = vars.size();
+        int varsFinished = 0;
+        
         while(iter.hasNext()){ //iterate over keys in the vars map
             Map.Entry<String,Variant> entry = iter.next();
             Variant var = entry.getValue();
@@ -110,6 +112,22 @@ public class SpliceRunner {
             	
            	} // inside of valid Max Ent Scan only
             iter.remove();
+            ++varsFinished;
+            
+            double progressPercentage = varsFinished / totalVars;
+            
+            // update progress
+        	final int width = 50; // progress bar width in chars
+
+            System.out.print("\r[");
+       	    int i = 0;
+       	    for (; i <= (int)(progressPercentage*width); i++) {
+       	      System.out.print(".");
+       	    }
+       	    for (; i < width; i++) {
+       	      System.out.print(" ");
+       	    }
+       	    System.out.print("] " + progressPercentage + "\n");
 
         }
 
