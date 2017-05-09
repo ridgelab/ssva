@@ -113,7 +113,7 @@ public class SpliceRunner {
            	} // inside of valid Max Ent Scan only
             
             iter.remove();
-            ++varsFinished;
+            varsFinished = varsFinished + 1;
             
             double progressPercentage = varsFinished / totalVars;
             System.out.println("VARS:");
