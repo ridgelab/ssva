@@ -83,7 +83,7 @@ public class SpliceRunner {
         rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder, this.eval);
         //pdbBlastRunner pdbRunner = new pdbBlastRunner(outputFolder);
         
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("#.00");
 		df.setRoundingMode(RoundingMode.CEILING);
 		
         TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv", this.build);
