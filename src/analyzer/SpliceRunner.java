@@ -123,8 +123,6 @@ public class SpliceRunner {
             double progressPercentage = (double) (varsFinished) / (double)(totalVars);
             
         	final int width = 50; // progress bar width in chars
-
-            System.out.println((int)(progressPercentage*width));
             
             // update progress
 
@@ -136,7 +134,7 @@ public class SpliceRunner {
        	    for (; i < width; i++) {
        	      System.out.print(" ");
        	    }
-       	    System.out.print("] " + df.format(progressPercentage) + "%");
+       	    System.out.print("] " + df.format(progressPercentage * 100) + "%");
 
         }
 
