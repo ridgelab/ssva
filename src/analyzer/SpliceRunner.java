@@ -119,10 +119,12 @@ public class SpliceRunner {
             System.out.println("VARS:");
             System.out.println(varsFinished);
             System.out.println(totalVars);
+            System.out.println(progressPercentage);
+        	final int width = 50; // progress bar width in chars
 
+            System.out.println((int)(progressPercentage*width));
             
             // update progress
-        	final int width = 50; // progress bar width in chars
 
             System.out.print("\r[");
        	    int i = 0;
