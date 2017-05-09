@@ -88,7 +88,7 @@ public class SpliceRunner {
 		
         TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv", this.build);
         
-        System.out.println(Utilities.GREEN+"Going through the variants\n\n"+ Utilities.RESET);
+        System.out.println(Utilities.GREEN+"Going through the variants"+ Utilities.RESET);
         int totalVars = vars.size();
         int varsFinished = 0;
         
@@ -128,7 +128,7 @@ public class SpliceRunner {
 
             System.out.print("\r[");
        	    int i = 0;
-       	    for (; i <= (int)(progressPercentage*width); i++) {
+       	    for (; i < (int)(progressPercentage*width); i++) {
        	      System.out.print(".");
        	    }
        	    for (; i < width; i++) {
@@ -137,6 +137,7 @@ public class SpliceRunner {
        	    System.out.print("] " + df.format(progressPercentage * 100) + "%");
 
         }
+        System.out.print("\n");
 
         sig_tsv.close();
     }
