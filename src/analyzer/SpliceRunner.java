@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -80,7 +82,10 @@ public class SpliceRunner {
         Iterator<Map.Entry<String,Variant>> iter = this.vars.entrySet().iterator();
         rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder, this.eval);
         //pdbBlastRunner pdbRunner = new pdbBlastRunner(outputFolder);
-
+        
+        DecimalFormat df = new DecimalFormat("#.##");
+		df.setRoundingMode(RoundingMode.CEILING);
+		
         TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv", this.build);
         
         System.out.println(Utilities.GREEN+"Going through the variants\n\n"+ Utilities.RESET);
@@ -116,10 +121,7 @@ public class SpliceRunner {
             varsFinished = varsFinished + 1;
             
             double progressPercentage = (double) (varsFinished) / (double)(totalVars);
-            System.out.println("VARS:");
-            System.out.println(varsFinished);
-            System.out.println(totalVars);
-            System.out.println(progressPercentage);
+            
         	final int width = 50; // progress bar width in chars
 
             System.out.println((int)(progressPercentage*width));
@@ -134,7 +136,7 @@ public class SpliceRunner {
        	    for (; i < width; i++) {
        	      System.out.print(" ");
        	    }
-       	    System.out.print("] " + progressPercentage);
+       	    System.out.print("] " + df.format(progressPercentage) + "%");
 
         }
 
