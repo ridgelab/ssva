@@ -40,6 +40,7 @@ public class SpliceRunner {
     private String SamtoolsPath;           // Path to Samtools 
     private String MaxEntPath;             // Path to the algorithm directory 
     private String build;				   // Build version of genome (default: hg19)
+    private String eval;				   // rpsblast e-value cut-off
 
 
     //-------------------------------------------------------------------------------------
@@ -63,6 +64,7 @@ public class SpliceRunner {
         }
         this.SamtoolsPath = res.getString("Samtools");
         this.MaxEntPath = res.getString("MaxEntPath");
+        this.eval = res.getString(eval);
 
     }
 
@@ -76,7 +78,7 @@ public class SpliceRunner {
         RefSeqParser rsp = new RefSeqParser(this.refSeq); //Parses the refseq data file. (2 files created) 
         PullRegionsFromRef prfr = new PullRegionsFromRef(ref,SamtoolsPath);  //hg19 / Sam tools
         Iterator<Map.Entry<String,Variant>> iter = this.vars.entrySet().iterator();
-        rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder);
+        rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder, this.eval);
         //pdbBlastRunner pdbRunner = new pdbBlastRunner(outputFolder);
 
         TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv", this.build);

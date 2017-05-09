@@ -16,11 +16,13 @@ public class rpsBlastRunner {
 
     String tempfaaPath;
     String tempoutPath;
+    String eval;
 
     
-    public rpsBlastRunner(String outputPath) throws IOException{
+    public rpsBlastRunner(String outputPath, String eval) throws IOException{
         this.tempfaaPath = outputPath + "temp.faa";
         this.tempoutPath = outputPath + "temp.out";
+        this.eval = eval;
 
         }
     
@@ -65,7 +67,7 @@ public class rpsBlastRunner {
     	System.out.println(Utilities.GREEN+"Running rpsblast to find Conserved Domains"+ Utilities.RESET);
     	try {
     		String[] call = new String[]{"rpsblast", "-query", tempfaaPath, "-db", "Cdd",
-    									 "-out", tempoutPath, "-evalue", ".005", "-outfmt", "6 sseqid qstart qend length evalue stitle"};
+    									 "-out", tempoutPath, "-evalue", eval, "-outfmt", "6 sseqid qstart qend length evalue stitle"};
     		
     		ProcessBuilder pb = new ProcessBuilder(call);
 

@@ -124,6 +124,13 @@ public class SpliceEngine {
         	  .setDefault("RefSeq_hg19.txt")
         	  .type(String.class);  
         
+        parser.addArgument("-e","--evalue")
+  	  		  .dest("eval")
+  	  		  .help("This is the evalue cut off for the rpsblast of the Cdd database.")
+  	  		  .required(false)
+  	  		  .setDefault(".005")
+  	  		  .type(String.class);  
+        
         parser.addArgument("-s","--Samtools")
          	  .dest("Samtools")
          	  .help("This is the path to the Samtools executable.")
