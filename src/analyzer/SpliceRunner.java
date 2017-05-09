@@ -115,7 +115,7 @@ public class SpliceRunner {
             iter.remove();
             varsFinished = varsFinished + 1;
             
-            double progressPercentage = varsFinished / totalVars;
+            double progressPercentage = (double) (varsFinished) / (double)(totalVars);
             System.out.println("VARS:");
             System.out.println(varsFinished);
             System.out.println(totalVars);
