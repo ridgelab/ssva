@@ -13,17 +13,16 @@
 
 ## I. Introduction
 
-SpliceVariantAnalyzer (SVA) is a splice site variant diagnosis tool which outputs a comprehensive annotation for splice site variants using hg19 as a reference.
+SpliceVariantAnalyzer (SVA) is a splice site variant diagnosis tool which outputs a comprehensive annotation for splice site variants from a vcf file. The software is compatible with both hg19 or hg38 as the reference.
+
 This output includes the following:
   - GERP++2 score
   - Exac03 score
   - 1000 Genomes score
-  - dbSCSNV scores
+  - dbSCSNV score
   - MaxEntScan wild-type and variant score
   - MaxEntScan % difference between WT and Mut
-  - list of lost conserved domains (rpsblast of Cdd)
-  - list of lost pdb sequences (blastp of pdb)
-  
+  - list of lost conserved domains (rpsblast of Cdd)  
   
 
 <a name="installation"/>
@@ -42,12 +41,12 @@ Required Databases:
 
 ### Annovar
 
-The main package download for Annovar can be found [here](http://annovar.openbioinformatics.org/en/latest/user-guide/download/). Once Annovar software has been downloaded, it can be used to download 3 other required databases. To
-download the additional databases use the following command five times:
+The main package download for Annovar can be found [here](http://annovar.openbioinformatics.org/en/latest/user-guide/download/). Once Annovar software has been downloaded, it can be used to download other required databases. To
+download the additional databases use the following command for each database:
 
 `./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar <name of db> <output_folder(usually humandb/)>`
 
-The abbreviations for the databases used by SVA are as follows:
+The abbreviations for the databases (<name of db>) used by SVA are as follows:
   - refGene
   - dbscsnv11
   - gerp++gt2 (hg19 only)
@@ -61,7 +60,7 @@ link.
 
 ### UCSC RefSeq file
 
-The required RefSeq file comes from the [UCSC table browser](https://genome.ucsc.edu/cgi-bin/hgTables). Included in the main directory of the github directory, the user does not need to download their own RefSeq file.
+The required RefSeq file comes from the [UCSC table browser](https://genome.ucsc.edu/cgi-bin/hgTables). Both the hg38 and hg19 RefSeq files are included in the main directory of the github directory, the user does not need to download their own RefSeq file.
   
 
 <a name="instruct"/>
