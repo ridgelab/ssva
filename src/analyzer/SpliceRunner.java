@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.RoundingMode;
+import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.Map;
@@ -81,7 +82,6 @@ public class SpliceRunner {
         PullRegionsFromRef prfr = new PullRegionsFromRef(ref,SamtoolsPath);  //hg19 / Sam tools
         Iterator<Map.Entry<String,Variant>> iter = this.vars.entrySet().iterator();
         rpsBlastRunner rpsRunner = new rpsBlastRunner(outputFolder, this.eval);
-        //pdbBlastRunner pdbRunner = new pdbBlastRunner(outputFolder);
         
         DecimalFormat df = new DecimalFormat("#.00");
 		df.setRoundingMode(RoundingMode.CEILING);
@@ -102,16 +102,11 @@ public class SpliceRunner {
             if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
                 //populate percentDiffList
             	var.checkMesSignificance(); 
-           
-            	//Run NNSplice and Human Splicing Finder
-            
-            	//Run PDB site losses
-            	//pdbRunner.runPDBBlast(var);
 
             	//Run rpsblast through Cdd Database and find all conserved domains lost
             	rpsRunner.runRPSBlast(var);
             
-            	// WRITE OUT RESULTS
+            	// Write out Results
             	sig_tsv.writeVariant(var);
             	
             	
@@ -121,11 +116,9 @@ public class SpliceRunner {
             varsFinished = varsFinished + 1;
             
             double progressPercentage = (double) (varsFinished) / (double)(totalVars);
-            
         	final int width = 50; // progress bar width in chars
             
             // update progress
-
             System.out.print("\r[");
        	    int i = 0;
        	    for (; i < (int)(progressPercentage*width); i++) {
@@ -135,11 +128,14 @@ public class SpliceRunner {
        	      System.out.print(" ");
        	    }
        	    System.out.print("] " + df.format(progressPercentage * 100) + "%");
-
         }
         System.out.print("\n");
 
+        // clean up
         sig_tsv.close();
+        Files.deleteIfExists(new File(this.outputFolder+"threePrime.txt").toPath());
+        Files.deleteIfExists(new File(this.outputFolder+"fivePrime.txt").toPath());
+
     }
 
     private void runAnnotations(String newFile) {
@@ -203,28 +199,3 @@ public class SpliceRunner {
         return writeNewAvinput();
     }
 }
-
-
-//USED TO BE IN mr.IsEmpty() if statement:
-//DEPRECATED
-/*
-int sig = var.checkMesSignificance();
-if(sig == 2){
-    System.out.println(Utilities.GREEN+"significant difference\n"+ Utilities.RESET);
-    VariantContextBuilder vcb = var.createVariantContext();
-    vcb.attribute("MesScore",mr.getScores());
-    sig_vw.writeVar(vcb.make());
-}
-else if(sig == 1){
-    System.out.println(Utilities.GREEN+"possibly significant difference\n"+ Utilities.RESET);
-    VariantContextBuilder vcb = var.createVariantContext();
-    vcb.attribute("MesScore",mr.getScores());
-    possiblySig_vw.writeVar(vcb.make());
-}
-else if(sig == 0){
-    System.out.println(Utilities.GREEN+"not significant difference\n"+ Utilities.RESET);
-    VariantContextBuilder vcb = var.createVariantContext();
-    vcb.attribute("MesScore",mr.getScores());
-    notSig_vw.writeVar(vcb.make());
-}
-*/

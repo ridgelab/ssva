@@ -45,14 +45,11 @@ public class MESRunner {
             this.isEmpty = true;
         }
         else if (file.contains("three")){
-
         	run3Prime(file);
-            
             this.isEmpty = false;
             assignScores(var);
         }
         else {
-
             run5Prime(file);
             this.isEmpty = false;
             assignScores(var);
