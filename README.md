@@ -46,7 +46,7 @@ download the additional databases use the following command for each database:
 
 `./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar <name of db> <output_folder(usually humandb/)>`
 
-The abbreviations for the databases (<name of db>) used by SVA are as follows:
+The abbreviations for the databases (\<name of db\>) used by SVA are as follows:
   - refGene
   - dbscsnv11
   - gerp++gt2 (hg19 only)
