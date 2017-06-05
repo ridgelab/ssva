@@ -85,6 +85,18 @@ Optional command line arguments:
 - -e evalue:  This is the evalue cut off for the rpsblast of the Cdd database. (default .005)
 - -s samtools:  This is the path to the Samtools executable. (default in path variable)
 
+An example for running the program is as follows:
+
+```
+java -jar ./target/SVA-1.0-jar-with-dependencies.jar \
+        -i chromosome22.vcf \
+        -o SVA_output/ \
+        -a ~/software/annovar \
+        -d ~/humandb/ \
+        -m ~/maxentscan/ \
+        -g ~/hg19Ref/ \
+```
+
 <a name="license"/>
 
 ## IV. License
