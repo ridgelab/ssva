@@ -60,7 +60,7 @@ link.
 
 ### UCSC RefSeq file
 
-The required RefSeq file comes from the [UCSC table browser](https://genome.ucsc.edu/cgi-bin/hgTables). Both the hg38 and hg19 RefSeq files are included in the main directory of the github directory, the user does not need to download their own RefSeq file.
+The required RefSeq file comes from the [UCSC table browser](https://genome.ucsc.edu/cgi-bin/hgTables). Both the hg38 and hg19 RefSeq files are included in the main directory of the github repository, therefore the user does not need to download their own RefSeq file.
 
 ### MaxEntScan scripts
 
