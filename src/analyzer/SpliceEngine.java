@@ -110,13 +110,6 @@ public class SpliceEngine {
         		  }
         	  });
         	  
-        /*parser.addArgument("-b","--buildver")
-  	  		  .dest("build")
-  	  		  .help("This is the build of the human genome (default: hg19).")
-  	  		  .required(false)
-  	  		  .setDefault("hg19")
-  	  		  .type(String.class);
-        */
         parser.addArgument("-r","--RefSeqFile")
         	  .dest("analyzer/RefSeq")
         	  .help("This is the path to the file that contains the UCSC table viewer RefSeq data.")
