@@ -36,7 +36,7 @@ public class GeneralAnnotationParser {
             sb.append(columns[2]+":"+columns[3]);
 
             String var = sb.toString();
-            String anno = "NA";
+            String anno = columns[1];
             Variant v = Vars.get(var);
             v.addAnnotation(anno);
             Vars.put(var, v);
@@ -49,7 +49,7 @@ public class GeneralAnnotationParser {
             sb.append(columns[0]+":"+columns[1]);
 
             String var = sb.toString();
-            String anno = columns[1];
+            String anno = "NA";
             Variant v = Vars.get(var);
             v.addAnnotation(anno);
             Vars.put(var, v);

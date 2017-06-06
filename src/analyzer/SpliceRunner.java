@@ -98,18 +98,14 @@ public class SpliceRunner {
             var.parseSpliceInfo(rsp, prfr);
 
           //Run MES and set scores for each variant
-            System.out.println("MESRunner");
             MESRunner mr = new MESRunner(var,this.outputFolder, this.MaxEntPath);  
             if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
-                System.out.println("percentDiffList");
             	//populate percentDiffList
             	var.checkMesSignificance(); 
 
-                System.out.println("rpsblast");
             	//Run rpsblast through Cdd Database and find all conserved domains lost
             	rpsRunner.runRPSBlast(var);
             
-                System.out.println("write results");
             	// Write out Results
             	sig_tsv.writeVariant(var);
             	
