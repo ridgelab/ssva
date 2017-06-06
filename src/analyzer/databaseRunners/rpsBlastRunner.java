@@ -31,12 +31,15 @@ public class rpsBlastRunner {
     	//System.out.println(var.toString());
     	
     	if (var.getCDSList().size() == 1) {
+            System.out.println("rpsblast:query");
     		buildRPSQuery(var, 0); 	
         	try {
+                System.out.println("rpsblast:command");
     			runRPSBlastCommand();
     		} catch (Exception e) {
     			e.printStackTrace();
     		}
+            System.out.println("rpsblast:results");
         	extractRPSBlastResults(var, 0);
     	} else if (var.getCDSList().size() != 0){
     		for (int i = 0; i < var.getCDSList().size(); ++i) {
