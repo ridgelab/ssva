@@ -44,7 +44,7 @@ public class SpliceRunner {
     private String MaxEntPath;             // Path to the algorithm directory 
     private String build;				   // Build version of genome (default: hg19)
     private String eval;				   // rpsblast e-value cut-off
-    private Boolean debug;				   // whether to show error messages or not
+    private String debug;				   // whether to show error messages or not
 
 
 
@@ -70,7 +70,7 @@ public class SpliceRunner {
         this.SamtoolsPath = res.getString("Samtools");
         this.MaxEntPath = res.getString("MaxEntPath");
         this.eval = res.getString("eval");
-        this.debug = res.getBoolean("debug");
+        this.debug = res.getString("debug");
 
     }
 
