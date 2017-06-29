@@ -44,6 +44,8 @@ public class SpliceRunner {
     private String MaxEntPath;             // Path to the algorithm directory 
     private String build;				   // Build version of genome (default: hg19)
     private String eval;				   // rpsblast e-value cut-off
+    private Boolean debug;				   // whether to show error messages or not
+
 
 
     //-------------------------------------------------------------------------------------
@@ -68,6 +70,7 @@ public class SpliceRunner {
         this.SamtoolsPath = res.getString("Samtools");
         this.MaxEntPath = res.getString("MaxEntPath");
         this.eval = res.getString("eval");
+        this.debug = res.getBoolean("debug");
 
     }
 
@@ -75,7 +78,7 @@ public class SpliceRunner {
     // Method used to run the splice site algorithm
     //-------------------------------------------------------------------------------------
     public void run() throws Exception{
-        String varfunc = convertAnnovar(); // Convert input VCF to annovar format and run annovar on it. (Returns the file name of the file, containing annotated variance, created by annovar)
+        String varfunc = convertAnnovar(); // Convert input VCF to annovar format and run annovar on it. (Returns the file name of the file, containing annotated variants, created by annovar)
         String newFile = geneBasedAnnotation(varfunc); // SETS VARS / Parse the annotated file. (Returns the file name of a "splice file" containing splice variants) 
         runAnnotations(newFile); // Runs annovar 3 times to get 3 different conserved scores. New information is added to the "vars" map.
         RefSeqParser rsp = new RefSeqParser(this.refSeq); //Parses the refseq data file. (2 files created) 
@@ -139,7 +142,7 @@ public class SpliceRunner {
     }
 
     private void runAnnotations(String newFile) {
-        AnnovarRunner AR = new AnnovarRunner(this.annovar, this.outputFolder, this.build);
+        AnnovarRunner AR = new AnnovarRunner(this.annovar, this.outputFolder, this.build, this.debug);
 
         String oneKGenomes = AR.onekGenomes(newFile,this.human);
         GeneralAnnotationParser parser = new GeneralAnnotationParser(this.outputFolder+oneKGenomes);
@@ -162,7 +165,7 @@ public class SpliceRunner {
     }
 
     private String convertAnnovar(){
-        AnnovarRunner AR = new AnnovarRunner(this.annovar,this.outputFolder, this.build);
+        AnnovarRunner AR = new AnnovarRunner(this.annovar,this.outputFolder, this.build, this.debug);
         String avinput = AR.convert2Annovar(this.input);
         String varfunc = AR.Gene(avinput,this.human);
         return varfunc;

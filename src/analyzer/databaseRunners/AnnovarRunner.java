@@ -12,24 +12,29 @@ public class AnnovarRunner {
     private String AnnovarPath;
     private String OutputFolder;
     private String build;
+    private Boolean debug;
 
-    public AnnovarRunner(String Path2Annovar, String OutputFolder, String build){
+
+    public AnnovarRunner(String Path2Annovar, String OutputFolder, String build, Boolean debug){
         this.AnnovarPath = Path2Annovar;
         this.OutputFolder = OutputFolder;
         this.build = build;
+        this.debug = debug;
     }
 
     public String convert2Annovar(String vcf) {
-        System.out.println(Utilities.GREEN+"Running VCF to Annovar Conversion"+ Utilities.RESET);
         
         String[] temp = vcf.split("/");
 
         File f = new File(temp[temp.length-1]+".avinput");
 
         if(f.exists() && !f.isDirectory()) { 
+            System.out.println(Utilities.GREEN+"Existing avinput file found: " + Utilities.RESET + temp[temp.length-1]+".avinput");
             return temp[temp.length-1]+".avinput";
         }
         
+        System.out.println(Utilities.GREEN+"Running VCF to Annovar Conversion"+ Utilities.RESET);
+
         try {
             String[] call = new String[]{"perl",this.AnnovarPath+"/convert2annovar.pl","--splicing_threshold", "35", "-format","vcf4",vcf,"--outfile",vcf+".avinput"};
             ProcessBuilder pb = new ProcessBuilder(call);
@@ -51,14 +56,25 @@ public class AnnovarRunner {
     }
 
     public String Gene(String avinput, String human){
-        System.out.println(Utilities.GREEN+"Running Gene Annotation"+ Utilities.RESET);
+        
+
+        File f = new File(this.OutputFolder + avinput+".variant_function");
+
+        if(f.exists() && !f.isDirectory()) { 
+            System.out.println(Utilities.GREEN+"Existing .variant_function file found: " + Utilities.RESET + avinput+".variant_function");
+            return avinput+".variant_function";
+        }    	
+    	
+    	System.out.println(Utilities.GREEN+"Running Gene Annotation"+ Utilities.RESET);
 
         try {
             String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","--splicing_threshold","35","--buildver", build,"-hgvs","-out",this.OutputFolder+avinput,avinput,human};
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            //System.out.println(Utilities.getProcessError(p));
+            if (debug) {
+            	System.out.println(Utilities.getProcessError(p));
+            }
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -81,7 +97,9 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            //System.out.println(Utilities.getProcessError(p));
+            if (debug) {
+            	System.out.println(Utilities.getProcessError(p));
+            }
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -104,7 +122,9 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            //System.out.println(Utilities.getProcessError(p));
+            if (debug) {
+            	System.out.println(Utilities.getProcessError(p));
+            }
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -128,7 +148,9 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            //System.out.println(Utilities.getProcessError(p));
+            if (debug) {
+            	System.out.println(Utilities.getProcessError(p));
+            }
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -152,7 +174,9 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            //System.out.println(Utilities.getProcessError(p));
+            if (debug) {
+            	System.out.println(Utilities.getProcessError(p));
+            }
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
