@@ -1,6 +1,8 @@
 package analyzer.databaseRunners;
 
 import analyzer.Utilities.Utilities;
+
+import java.io.File;
 import java.io.IOException;
 /**
  * Created by mwads on 1/15/16.
@@ -19,6 +21,15 @@ public class AnnovarRunner {
 
     public String convert2Annovar(String vcf) {
         System.out.println(Utilities.GREEN+"Running VCF to Annovar Conversion"+ Utilities.RESET);
+        
+        String[] temp = vcf.split("/");
+
+        File f = new File(temp[temp.length-1]+".avinput");
+
+        if(f.exists() && !f.isDirectory()) { 
+            return temp[temp.length-1]+".avinput";
+        }
+        
         try {
             String[] call = new String[]{"perl",this.AnnovarPath+"/convert2annovar.pl","--splicing_threshold", "35", "-format","vcf4",vcf,"--outfile",vcf+".avinput"};
             ProcessBuilder pb = new ProcessBuilder(call);
@@ -29,7 +40,6 @@ public class AnnovarRunner {
             System.out.println(Utilities.getProcessError(p));
             p.destroy();
 
-            String[] temp = vcf.split("/");
 
             return temp[temp.length-1]+".avinput";
         } catch (IOException e) {
