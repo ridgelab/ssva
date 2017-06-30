@@ -44,7 +44,7 @@ public class SpliceRunner {
     private String MaxEntPath;             // Path to the algorithm directory 
     private String build;				   // Build version of genome (default: hg19)
     private String eval;				   // rpsblast e-value cut-off
-    private String debug;				   // whether to show error messages or not
+    //private String debug;				   // whether to show error messages or not
 
 
 
@@ -70,7 +70,7 @@ public class SpliceRunner {
         this.SamtoolsPath = res.getString("Samtools");
         this.MaxEntPath = res.getString("MaxEntPath");
         this.eval = res.getString("eval");
-        this.debug = res.getString("debug");
+        //this.debug = res.getString("debug");
 
     }
 
@@ -99,6 +99,8 @@ public class SpliceRunner {
             Map.Entry<String,Variant> entry = iter.next();
             Variant var = entry.getValue();
             var.parseSpliceInfo(rsp, prfr);
+            
+            System.out.println(var.toString());
 
           //Run MES and set scores for each variant
             MESRunner mr = new MESRunner(var,this.outputFolder, this.MaxEntPath);  
@@ -142,7 +144,7 @@ public class SpliceRunner {
     }
 
     private void runAnnotations(String newFile) {
-        AnnovarRunner AR = new AnnovarRunner(this.annovar, this.outputFolder, this.build, this.debug);
+        AnnovarRunner AR = new AnnovarRunner(this.annovar, this.outputFolder, this.build);
 
         String oneKGenomes = AR.onekGenomes(newFile,this.human);
         GeneralAnnotationParser parser = new GeneralAnnotationParser(this.outputFolder+oneKGenomes);
@@ -165,7 +167,7 @@ public class SpliceRunner {
     }
 
     private String convertAnnovar(){
-        AnnovarRunner AR = new AnnovarRunner(this.annovar,this.outputFolder, this.build, this.debug);
+        AnnovarRunner AR = new AnnovarRunner(this.annovar,this.outputFolder, this.build);
         String avinput = AR.convert2Annovar(this.input);
         String varfunc = AR.Gene(avinput,this.human);
         return varfunc;

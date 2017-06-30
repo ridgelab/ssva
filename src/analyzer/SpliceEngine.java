@@ -131,13 +131,13 @@ public class SpliceEngine {
          	  .setDefault("samtools") // in path assumed
          	  .type(String.class);
         
-        parser.addArgument("-u","--debug")
+        /*parser.addArgument("-u","--debug")
    	  		  .dest("debug")
    	  		  .help("Sets debug mode")
    	  		  .required(false)
    	  		  .setDefault("false") // in path assumed
    	  		  .type(String.class);
-
+*/
 
        
         return parser;

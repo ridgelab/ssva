@@ -12,14 +12,14 @@ public class AnnovarRunner {
     private String AnnovarPath;
     private String OutputFolder;
     private String build;
-    private String debug;
+    //private String debug;
 
 
-    public AnnovarRunner(String Path2Annovar, String OutputFolder, String build, String debug){
+    public AnnovarRunner(String Path2Annovar, String OutputFolder, String build){
         this.AnnovarPath = Path2Annovar;
         this.OutputFolder = OutputFolder;
         this.build = build;
-        this.debug = debug;
+        //this.debug = debug;
     }
 
     public String convert2Annovar(String vcf) {
@@ -72,9 +72,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            if (debug.equals("true")) {
-            	System.out.println(Utilities.getProcessError(p));
-            }
+          	//System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -97,9 +95,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            if (debug.equals("true")) {
-            	System.out.println(Utilities.getProcessError(p));
-            }
+          	//System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -122,9 +118,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            if (debug.equals("true")) {
-            	System.out.println(Utilities.getProcessError(p));
-            }
+          	//System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -148,9 +142,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            if (debug.equals("true")) {
-            	System.out.println(Utilities.getProcessError(p));
-            }
+          	//System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
@@ -174,9 +166,7 @@ public class AnnovarRunner {
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
-            if (debug.equals("true")) {
-            	System.out.println(Utilities.getProcessError(p));
-            }
+          	//System.out.println(Utilities.getProcessError(p));
             Utilities.getProcessOutput(p);
             p.destroyForcibly();
             p.waitFor();
