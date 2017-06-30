@@ -94,6 +94,9 @@ public class SpliceRunner {
         System.out.println(Utilities.GREEN+"Going through the variants"+ Utilities.RESET);
         int totalVars = vars.size();
         int varsFinished = 0;
+    	if (!rpsblast.equals("true")) {
+            System.out.println("\t-p flag set to false, skipping rpsblast for variants");
+    	}
         
         while(iter.hasNext()){ //iterate over keys in the vars map
             Map.Entry<String,Variant> entry = iter.next();
