@@ -165,6 +165,7 @@ public class Variant {
                 ",\nAnnotations=" + String.valueOf(Annotations.size()) +
                 ",\ntranscripts=" + String.valueOf(transcripts.size()) +
                 ",\nGeneName='" + GeneName + '\'' +
+                ",\nVariantMESScores='" + VariantMES
                 "}\n\n";
                 */
     	StringBuilder sb = new StringBuilder();
@@ -172,12 +173,20 @@ public class Variant {
     		sb.append(cd.toString());
     	}
     	
+    	StringBuilder sb2 = new StringBuilder();
+
+    	for (Double d : VariantMesScores) {
+    		sb2.append(d.toString());
+    	}
+    	
     	return "Variant{\n" +
         "\tChr='" + Chr + '\'' +
         ",\tPos=" + Pos + ",\n" +
         "\tspliceInfo='" + spliceInfo + "\',\n" +
         "\ttranscripts=" + String.valueOf(transcripts.size()) +
-        ",\n" + sb.toString() +
+        "\tMesScores=" + String.valueOf(VariantMesScores.size()) +
+        //",\n" + sb.toString() +
+        ",\n" + sb2.toString() +
         "}\n\n";
     }
 
