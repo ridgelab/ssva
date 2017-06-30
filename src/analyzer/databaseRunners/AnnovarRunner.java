@@ -68,7 +68,7 @@ public class AnnovarRunner {
     	System.out.println(Utilities.GREEN+"Running Gene Annotation"+ Utilities.RESET);
 
         try {
-            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","--splicing_threshold","35","--buildver", build,"-hgvs","-out",this.OutputFolder+avinput,avinput,human};
+            String[] call = new String[]{"perl",this.AnnovarPath+"/annotate_variation.pl","--splicing_threshold","20","--buildver", build,"-hgvs","-out",this.OutputFolder+avinput,avinput,human};
             ProcessBuilder pb = new ProcessBuilder(call);
             Process p = pb.start();
             p.waitFor();
