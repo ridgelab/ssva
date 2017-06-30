@@ -44,7 +44,7 @@ public class SpliceRunner {
     private String MaxEntPath;             // Path to the algorithm directory 
     private String build;				   // Build version of genome (default: hg19)
     private String eval;				   // rpsblast e-value cut-off
-    //private String debug;				   // whether to show error messages or not
+    private String rpsblast;			   // whether to to rpsblast or not
 
 
 
@@ -70,7 +70,7 @@ public class SpliceRunner {
         this.SamtoolsPath = res.getString("Samtools");
         this.MaxEntPath = res.getString("MaxEntPath");
         this.eval = res.getString("eval");
-        //this.debug = res.getString("debug");
+        this.rpsblast = res.getString("rpsblast");
 
     }
 
@@ -89,7 +89,7 @@ public class SpliceRunner {
         DecimalFormat df = new DecimalFormat("#.00");
 		df.setRoundingMode(RoundingMode.CEILING);
 		
-        TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv", this.build);
+        TSVWriter sig_tsv = new TSVWriter(this.outputFolder+"SpliceVariantResults.tsv", this.build, this.rpsblast);
         
         System.out.println(Utilities.GREEN+"Going through the variants"+ Utilities.RESET);
         int totalVars = vars.size();
@@ -108,9 +108,11 @@ public class SpliceRunner {
             	//populate percentDiffList
             	var.checkMesSignificance(); 
 
-            	//Run rpsblast through Cdd Database and find all conserved domains lost
-            	rpsRunner.runRPSBlast(var);
-            
+            	if (rpsblast.equals("true")) {
+            		//Run rpsblast through Cdd Database and find all conserved domains lost
+                	rpsRunner.runRPSBlast(var);
+            	}
+            	
             	// Write out Results
             	sig_tsv.writeVariant(var);
             	

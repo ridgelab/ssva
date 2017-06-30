@@ -17,16 +17,27 @@ public class TSVWriter {
     private String path;
     public FileWriter file;
     public String build;
+    public String rps;
 
-    public TSVWriter(String tsvPath, String build) throws IOException{
+
+    public TSVWriter(String tsvPath, String build, String rps) throws IOException{
     	path = tsvPath;
     	file = new FileWriter(tsvPath);
+    	this.rps = rps;
 
     	this.build = build;
     	if (build.equals("hg19")) {
-        	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT//CDDid//%LOST//E-VAL//INFO)\n");
+    		if (rps.equals("true")) {
+            	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT//CDDid//%LOST//E-VAL//INFO)\n");
+    		} else {
+            	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tGERP2\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+    		}
     	} else if (build.equals("hg38")) {
-        	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT//CDDid//%LOST//E-VAL//INFO)\n");
+    		if (rps.equals("true")) {
+            	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\tCDD(TRANSCRIPT//CDDid//%LOST//E-VAL//INFO)\n");
+    		} else {
+            	file.write("#CHR\tPOS\tREF\tALT\tGENE\tTRANSCRIPT\t1000GEN\tEXAC\tdbscSNV\tWT_MESSCORE\tVAR_MESSCORE\t%DIFF\tSPLICEINFO\n");
+    		}
     	}
     }
     
@@ -72,11 +83,14 @@ public class TSVWriter {
         	} 
     		
     		variantTSV.append('\t' + var.getCDSList().get(i).getcDot() + '\t');
+
+    		if (rps.equals("true")) {
+    			file.write(variantTSV.toString());
+            	if (var.ConservedDomains.size() != 0) {
+                	this.writeConservedDomains(var, var.getCDSList().get(i).transName);
+            	}
+    		}
         	
-        	file.write(variantTSV.toString());
-        	if (var.ConservedDomains.size() != 0) {
-            	this.writeConservedDomains(var, var.getCDSList().get(i).transName);
-        	}
         	
         	
     	}
