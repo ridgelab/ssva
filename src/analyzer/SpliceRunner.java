@@ -103,8 +103,6 @@ public class SpliceRunner {
             Variant var = entry.getValue();
             var.parseSpliceInfo(rsp, prfr);
             
-            System.out.println(var.toString());
-
           //Run MES and set scores for each variant
             MESRunner mr = new MESRunner(var,this.outputFolder, this.MaxEntPath);  
             if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
