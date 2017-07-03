@@ -117,6 +117,7 @@ public class SpliceRunner {
             	}
             	
             	// Write out Results
+            	System.out.println("writing out a variant");
             	sig_tsv.writeVariant(var);
             	
             	
