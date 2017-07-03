@@ -90,10 +90,13 @@ public class TSVWriter {
 
 			file.write(variantTSV.toString());
 
+
     		if (rps.equals("true")) {
             	if (var.ConservedDomains.size() != 0) {
                 	this.writeConservedDomains(var, var.getCDSList().get(i).transName);
             	}
+    		} else {
+    	    	file.write('\n');
     		}
         	
         	
