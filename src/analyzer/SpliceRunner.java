@@ -104,7 +104,9 @@ public class SpliceRunner {
             var.parseSpliceInfo(rsp, prfr);
             
           //Run MES and set scores for each variant
+            try {
             MESRunner mr = new MESRunner(var,this.outputFolder, this.MaxEntPath);  
+            
             if (!mr.IsEmpty()){ // ONLY IF A VALID MES RUN
             	//populate percentDiffList
             	var.checkMesSignificance(); 
@@ -119,6 +121,10 @@ public class SpliceRunner {
             	
             	
            	} // inside of valid Max Ent Scan only
+            } catch(IndexOutOfBoundsException e) {
+            	System.out.println(var.toString());
+            	System.out.println(e);
+            }
             
             iter.remove();
             varsFinished = varsFinished + 1;
