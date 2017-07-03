@@ -123,7 +123,7 @@ public class SpliceRunner {
             	
            	} // inside of valid Max Ent Scan only
             } catch(IndexOutOfBoundsException e) {
-            	
+            	sig_tsv.flushIt();
             	System.out.println(var.toString());
             	System.out.println(e);
             }
