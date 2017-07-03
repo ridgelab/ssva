@@ -117,13 +117,11 @@ public class SpliceRunner {
             	}
             	
             	// Write out Results
-            	System.out.println("writing out a variant");
             	sig_tsv.writeVariant(var);
             	
             	
            	} // inside of valid Max Ent Scan only
             } catch(IndexOutOfBoundsException e) {
-            	sig_tsv.flushIt();
             	System.out.println(var.toString());
             	System.out.println(e);
             }
@@ -148,7 +146,6 @@ public class SpliceRunner {
         System.out.print("\n");
 
         // clean up
-    	System.out.println("closing file");
         sig_tsv.close();
         Files.deleteIfExists(new File(this.outputFolder+"threePrime.txt").toPath());
         Files.deleteIfExists(new File(this.outputFolder+"fivePrime.txt").toPath());

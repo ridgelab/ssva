@@ -88,8 +88,9 @@ public class TSVWriter {
     		
     		variantTSV.append('\t' + var.getCDSList().get(i).getcDot() + '\t');
 
+			file.write(variantTSV.toString());
+
     		if (rps.equals("true")) {
-    			file.write(variantTSV.toString());
             	if (var.ConservedDomains.size() != 0) {
                 	this.writeConservedDomains(var, var.getCDSList().get(i).transName);
             	}
