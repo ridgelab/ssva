@@ -147,6 +147,7 @@ public class SpliceRunner {
         System.out.print("\n");
 
         // clean up
+    	System.out.println("closing file");
         sig_tsv.close();
         Files.deleteIfExists(new File(this.outputFolder+"threePrime.txt").toPath());
         Files.deleteIfExists(new File(this.outputFolder+"fivePrime.txt").toPath());
