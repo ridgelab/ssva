@@ -41,6 +41,10 @@ public class TSVWriter {
     	}
     }
     
+    public void flushIt() throws IOException {
+    	file.flush();
+    }
+    
     public void writeVariant(Variant var) throws IOException {
 
     	for (int i = 0; i < var.getCDSList().size(); ++i) {
