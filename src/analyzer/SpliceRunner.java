@@ -123,6 +123,7 @@ public class SpliceRunner {
             	
            	} // inside of valid Max Ent Scan only
             } catch(IndexOutOfBoundsException e) {
+            	
             	System.out.println(var.toString());
             	System.out.println(e);
             }
