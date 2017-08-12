@@ -73,12 +73,6 @@ public class SpliceEngine {
               .required(true)
               .type(String.class);
         
-        parser.addArgument("-m","--MaxEntScan")
-        	  .dest("MaxEntPath")
-        	  .help("This is the full path to the MaxEntScan directory.")
-        	  .required(true)
-        	  .type(String.class);
-        
         parser.addArgument("-g","--genome")
           	  .dest("Ref")
           	  .help("This is the path to the directory that contains the UCSC reference genome by chromosome downloaded (hg19/hg38).")
@@ -116,6 +110,13 @@ public class SpliceEngine {
         	  .required(false)
         	  .setDefault("RefSeq_hg19.txt")
         	  .type(String.class);  
+        
+        parser.addArgument("-m","--MaxEntScan")
+        	  .dest("MaxEntPath")
+  	          .help("This is the full path to the MaxEntScan directory.")
+  	          .required(false)
+  	          .setDefault("MES/")
+  	          .type(String.class);
         
         parser.addArgument("-e","--evalue")
   	  		  .dest("eval")
