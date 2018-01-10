@@ -32,7 +32,7 @@ This output includes the following:
 To install SSVA locally follow these steps:
   - clone project
   - from the main directory of the project run maven using `mvn clean -U install`
-  - run `java -jar target/SSVA-1.0-SNAPSHOT-jar-with-dependencies.jar -help` to see command line options
+  - run `java -jar target/SSVA-1.0-jar-with-dependencies.jar -help` to see command line options
 
 Required Databases:
   SSVA uses different databases and software to provide its results. Below are instructions on how to download and install
@@ -60,11 +60,11 @@ link.
 
 ### UCSC RefSeq file
 
-The required RefSeq file comes from the [UCSC table browser](https://genome.ucsc.edu/cgi-bin/hgTables). Both the hg38 and hg19 RefSeq files are included in the main directory of the github repository, therefore the user does not need to download their own RefSeq file.
+Both the hg38 and hg19 RefSeq files are included in the main directory of the github repository, therefore the user does not need to download their own RefSeq file. These files comes from the [UCSC table browser](https://genome.ucsc.edu/cgi-bin/hgTables).
 
 ### MaxEntScan scripts
 
-The MaxEntScan scripts that are required can be downloaded [here](https://github.com/razZ0r/maxentscan.git).
+The MaxEntScan scripts are already downloaded in the git repository under the `MES` and `splicemodels` directories, therefore the user does not need to download the MES scripts. These scripts were downloaded from https://github.com/razZ0r/maxentscan.git.
   
 
 <a name="instruct"/>
@@ -73,18 +73,18 @@ The MaxEntScan scripts that are required can be downloaded [here](https://github
 
 Required command line arguments:
 - -i input file:  The vcf file with all variants
-- -o output directory:  The directory where the output files will be saved
-- -a annovar: The path to the annovar directory with perl scripts
-- -d humandb:  The path to the directory containing the databases that uses (must have refGene, dbscsnv11, gerp++gt2 (hg19 only), exac03, and  1000g2015aug as explained above)
-- -m MaxEntScan path:  The path to the MaxEntScan perl scripts directory
-- -g genome:  The path to the directory that contains the   UCSC   reference    genome   by   chromosome downloaded (hg19/hg38)
+- -o output directory:  The directory where the output files will be saved (the directory must exist already)
+- -a annovar: The path to the annovar directory with perl scripts 
+- -d humandb:  The path to the directory containing the databases that uses (must have refGene, dbscsnv11, gerp++gt2 (hg19 only), exac03, and 1000g2015aug as explained above)
+- -g genome:  The path to the directory that contains the UCSC reference genome by chromosome downloaded (hg19/hg38)
 
 Optional command line arguments:
 - -b build version:  Valid options are 'hg19'(default) or 'hg38'
 - -r RefSeqFile:  This is the path to the file that contains the UCSC table viewer RefSeq data. (default: in this git repository)
+- -m MaxEntScan path:  The path to the MaxEntScan perl scripts directory (default: ./MES/)
 - -e evalue:  This is the evalue cut off for the rpsblast of the Cdd database. (default: .005)
 - -s samtools:  This is the path to the Samtools executable. (default: in path variable)
-- -u debug: This toggles whether to show error messages from annovar and the database queries. (default: false)
+- -p rpsblast: This toggles whether to do rpsblast step or not. (default: false)
 
 An example for running the program is as follows:
 
@@ -94,7 +94,6 @@ java -jar ./target/SSVA-1.0-jar-with-dependencies.jar \
         -o SVA_output/ \
         -a ~/software/annovar \
         -d ~/humandb/ \
-        -m ~/maxentscan/ \
         -g ~/hg19Ref/ \
 ```
 
@@ -102,11 +101,16 @@ java -jar ./target/SSVA-1.0-jar-with-dependencies.jar \
 
 ## IV. License
 
-<a name="funding"/>
-
-## V. Funding and Acknowledgements
+This software is provided openly for all academic and non-profit use.
 
 <a name="contact"/>
 
 ## VI. Contact
 
+For questions, comments, concerns, feature requests, suggestions, etc., please
+contact:
+
+Pery Ridge, Ph.D. -- perry.ridge@byu.edu
+
+Note: For usage questions, please consult section `III. Usage Instructions and
+Examples' first.
