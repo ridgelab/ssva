@@ -1,4 +1,4 @@
-pliceVariantAnalyzer
+SpliceSiteVariantAnalyzer (SSVA)
 
 #### Table of Contents  
 [I. Introduction](#introduction)  
@@ -13,7 +13,7 @@ pliceVariantAnalyzer
 
 ## I. Introduction
 
-SpliceVariantAnalyzer (SVA) is a splice site variant diagnosis tool which outputs a comprehensive annotation for splice site variants from a vcf file. The software is compatible with both hg19 or hg38 as the reference.
+SpliceSiteVariantAnalyzer (SSVA) is a splice site variant diagnosis tool which outputs a comprehensive annotation for splice site variants from a vcf file. The software is compatible with both hg19 or hg38 as the reference.
 
 This output includes the following:
   - GERP++2 score
@@ -29,13 +29,13 @@ This output includes the following:
 
 ## II. Installation Instructions
 
-To install SVA locally follow these steps:
+To install SSVA locally follow these steps:
   - clone project
   - from the main directory of the project run maven using `mvn clean -U install`
-  - run `java -jar target/SVA-1.0-SNAPSHOT-jar-with-dependencies.jar -help` to see command line options
+  - run `java -jar target/SSVA-1.0-SNAPSHOT-jar-with-dependencies.jar -help` to see command line options
 
 Required Databases:
-  SVA uses different databases and software to provide its results. Below are instructions on how to download and install
+  SSVA uses different databases and software to provide its results. Below are instructions on how to download and install
   the required databases and software.
   
 
@@ -46,7 +46,7 @@ download the additional databases use the following command for each database:
 
 `./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar <name of db> <output_folder(usually humandb/)>`
 
-The abbreviations for the databases (\<name of db\>) used by SVA are as follows:
+The abbreviations for the databases (\<name of db\>) used by SSVA are as follows:
   - refGene
   - dbscsnv11
   - gerp++gt2 (hg19 only)
@@ -55,7 +55,7 @@ The abbreviations for the databases (\<name of db\>) used by SVA are as follows:
   
 ### Reference Genome (hg19/hg38)
 
-SVA requires either the hg19 or hg38 genome separated by chromosome. Instructions on how to download this are given on UCSC website [here](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/). The files must be uncompressed as explained in the previous
+SSVA requires either the hg19 or hg38 genome separated by chromosome. Instructions on how to download this are given on UCSC website [here](http://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/). The files must be uncompressed as explained in the previous
 link.
 
 ### UCSC RefSeq file
@@ -89,7 +89,7 @@ Optional command line arguments:
 An example for running the program is as follows:
 
 ```
-java -jar ./target/SVA-1.0-jar-with-dependencies.jar \
+java -jar ./target/SSVA-1.0-jar-with-dependencies.jar \
         -i chromosome22.vcf \
         -o SVA_output/ \
         -a ~/software/annovar \
