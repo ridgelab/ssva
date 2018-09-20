@@ -3,9 +3,7 @@ SpliceSiteVariantAnalyzer (SSVA)
 #### Table of Contents  
 [I. Introduction](#introduction)  
 [II. Installation Instructions](#installation)  
-[III. Usage Instructions and Examples](#instruct)   
-[IV. License](#license)   
-[V. Funding and Acknowledgements](#funding)   
+[III. Usage Instructions and Examples](#instruct)        
 [IV. Contact](#contact)   
 
 
@@ -97,15 +95,10 @@ java -jar ./target/SSVA-1.0-jar-with-dependencies.jar \
         -g ~/hg19Ref/ \
 ```
 
-<a name="license"/>
-
-## IV. License
-
-This software is provided openly for all academic and non-profit use.
 
 <a name="contact"/>
 
-## VI. Contact
+## IV. Contact
 
 For questions, comments, concerns, feature requests, suggestions, etc., please
 contact:
