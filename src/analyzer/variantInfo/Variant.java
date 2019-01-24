@@ -207,30 +207,32 @@ public class Variant {
                 	cds.setcDot(info[2]); // c.4451+37C>A
                 	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
                 	
-                	if (cds.getCDotList().get(1).equals("+")) {
-                    	this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2)));
-                	} else {
-                		this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) - Integer.parseInt(cds.getCDotList().get(2)));
-                	}		
-                			
-                	cds.setExon(info[1]);
-                	cds.extractCDS(rsp, prfr);
-                	
-                	// somehow check for duplicate transcripts?
-                	
-                	/*boolean dupl = false;
-                	for (CDS t : transcripts){
-                		System.out.println(t.cDot + ": " + t.seq);
-                		System.out.println(cds.cDot + ": " + cds.seq);
+			if (cds.getCDotList().size() == 4) {
+                		if (cds.getCDotList().get(1).equals("+")) {
+                    		this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2)));
+                		} else {
+                			this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) - Integer.parseInt(cds.getCDotList().get(2)));
+                		}		
+                				
+                		cds.setExon(info[1]);
+                		cds.extractCDS(rsp, prfr);
+                		
+                		// somehow check for duplicate transcripts?
+                		
+                		/*boolean dupl = false;
+                		for (CDS t : transcripts){
+                			System.out.println(t.cDot + ": " + t.seq);
+                			System.out.println(cds.cDot + ": " + cds.seq);
 
-                		if (t.seq.equals(cds.seq)) {
-                			System.out.println("\nDUPLICATE\n");
-                			t.addDupl(cds);
-                			dupl = true;
-                		}
-                	}*/
-                	//if (!dupl) 
-                	this.transcripts.add(cds);             	
+                			if (t.seq.equals(cds.seq)) {
+                				System.out.println("\nDUPLICATE\n");
+                				t.addDupl(cds);
+                				dupl = true;
+                			}
+                		}*/
+                		//if (!dupl) 
+                		this.transcripts.add(cds);             	
+		    }
                 }
             }
         }
