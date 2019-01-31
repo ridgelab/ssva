@@ -207,7 +207,7 @@ public class Variant {
                 	cds.setcDot(info[2]); // c.4451+37C>A
                 	cds.setCDotList(parseCDot(info[2])); // ["4451","+","37","C","A"]
                 	
-			if (cds.getCDotList().size() == 4) {
+			if (cds.getCDotList().size() >= 4) {
                 		if (cds.getCDotList().get(1).equals("+")) {
                     		this.WithinGenePos.add(Integer.parseInt(cds.getCDotList().get(0)) + Integer.parseInt(cds.getCDotList().get(2)));
                 		} else {
